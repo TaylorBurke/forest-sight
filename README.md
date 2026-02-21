@@ -6,14 +6,8 @@ A data analytics project exploring global deforestation patterns, drivers, and t
 
 ## Research Questions
 
-Focused on 2–3 of the following:
-
-- Which countries/regions have lost the most forest in the last 20 years?
-- What are the primary drivers of deforestation (agriculture, logging, wildfires, urbanization)?
-- Is there a correlation between a country's GDP growth and its rate of forest loss?
-- Are countries with stronger environmental policies actually losing less forest?
-- How does deforestation compare between tropical vs. temperate regions?
-- Is the rate accelerating or slowing globally? Where is it getting worse?
+- What are the trends over the last three decades regarding reforestation vs deforestation?
+- What economic factors are driving deforestation in the last 10 years?
 
 ---
 
@@ -67,7 +61,7 @@ Focused on 2–3 of the following:
 
 ## Getting Started
 
-1. Go to [Global Forest Watch Open Data](https://www.globalforestwatch.org/open-data/) and download the tree cover loss dataset
+1. Go to [Global Forest Watch Open Data](https://data.globalforestwatch.org/) and download the tree cover loss dataset
 2. Open it in a spreadsheet — examine columns, time range, and structure
 3. Pick 2 research questions that excite you
 4. Start exploring
