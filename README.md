@@ -15,7 +15,7 @@ A data analytics project exploring global deforestation patterns, drivers, and t
 
 | Source | What You Get | Format |
 |--------|-------------|--------|
-| [Global Forest Watch](https://www.globalforestwatch.org/open-data/) | Tree cover loss by country/year, primary forest loss, drivers of loss | CSV |
+| [Global Forest Watch](https://data.globalforestwatch.org/) | Tree cover loss by country/year, primary forest loss, drivers of loss | CSV |
 | [FAO FAOSTAT](https://www.fao.org/faostat/en/#data/RL) | Land use data — agricultural land, forest area by country over time | CSV |
 | [World Bank Open Data](https://data.worldbank.org/) | GDP, population, agricultural % of GDP, CO2 emissions by country | CSV / API |
 | [Our World in Data](https://ourworldindata.org/forests-and-deforestation) | Curated, clean datasets with great context | CSV / GitHub |
