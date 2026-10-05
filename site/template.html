@@ -56,7 +56,12 @@ svg { display: block; width: 100%; height: auto; }
 .bar-track { background: var(--track); height: 22px; border-radius: 0 4px 4px 0; position: relative; }
 .bar-fill { height: 100%; background: var(--c1); border-radius: 0 4px 4px 0; min-width: 2px; }
 .bar-val { font-family: var(--mono); font-size: 0.8rem; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); color: var(--fg); }
-.bar-fill + .bar-val { }
+.donuts { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px 16px; }
+.donut { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; min-width: 0; }
+.donut svg { width: 120px; height: 120px; }
+.donut-name { font-family: var(--display); font-weight: 600; font-size: 0.98rem; line-height: 1.2; }
+.donut-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.35; }
+.donut-sub b { color: var(--fg); font-weight: 600; }
 details { font-size: 0.9rem; }
 summary { cursor: pointer; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; }
 .tbl { overflow-x: auto; }
@@ -141,6 +146,12 @@ footer { padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--line);
     <div class="fig-title">Acres of roadless land inside critical habitat, by species</div>
     <div class="bars" id="species"></div>
     <figcaption>Species with more than 20,000 acres of overlap. Many areas are critical habitat for more than one species, so the bars add up to more than the combined total.</figcaption>
+  </figure>
+  <figure>
+    <div class="fig-title">How much of each species' total protected habitat is roadless land</div>
+    <div class="donuts" id="donuts"></div>
+    <div class="legend"><span><i style="background:var(--c1)"></i>Inside Oregon &amp; Washington roadless areas</span><span><i style="background:var(--track)"></i>Rest of the species' critical habitat in the U.S.</span></div>
+    <figcaption>Each circle is the species' entire designated critical habitat in the United States. The blue slice is the part that lies inside Oregon and Washington roadless areas, so it is the part the Roadless Rule currently covers. Roadless land in other states is not counted yet, so these shares are minimums, most of all for the lynx, whose habitat extends into Idaho, Montana and beyond. The line under each circle shows how much of the species' total habitat would be opened in the mid-range scenario at 10 years (see the scenarios below). "Opened" means roads or logging become possible on that land, not that habitat is destroyed.</figcaption>
   </figure>
   <figure>
     <div class="fig-title">The largest national forests with roadless land</div>
@@ -249,6 +260,25 @@ hbars($("prox"), Object.entries(D.proximity).map(([k, v]) => ({
 const mx = Math.max(...D.species.map((s) => s.acres));
 hbars($("species"), D.species.map((s) => ({
   label: s.name, value: s.acres, text: n0(s.acres), tip: `${n0(s.acres)} roadless acres inside ${s.name} critical habitat`})), mx);
+
+// donuts: share of each species' total U.S. critical habitat that is OR/WA roadless land
+const pct = (v) => (v < 0.001 ? (v * 100).toFixed(2) : v < 0.1 ? (v * 100).toFixed(1) : Math.round(v * 100)) + "%";
+$("donuts").innerHTML = D.species_context.map((s) => {
+  const r = 46, c = 2 * Math.PI * r, arc = Math.max(s.roadless_share, 0.004) * c;
+  const mid = s.scenarios.filter((x) => x.scenario === "Mid" && x.horizon_yr === 10).map((x) => x.share);
+  const lo = Math.min(...mid), hi = Math.max(...mid);
+  const midTxt = pct(lo) === pct(hi) ? pct(lo) : `${pct(lo)}–${pct(hi)}`;
+  const tipTxt = `${s.name}: ${n0(s.roadless_acres)} of ${n0(s.total_acres)} acres of critical habitat (${pct(s.roadless_share)}) lie in Oregon & Washington roadless areas`;
+  return `<div class="donut" data-tip="${tipTxt}">
+    <svg viewBox="0 0 120 120" role="img" aria-label="${tipTxt}">
+      <circle cx="60" cy="60" r="${r}" fill="none" stroke="var(--track)" stroke-width="16"/>
+      <circle cx="60" cy="60" r="${r}" fill="none" stroke="var(--c1)" stroke-width="16" stroke-dasharray="${arc} ${c - arc}" transform="rotate(-90 60 60)"/>
+      <text x="60" y="66" text-anchor="middle" font-family="var(--display)" font-weight="700" font-size="22" fill="var(--fg)">${pct(s.roadless_share)}</text>
+    </svg>
+    <div class="donut-name">${s.name.replace(", Coastal DPS", " (coastal)")}</div>
+    <div class="donut-sub"><b>${n0(s.roadless_acres)}</b> of ${n0(s.total_acres)} acres<br>Opened in mid scenario, 10 yrs: <b>${midTxt}</b> of total habitat</div>
+  </div>`;
+}).join("");
 
 // forest table
 const fmax = Math.max(...D.forests.map((f) => f.acres));

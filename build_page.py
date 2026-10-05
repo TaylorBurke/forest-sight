@@ -41,6 +41,7 @@ data = {
     "proximity": prox, "species": species, "forests": forest_rows,
     "decay": pd.read_csv("data/invasive_decay.csv").round(3).to_dict("records"),
     "scenarios": pd.read_csv("data/scenarios.csv").to_dict("records"),
+    "species_context": json.load(open("data/species_context.json")),
 }
 json.dump(data, open("site/data.json", "w"), indent=1)
 
