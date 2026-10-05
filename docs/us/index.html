@@ -48,7 +48,7 @@
     <div class="fig-title" id="scn-title"></div>
     <div class="scn" id="scn"></div>
     <div class="legend"><span><i style="background:var(--c1)"></i>Inside critical habitat</span><span><i style="background:var(--forest-line)"></i>Other roadless land</span></div>
-    <figcaption>Bars are scaled to the largest scenario shown. The paces (5% / 10% / 20% of eligible acres within 5 years, 15% / 30% / 60% within 10 years) are assumptions, not forecasts.</figcaption>
+    <figcaption>Bars use one scale for both time horizons, so switching between 5 and 10 years shows how much larger the 10-year cases are. The paces (5% / 10% / 20% of eligible acres within 5 years, 15% / 30% / 60% within 10 years) are assumptions, not forecasts.</figcaption>
   </figure>
 </section>
 
@@ -97,7 +97,7 @@ $("region-table").innerHTML = `<thead><tr><th>Region</th><th>States</th><th clas
 const state = { yr: 10 };
 function renderScn() {
   const rows = D.scenarios.filter((r) => r.horizon_yr === state.yr);
-  const smax = Math.max(...rows.map((r) => r.activated_acres));
+  const smax = Math.max(...D.scenarios.map((r) => r.activated_acres)); // one scale for both horizons
   $("scn-title").textContent = `Roadless acres opened to roads or logging within ${state.yr} years, all regions combined`;
   $("scn").innerHTML = rows.map((r) => {
     const hab = r.crit_hab_acres, oth = r.activated_acres - hab, w = (r.activated_acres / smax) * 100;

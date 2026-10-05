@@ -100,7 +100,7 @@
     <div class="fig-title" id="scn-title"></div>
     <div class="scn" id="scn"></div>
     <div class="legend"><span><i style="background:var(--c1)"></i>Inside critical habitat</span><span><i style="background:var(--forest-line)"></i>Other roadless land</span></div>
-    <figcaption>Bars are scaled to the largest scenario shown. The scenarios assume activity goes first to eligible land closest to an existing road (typically a few hundred yards away), because that land is the cheapest to reach.</figcaption>
+    <figcaption>Bars use one scale for both time horizons, so switching between 5 and 10 years shows how much larger the 10-year cases are. The scenarios assume activity goes first to eligible land closest to an existing road (typically a few hundred yards away), because that land is the cheapest to reach.</figcaption>
   </figure>
   <div class="note"><b>How to read these.</b> They are not forecasts. They show what the data implies if a given amount of land is opened. The Forest Service identifies about 4.8 million of the 44.7 million restricted acres (10.7%) where current plans allow active management. We assumed Oregon and Washington match that share, about 427,000 acres. The three scenarios assume that 5% / 10% / 20% of those acres see new roads or logging within 5 years, and 15% / 30% / 60% within 10 years. Those paces are our assumptions, not official figures.</div>
   <p>Because this land is already close to roads, it already sits in the zone where invasive plants are most common, so opening it changes little: invasive pressure on the opened land stays about the same as today, rising to at most <span id="near-hi"></span>× today's level in the largest case. That is the favorable case for invasive plants. If activity instead reached more remote land, typically about 0.8 mile from a road, the same acreage could raise invasive pressure there to roughly <span id="spread-lo"></span>× to <span id="spread-hi"></span>× today's level. In either case about 40–45% of the opened acres would sit in critical habitat.</p>
@@ -227,7 +227,7 @@ $("spread-lo").textContent = Math.min(...SPREAD.map((r) => r.invasive_mult_lo)).
 $("spread-hi").textContent = Math.max(...SPREAD.map((r) => r.invasive_mult_hi)).toFixed(1);
 function renderScn() {
   const rows = NEAR.filter((r) => r.horizon_yr === state.yr);
-  const smax = Math.max(...rows.map((r) => r.activated_acres));
+  const smax = Math.max(...NEAR.map((r) => r.activated_acres)); // one scale for both horizons
   $("scn-title").textContent = `Roadless acres opened to roads or logging within ${state.yr} years`;
   $("scn").innerHTML = rows.map((r) => {
     const hab = r.crit_hab_acres, oth = r.activated_acres - hab, w = (r.activated_acres / smax) * 100;

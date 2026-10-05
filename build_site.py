@@ -99,13 +99,48 @@ def fmt(n):
     return f"{round(n):,}"
 
 
+def lower48_outline():
+    """Lower-48 state outlines (Census TIGERweb), cached so builds don't need the network."""
+    cache = "site/us_states_simplified.geojson"
+    if not os.path.exists(cache):
+        import requests
+        r = requests.get("https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/12/query",
+                         params=dict(where="STUSAB NOT IN ('AK','HI','PR','GU','VI','AS','MP')", outFields="STUSAB",
+                                     outSR=4326, f="geojson", maxAllowableOffset=0.02), timeout=300)
+        r.raise_for_status()
+        gpd.GeoDataFrame.from_features(r.json()["features"], crs=4326).to_file(cache, driver="GeoJSON")
+    return gpd.read_file(cache).to_crs(A)
+
+
+def thumb(layers, bounds, w=400, h=240, pad=0.07):
+    """Small inline SVG map. layers = [(GeoDataFrame, css_class, simplify_m, min_acres_or_None)]; outer rings only."""
+    minx, miny, maxx, maxy = bounds
+    s = min(w * (1 - 2 * pad) / (maxx - minx), h * (1 - 2 * pad) / (maxy - miny))
+    ox, oy = (w - (maxx - minx) * s) / 2, (h - (maxy - miny) * s) / 2
+
+    def ring(geom):
+        polys = [geom] if geom.geom_type == "Polygon" else list(geom.geoms)
+        out = []
+        for p in polys:
+            c = [(round((x - minx) * s + ox, 1), round((maxy - y) * s + oy, 1)) for x, y in p.exterior.coords]
+            out.append("M" + "L".join(f"{x:g} {y:g}" for x, y in c) + "Z")
+        return "".join(out)
+
+    parts = []
+    for gdf, cls, tol, min_acres in layers:
+        g = gdf if min_acres is None else gdf[gdf.acres >= min_acres]
+        geoms = g.geometry.simplify(tol)
+        parts.append(f'<path class="{cls}" d="{"".join(ring(x) for x in geoms if not x.is_empty)}"/>')
+    return f'<svg class="thumb" viewBox="0 0 {w} {h}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">{"".join(parts)}</svg>'
+
+
 # ---------- build ----------
 shutil.rmtree(OUT, ignore_errors=True)
 shutil.copytree("site/assets", f"{OUT}/assets")
 open(f"{OUT}/.nojekyll", "w").close()
 
 regions = json.load(open("regions.json"))
-summaries, iras = [], []
+summaries, iras, forest_sets = [], [], []
 region_tpl = open("site/region.html").read()
 for slug, cfg in regions.items():
     if not os.path.exists(f"data/{slug}/scenarios.csv"):
@@ -125,6 +160,7 @@ for slug, cfg in regions.items():
     write(f"{OUT}/{slug}/index.html", page(title, desc, f"{slug}/", 1, body))
     summaries.append(summary)
     iras.append(ira)
+    forest_sets.append(forests)
     print("built region:", slug, f"({len(body):,} bytes)")
 
 # U.S. aggregate: sums and acre-weighted shares across every analyzed region
@@ -152,11 +188,14 @@ write(f"{OUT}/us/index.html", page(
     "us/", 1, us_body))
 
 # hub
-cards = [f"""<a class="card" href="us/index.html"><span class="kicker">All regions combined</span><h3>United States totals</h3>
-<p>Combined results for every region analyzed so far: {n_reg} region{'s' if n_reg != 1 else ''}, {total / 1e6:.2f} million roadless acres, {total / NATIONAL_ACRES:.0%} of the ~44.7 million acres where the national rule applies.</p><span class="go">Open the totals →</span></a>"""]
-for s in summaries:
-    cards.append(f"""<a class="card" href="{s['slug']}/index.html"><span class="kicker">{s['places'].replace('&', '&amp;')}</span><h3>{s['name']}</h3>
-<p>{s['total_acres'] / 1e6:.2f} million roadless acres, {s['hab_acres'] / s['total_acres']:.0%} inside critical habitat. Habitat, invasive plants and 5- and 10-year scenarios.</p><span class="go">Open the study →</span></a>""")
+states = lower48_outline()
+us_map = thumb([(states, "map-state", 4000, None)] + [(i, "map-ira", 4000, 3000) for i in iras], states.total_bounds)
+cards = [f"""<a class="card" href="us/index.html"><div class="card-img">{us_map}</div><div class="card-body"><span class="kicker">All regions combined</span><h3>United States totals</h3>
+<p>Combined results for every region analyzed so far: {n_reg} region{'s' if n_reg != 1 else ''}, {total / 1e6:.2f} million roadless acres, {total / NATIONAL_ACRES:.0%} of the ~44.7 million acres where the national rule applies.</p><span class="go">Open the totals →</span></div></a>"""]
+for s, ira, forests in zip(summaries, iras, forest_sets):
+    region_map = thumb([(forests, "map-forest", 3000, None), (ira, "map-ira", 2500, 1500)], ira.total_bounds)
+    cards.append(f"""<a class="card" href="{s['slug']}/index.html"><div class="card-img">{region_map}</div><div class="card-body"><span class="kicker">{s['places'].replace('&', '&amp;')}</span><h3>{s['name']}</h3>
+<p>{s['total_acres'] / 1e6:.2f} million roadless acres, {s['hab_acres'] / s['total_acres']:.0%} inside critical habitat. Habitat, invasive plants and 5- and 10-year scenarios.</p><span class="go">Open the study →</span></div></a>""")
 hub_body = (open("site/hub.html").read().replace("__CARDS__", "\n".join(cards)).replace("__COMMENT_URL__", COMMENT_URL)
             .replace("__GITHUB__", GITHUB))
 write(f"{OUT}/index.html", page(
