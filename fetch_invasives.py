@@ -11,12 +11,7 @@ BBOX = dict(decimalLatitude=f"{_miny - 0.01:.2f},{_maxy + 0.01:.2f}", decimalLon
 BASE = {"hasCoordinate": "true", "hasGeospatialIssue": "false", "coordinateUncertaintyInMeters": "0,100",
         "year": "2005,2025", **BBOX}
 
-INVASIVES = {
-    "Bromus tectorum": 2703746, "Centaurea stoebe": 3127727, "Centaurea diffusa": 3128962,
-    "Rubus armeniacus": 2996525, "Cirsium arvense": 3113414, "Cytisus scoparius": 5354656,
-    "Taeniatherum caput-medusae": 2705666, "Linaria dalmatica": 5415011,
-    "Hypericum perforatum": 3189486, "Hedera helix": 8351737, "Cirsium vulgare": 3112801,
-}
+INVASIVES = CFG["invasives"]  # GBIF taxon keys per region, set in regions.json
 PLANTAE = 6
 
 

@@ -1,0 +1,378 @@
+[
+ {
+  "name": "Northern spotted owl",
+  "total_acres": 2201260,
+  "total_us_acres": 9849585,
+  "features": 1,
+  "roadless_acres": 354828,
+  "roadless_share": 0.1612,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 3876,
+    "share": 0.00176
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 10317,
+    "share": 0.00469
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 7228,
+    "share": 0.00328
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 19073,
+    "share": 0.00866
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 13575,
+    "share": 0.00617
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 36077,
+    "share": 0.01639
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 1792,
+    "share": 0.00081
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 5668,
+    "share": 0.00257
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 3568,
+    "share": 0.00162
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 11568,
+    "share": 0.00526
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 7660,
+    "share": 0.00348
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 22579,
+    "share": 0.01026
+   }
+  ]
+ },
+ {
+  "name": "Sierra Nevada Yellow-legged Frog",
+  "total_acres": 1088850,
+  "total_us_acres": 1088850,
+  "features": 1,
+  "roadless_acres": 120510,
+  "roadless_share": 0.1107,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 93,
+    "share": 9e-05
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 371,
+    "share": 0.00034
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 154,
+    "share": 0.00014
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 942,
+    "share": 0.00087
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 618,
+    "share": 0.00057
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 2595,
+    "share": 0.00238
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 710,
+    "share": 0.00065
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 2085,
+    "share": 0.00191
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 1483,
+    "share": 0.00136
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 4031,
+    "share": 0.0037
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 2687,
+    "share": 0.00247
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 7784,
+    "share": 0.00715
+   }
+  ]
+ },
+ {
+  "name": "California red-legged frog",
+  "total_acres": 1643951,
+  "total_us_acres": 1643951,
+  "features": 1,
+  "roadless_acres": 115676,
+  "roadless_share": 0.0704,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 695,
+    "share": 0.00042
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 2502,
+    "share": 0.00152
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 1683,
+    "share": 0.00102
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 4340,
+    "share": 0.00264
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 3212,
+    "share": 0.00195
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 7969,
+    "share": 0.00485
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 556,
+    "share": 0.00034
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 1560,
+    "share": 0.00095
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 988,
+    "share": 0.0006
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 3320,
+    "share": 0.00202
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 2116,
+    "share": 0.00129
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 7104,
+    "share": 0.00432
+   }
+  ]
+ },
+ {
+  "name": "Pacific marten, Coastal DPS",
+  "total_acres": 543025,
+  "total_us_acres": 1280214,
+  "features": 1,
+  "roadless_acres": 85081,
+  "roadless_share": 0.1567,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 417,
+    "share": 0.00077
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 1313,
+    "share": 0.00242
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 788,
+    "share": 0.00145
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 3027,
+    "share": 0.00557
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 1900,
+    "share": 0.0035
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 6193,
+    "share": 0.0114
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 309,
+    "share": 0.00057
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 1282,
+    "share": 0.00236
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 834,
+    "share": 0.00154
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 2579,
+    "share": 0.00475
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 1699,
+    "share": 0.00313
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 5097,
+    "share": 0.00939
+   }
+  ]
+ }
+]

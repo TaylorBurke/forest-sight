@@ -4,6 +4,7 @@ A region appears automatically once data/<slug>/scenarios.csv exists (see region
 analyzed region, so adding a region updates the totals and adds a card on the hub with no template edits.
 """
 import hashlib, json, os, shutil
+from region import MIN_BAND_RECORDS
 import numpy as np, pandas as pd, geopandas as gpd
 
 # Version tag for the stylesheet link: browsers cache Pages assets for ~10 min, so a changed stylesheet must change its URL.
@@ -40,6 +41,11 @@ def page(title, desc, path, depth, body):
 """
 
 
+def n_bands(decay):
+    """How many leading distance bands have enough records (>= MIN_BAND_RECORDS) to chart."""
+    return next((i for i, n in enumerate(decay.n_inv) if n < MIN_BAND_RECORDS), len(decay))
+
+
 def load_region(slug, cfg):
     d, raw = f"data/{slug}", f"data/{slug}/raw"
     pts = gpd.read_parquet(f"{d}/ira_points.parquet")
@@ -60,10 +66,13 @@ def load_region(slug, cfg):
         "proximity": {f"{km}": round(float((pts.road_dist_m <= km * 1000).mean()), 3) for km in (0.5, 1, 2, 5)},
         "forests": [{"forest": r.forest, "acres": round(r.acres), "near1km": round(r.near1km, 3), "hab": round(r.hab, 3)}
                     for r in by_forest.itertuples()],
-        "decay": pd.read_csv(f"{d}/invasive_decay.csv").round(3).head(5).to_dict("records"),
+        "decay": pd.read_csv(f"{d}/invasive_decay.csv").round(3).head(n_bands(pd.read_csv(f"{d}/invasive_decay.csv"))).to_dict("records"),
         "scenarios": scen.to_dict("records"),
         "species_context": json.load(open(f"{d}/species_context.json")),
     }
+    decay_all = pd.read_csv(f"{d}/invasive_decay.csv")  # all bands; the chart shows the first five
+    data["invasive_meta"] = {"n_records": int(decay_all.n_inv.sum()), "n_dropped": int(decay_all.n_inv.iloc[n_bands(decay_all):].sum()),
+                             "species_text": cfg["invasives_text"]}
     summary = {
         "slug": slug, "name": cfg["name"], "places": cfg["places"], "total_acres": data["total_acres"],
         "hab_acres": round(float(pts.in_crit_hab.sum()) * CELL_ACRES), "hab_share": data["hab_share"],
@@ -147,18 +156,24 @@ open(f"{OUT}/.nojekyll", "w").close()
 
 regions = json.load(open("regions.json"))
 summaries, iras, forest_sets = [], [], []
+seen_ids = set()
 region_tpl = open("site/region.html").read()
 for slug, cfg in regions.items():
     if not os.path.exists(f"data/{slug}/scenarios.csv"):
         print("skip (not analyzed yet):", slug)
         continue
     data, summary, ira, forests = load_region(slug, cfg)
+    # the U.S. totals add regions together, so no roadless area may be counted in two of them
+    dup = set(ira.objectid) & seen_ids
+    assert not dup, f"{slug}: {len(dup)} roadless areas are already counted in another region (e.g. state-line polygons)"
+    seen_ids |= set(ira.objectid)
     H, ira_path, for_path = map_paths(ira, forests)
     body = (region_tpl.replace("/*__DATA__*/null", json.dumps(data))
             .replace("__MAP_W__", str(MAP_W)).replace("__MAP_H__", str(H))
             .replace("__IRA_PATH__", ira_path).replace("__FOREST_PATH__", for_path)
             .replace("__NAME__", cfg["name"]).replace("__PLACES_AND__", cfg["places"].replace(" & ", " and "))
             .replace("__PLACES__", cfg["places"].replace("&", "&amp;"))
+            .replace("__ROADS_NOTE__", cfg["roads_note"])
             .replace("__ELIGIBLE__", fmt(round(data["total_acres"] * ELIGIBLE, -3))))
     title = f"{cfg['name']} Roadless Report"
     desc = (f"What the proposed end of the Roadless Rule could mean for habitat and invasive plants in "

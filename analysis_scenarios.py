@@ -9,7 +9,7 @@ ASSUMPTIONS (illustrative, not forecasts -- no source gives an activation pace):
 Invasive pressure: curve from invasive_decay.csv. Activated land moves from its current road-distance band to the
 near-road band (0-100 m). Lower bound assumes only 25% of an activated acre lies in a road's influence zone; upper 100%.
 """
-from region import REGION, CFG, DATA, RAW
+from region import REGION, CFG, DATA, RAW, MIN_BAND_RECORDS
 import numpy as np, pandas as pd
 
 ELIGIBLE = 4.8 / 44.7
@@ -25,10 +25,11 @@ CELL_ACRES = STEP * STEP / 4046.856
 pts = pd.read_parquet(f"{DATA}/ira_points.parquet").drop(columns="geometry", errors="ignore")
 curve = pd.read_csv(f"{DATA}/invasive_decay.csv")
 edges = [0, 100, 250, 500, 1000, 2000, 5000, np.inf]
-# Bands beyond 1.2 mi (2 km) have too few records to read a trend (and are not charted), so hold them at the
-# last charted band (1-2 km) instead of using their noisy point estimates.
+# Bands with too few records to read a trend (see MIN_BAND_RECORDS) are not charted either, so hold them at the
+# last reliable band instead of using their noisy point estimates.
 rel = curve.rel_intensity.values.copy()
-rel[5:] = rel[4]
+last_ok = next((i - 1 for i, n in enumerate(curve.n_inv) if n < MIN_BAND_RECORDS), len(curve) - 1)
+rel[last_ok + 1:] = rel[last_ok]
 pts["pre"] = rel[np.digitize(pts.road_dist_m, edges[1:-1])]
 NEAR = rel[0]
 

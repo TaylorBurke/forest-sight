@@ -3,9 +3,69 @@
     "slug": "pnw",
     "name": "Pacific Northwest",
     "places": "Oregon & Washington",
-    "states": ["OR", "WA"],
+    "states": [
+      "OR",
+      "WA"
+    ],
     "forest_region": "06",
-    "exclude_forests": ["Scenic Area"],
-    "species": ["Northern spotted owl", "Marbled Murrelet", "Canada Lynx", "Pacific marten, Coastal DPS"]
+    "exclude_forests": [
+      "Scenic Area"
+    ],
+    "species": [
+      "Northern spotted owl",
+      "Marbled Murrelet",
+      "Canada Lynx",
+      "Pacific marten, Coastal DPS"
+    ],
+    "invasives": {
+      "Bromus tectorum": 2703746,
+      "Centaurea stoebe": 3127727,
+      "Centaurea diffusa": 3128962,
+      "Rubus armeniacus": 2996525,
+      "Cirsium arvense": 3113414,
+      "Cytisus scoparius": 5354656,
+      "Taeniatherum caput-medusae": 2705666,
+      "Linaria dalmatica": 5415011,
+      "Hypericum perforatum": 3189486,
+      "Hedera helix": 8351737,
+      "Cirsium vulgare": 3112801
+    },
+    "invasives_text": "knapweeds, Scotch broom, bull thistle, St. John's wort and others",
+    "roads_note": "For that reason the Columbia River Gorge National Scenic Area, which has many highways and county roads, was left out of the invasive-plant analysis."
+  },
+  "ca": {
+    "slug": "ca",
+    "name": "California",
+    "places": "California",
+    "states": [
+      "CA"
+    ],
+    "forest_region": "05",
+    "exclude_forests": [
+      "Lake Tahoe Basin"
+    ],
+    "species": [
+      "Northern spotted owl",
+      "Sierra Nevada Yellow-legged Frog",
+      "California red-legged frog",
+      "Pacific marten, Coastal DPS"
+    ],
+    "invasives": {
+      "Centaurea solstitialis": 3128888,
+      "Bromus tectorum": 2703746,
+      "Rubus armeniacus": 2996525,
+      "Genista monspessulana": 5347796,
+      "Cytisus scoparius": 5354656,
+      "Taeniatherum caput-medusae": 2705666,
+      "Bromus diandrus": 2703760,
+      "Bromus rubens": 2703740,
+      "Cirsium vulgare": 3112801,
+      "Hypericum perforatum": 3189486,
+      "Brassica nigra": 3042658,
+      "Carduus pycnocephalus": 3114667,
+      "Cirsium arvense": 3113414
+    },
+    "invasives_text": "yellow starthistle, cheatgrass, bull thistle, St. John's wort, red and ripgut brome and others",
+    "roads_note": "For that reason the Lake Tahoe Basin Management Unit, which has many highways and county roads, was left out of the invasive-plant analysis."
   }
 }

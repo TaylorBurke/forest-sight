@@ -36,9 +36,12 @@ Raw downloads go to `data/<region>/raw/` (git-ignored); small analysis outputs i
 
 **Add a region**
 
-1. Add an entry to `regions.json` (states, Forest Service region code, forests to exclude, species to chart).
-2. Run the scripts above with `REGION=<slug>`.
-3. Run `python build_site.py`. The region gets its own page and a card on the hub, and the U.S. totals include it automatically.
+1. Add an entry to `regions.json`: states, Forest Service region code, forests to exclude (mixed-ownership units with many non-Forest-Service roads, like the Columbia River Gorge or Lake Tahoe Basin), the invasive plants to track (GBIF taxon keys), and a short note for each region-specific caveat.
+2. Run `fetch_ira.py`, `fetch_roads_habitat.py` and `analysis_exposure.py` with `REGION=<slug>`. The exposure output lists species by roadless overlap; put the top four in `species`.
+3. Run the remaining scripts (`fetch_invasives.py`, `analysis_invasives.py`, `analysis_scenarios.py`, `analysis_species_context.py`).
+4. Run `python build_site.py`. The region gets its own page and a card on the hub, and the U.S. totals include it automatically. The build stops if any roadless area would be counted in two regions.
+
+Each page's headings and conclusions are computed from that region's own numbers, so a region where roads and invasive plants are only weakly linked (California) says so instead of repeating another region's finding. A distance band with fewer than `MIN_BAND_RECORDS` invasive-plant records (see `region.py`) is neither charted nor used in the scenario model.
 
 Setup: `python -m venv .venv && .venv/bin/pip install pandas geopandas matplotlib pyogrio shapely requests pyarrow`.
 
