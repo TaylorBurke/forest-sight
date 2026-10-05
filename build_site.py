@@ -3,8 +3,11 @@
 A region appears automatically once data/<slug>/scenarios.csv exists (see regions.json). The U.S. page sums every
 analyzed region, so adding a region updates the totals and adds a card on the hub with no template edits.
 """
-import json, os, shutil
+import hashlib, json, os, shutil
 import numpy as np, pandas as pd, geopandas as gpd
+
+# Version tag for the stylesheet link: browsers cache Pages assets for ~10 min, so a changed stylesheet must change its URL.
+ASSET_V = hashlib.md5(open("site/assets/style.css", "rb").read()).hexdigest()[:8]
 
 SITE_URL = "https://taylorburke.github.io/forest-sight"
 GITHUB = "https://github.com/TaylorBurke/forest-sight"
@@ -30,7 +33,7 @@ def page(title, desc, path, depth, body):
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="{assets}style.css">
+<link rel="stylesheet" href="{assets}style.css?v={ASSET_V}">
 </head><body>
 {body}
 </body></html>
@@ -100,15 +103,18 @@ def fmt(n):
 
 
 def lower48_outline():
-    """Lower-48 state outlines (Census TIGERweb), cached so builds don't need the network."""
-    cache = "site/us_states_simplified.geojson"
+    """Lower-48 state outlines from the Census cartographic boundary file (20m, clipped to the shoreline so the
+    Great Lakes are water, not state area), cached so builds don't need the network."""
+    cache = "site/us_states_20m.geojson"
     if not os.path.exists(cache):
-        import requests
-        r = requests.get("https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/12/query",
-                         params=dict(where="STUSAB NOT IN ('AK','HI','PR','GU','VI','AS','MP')", outFields="STUSAB",
-                                     outSR=4326, f="geojson", maxAllowableOffset=0.02), timeout=300)
+        import io, tempfile, requests, zipfile
+        r = requests.get("https://www2.census.gov/geo/tiger/GENZ2022/shp/cb_2022_us_state_20m.zip", timeout=300)
         r.raise_for_status()
-        gpd.GeoDataFrame.from_features(r.json()["features"], crs=4326).to_file(cache, driver="GeoJSON")
+        with tempfile.TemporaryDirectory() as tmp:
+            zipfile.ZipFile(io.BytesIO(r.content)).extractall(tmp)
+            g = gpd.read_file(f"{tmp}/cb_2022_us_state_20m.shp")
+        g = g[~g.STUSPS.isin(["AK", "HI", "PR", "GU", "VI", "AS", "MP"])][["STUSPS", "geometry"]]
+        g.to_file(cache, driver="GeoJSON")
     return gpd.read_file(cache).to_crs(A)
 
 
