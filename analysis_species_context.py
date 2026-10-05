@@ -1,5 +1,6 @@
-"""Context for the species chart: each species' TOTAL U.S. critical habitat, and what share of it
-(a) lies inside OR/WA roadless areas and (b) would be opened under each scenario.
+"""Context for the species chart: each species' critical habitat INSIDE THE STUDY AREA (OR + WA state
+boundaries), and what share of it (a) lies inside roadless areas and (b) would be opened under each scenario.
+The full-U.S. total is kept as total_us_acres for reference. A new region reuses this method with its own boundary.
 
 Scenario allocation logic mirrors analysis_scenarios.py; a consistency check against data/scenarios.csv guards drift.
 """
@@ -30,22 +31,30 @@ def fetch_species(name):
 pts = gpd.read_parquet("data/ira_points.parquet")
 sc = pd.read_csv("data/scenarios.csv")
 
-# full-U.S. totals + per-point species flags
+# study-area boundary: Oregon + Washington (Census TIGERweb)
+r = requests.get("https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/12/query",
+                 params=dict(where="STUSAB IN ('OR','WA')", outFields="STUSAB", outSR=4326, f="geojson"), timeout=300)
+r.raise_for_status()
+study = gpd.GeoDataFrame.from_features(r.json()["features"], crs=4326).to_crs(A).union_all()
+print("study area acres:", round(study.area / 4046.856), flush=True)
+
+# study-area totals + per-point species flags
 out = {}
 for name in SPECIES:
     g = fetch_species(name).to_crs(A)
-    geom = g.union_all()
+    full = g.union_all()
+    geom = full.intersection(study)
     total = geom.area / 4046.856
-    pts[name] = pts.within(geom).values
-    out[name] = {"name": name, "total_acres": round(total), "features": len(g),
-                 "roadless_acres": round(int(pts[name].sum()) * CELL_ACRES)}
+    pts[name] = pts.within(full).values
+    out[name] = {"name": name, "total_acres": round(total), "total_us_acres": round(full.area / 4046.856),
+                 "features": len(g), "roadless_acres": round(int(pts[name].sum()) * CELL_ACRES)}
     out[name]["roadless_share"] = round(out[name]["roadless_acres"] / total, 4)
     print(name, out[name], flush=True)
 
 # scenarios, replicating analysis_scenarios.py
 p = pts.drop(columns="geometry").sort_values("road_dist_m").reset_index(drop=True)
 n_elig = int(len(p) * ELIGIBLE)
-elig = {"near_roads": p.iloc[:n_elig], "spread": p.sample(n_elig, random_state=42).sort_index()}
+elig = {"near_roads": p.iloc[:n_elig], "spread": p.sample(n_elig, random_state=42)}
 for name in SPECIES:
     out[name]["scenarios"] = []
 for alloc, e in elig.items():

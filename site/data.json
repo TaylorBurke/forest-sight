@@ -241,10 +241,10 @@
    "scenario": "Low",
    "horizon_yr": 5,
    "activated_acres": 21359,
-   "crit_hab_acres": 8865,
-   "crit_hab_share": 0.415,
-   "invasive_mult_lo": 1.06,
-   "invasive_mult_hi": 1.23,
+   "crit_hab_acres": 9405,
+   "crit_hab_share": 0.44,
+   "invasive_mult_lo": 1.24,
+   "invasive_mult_hi": 1.97,
    "share_of_all_roadless": 0.0054
   },
   {
@@ -252,10 +252,10 @@
    "scenario": "Low",
    "horizon_yr": 10,
    "activated_acres": 64108,
-   "crit_hab_acres": 28417,
-   "crit_hab_share": 0.443,
-   "invasive_mult_lo": 1.13,
-   "invasive_mult_hi": 1.51,
+   "crit_hab_acres": 27460,
+   "crit_hab_share": 0.428,
+   "invasive_mult_lo": 1.24,
+   "invasive_mult_hi": 1.95,
    "share_of_all_roadless": 0.0161
   },
   {
@@ -263,10 +263,10 @@
    "scenario": "Mid",
    "horizon_yr": 5,
    "activated_acres": 42734,
-   "crit_hab_acres": 18641,
-   "crit_hab_share": 0.436,
-   "invasive_mult_lo": 1.1,
-   "invasive_mult_hi": 1.41,
+   "crit_hab_acres": 18579,
+   "crit_hab_share": 0.435,
+   "invasive_mult_lo": 1.24,
+   "invasive_mult_hi": 1.96,
    "share_of_all_roadless": 0.0107
   },
   {
@@ -274,10 +274,10 @@
    "scenario": "Mid",
    "horizon_yr": 10,
    "activated_acres": 128232,
-   "crit_hab_acres": 58162,
-   "crit_hab_share": 0.454,
-   "invasive_mult_lo": 1.17,
-   "invasive_mult_hi": 1.69,
+   "crit_hab_acres": 54935,
+   "crit_hab_share": 0.428,
+   "invasive_mult_lo": 1.24,
+   "invasive_mult_hi": 1.94,
    "share_of_all_roadless": 0.0322
   },
   {
@@ -285,10 +285,10 @@
    "scenario": "High",
    "horizon_yr": 5,
    "activated_acres": 85483,
-   "crit_hab_acres": 38610,
-   "crit_hab_share": 0.452,
-   "invasive_mult_lo": 1.15,
-   "invasive_mult_hi": 1.58,
+   "crit_hab_acres": 36587,
+   "crit_hab_share": 0.428,
+   "invasive_mult_lo": 1.24,
+   "invasive_mult_hi": 1.95,
    "share_of_all_roadless": 0.0215
   },
   {
@@ -296,383 +296,387 @@
    "scenario": "High",
    "horizon_yr": 10,
    "activated_acres": 256465,
-   "crit_hab_acres": 112835,
-   "crit_hab_share": 0.44,
-   "invasive_mult_lo": 1.25,
-   "invasive_mult_hi": 2.01,
+   "crit_hab_acres": 110842,
+   "crit_hab_share": 0.432,
+   "invasive_mult_lo": 1.24,
+   "invasive_mult_hi": 1.94,
    "share_of_all_roadless": 0.0644
   }
  ],
  "species_context": [
   {
    "name": "Northern spotted owl",
-   "total_acres": 9849585,
+   "total_acres": 7648324,
+   "total_us_acres": 9849585,
    "features": 1,
    "roadless_acres": 1147372,
-   "roadless_share": 0.1165,
+   "roadless_share": 0.15,
    "scenarios": [
     {
      "allocation": "near_roads",
      "scenario": "Low",
      "horizon_yr": 5,
      "acres": 7259,
-     "share": 0.00074
+     "share": 0.00095
     },
     {
      "allocation": "near_roads",
      "scenario": "Low",
      "horizon_yr": 10,
      "acres": 22626,
-     "share": 0.0023
+     "share": 0.00296
     },
     {
      "allocation": "near_roads",
      "scenario": "Mid",
      "horizon_yr": 5,
      "acres": 15212,
-     "share": 0.00154
+     "share": 0.00199
     },
     {
      "allocation": "near_roads",
      "scenario": "Mid",
      "horizon_yr": 10,
      "acres": 46240,
-     "share": 0.00469
+     "share": 0.00605
     },
     {
      "allocation": "near_roads",
      "scenario": "High",
      "horizon_yr": 5,
      "acres": 30317,
-     "share": 0.00308
+     "share": 0.00396
     },
     {
      "allocation": "near_roads",
      "scenario": "High",
      "horizon_yr": 10,
      "acres": 93915,
-     "share": 0.00953
+     "share": 0.01228
     },
     {
      "allocation": "spread",
      "scenario": "Low",
      "horizon_yr": 5,
-     "acres": 7691,
-     "share": 0.00078
+     "acres": 6131,
+     "share": 0.0008
     },
     {
      "allocation": "spread",
      "scenario": "Low",
      "horizon_yr": 10,
-     "acres": 24046,
-     "share": 0.00244
+     "acres": 18131,
+     "share": 0.00237
     },
     {
      "allocation": "spread",
      "scenario": "Mid",
      "horizon_yr": 5,
-     "acres": 16000,
+     "acres": 12417,
      "share": 0.00162
     },
     {
      "allocation": "spread",
      "scenario": "Mid",
      "horizon_yr": 10,
-     "acres": 48093,
-     "share": 0.00488
-    },
-    {
-     "allocation": "spread",
-     "scenario": "High",
-     "horizon_yr": 5,
-     "acres": 32371,
-     "share": 0.00329
-    },
-    {
-     "allocation": "spread",
-     "scenario": "High",
-     "horizon_yr": 10,
-     "acres": 88634,
-     "share": 0.009
-    }
-   ]
-  },
-  {
-   "name": "Marbled Murrelet",
-   "total_acres": 3792539,
-   "features": 1,
-   "roadless_acres": 541933,
-   "roadless_share": 0.1429,
-   "scenarios": [
-    {
-     "allocation": "near_roads",
-     "scenario": "Low",
-     "horizon_yr": 5,
-     "acres": 2502,
-     "share": 0.00066
-    },
-    {
-     "allocation": "near_roads",
-     "scenario": "Low",
-     "horizon_yr": 10,
-     "acres": 7645,
-     "share": 0.00202
-    },
-    {
-     "allocation": "near_roads",
-     "scenario": "Mid",
-     "horizon_yr": 5,
-     "acres": 4896,
-     "share": 0.00129
-    },
-    {
-     "allocation": "near_roads",
-     "scenario": "Mid",
-     "horizon_yr": 10,
-     "acres": 15228,
-     "share": 0.00402
-    },
-    {
-     "allocation": "near_roads",
-     "scenario": "High",
-     "horizon_yr": 5,
-     "acres": 9915,
-     "share": 0.00261
-    },
-    {
-     "allocation": "near_roads",
-     "scenario": "High",
-     "horizon_yr": 10,
-     "acres": 31799,
-     "share": 0.00838
-    },
-    {
-     "allocation": "spread",
-     "scenario": "Low",
-     "horizon_yr": 5,
-     "acres": 2456,
-     "share": 0.00065
-    },
-    {
-     "allocation": "spread",
-     "scenario": "Low",
-     "horizon_yr": 10,
-     "acres": 8510,
-     "share": 0.00224
-    },
-    {
-     "allocation": "spread",
-     "scenario": "Mid",
-     "horizon_yr": 5,
-     "acres": 5313,
-     "share": 0.0014
-    },
-    {
-     "allocation": "spread",
-     "scenario": "Mid",
-     "horizon_yr": 10,
-     "acres": 17761,
+     "acres": 35799,
      "share": 0.00468
     },
     {
      "allocation": "spread",
      "scenario": "High",
      "horizon_yr": 5,
-     "acres": 11722,
-     "share": 0.00309
+     "acres": 23954,
+     "share": 0.00313
     },
     {
      "allocation": "spread",
      "scenario": "High",
      "horizon_yr": 10,
-     "acres": 35846,
-     "share": 0.00945
+     "acres": 72695,
+     "share": 0.0095
+    }
+   ]
+  },
+  {
+   "name": "Marbled Murrelet",
+   "total_acres": 3188817,
+   "total_us_acres": 3792539,
+   "features": 1,
+   "roadless_acres": 541933,
+   "roadless_share": 0.1699,
+   "scenarios": [
+    {
+     "allocation": "near_roads",
+     "scenario": "Low",
+     "horizon_yr": 5,
+     "acres": 2502,
+     "share": 0.00078
+    },
+    {
+     "allocation": "near_roads",
+     "scenario": "Low",
+     "horizon_yr": 10,
+     "acres": 7645,
+     "share": 0.0024
+    },
+    {
+     "allocation": "near_roads",
+     "scenario": "Mid",
+     "horizon_yr": 5,
+     "acres": 4896,
+     "share": 0.00154
+    },
+    {
+     "allocation": "near_roads",
+     "scenario": "Mid",
+     "horizon_yr": 10,
+     "acres": 15228,
+     "share": 0.00478
+    },
+    {
+     "allocation": "near_roads",
+     "scenario": "High",
+     "horizon_yr": 5,
+     "acres": 9915,
+     "share": 0.00311
+    },
+    {
+     "allocation": "near_roads",
+     "scenario": "High",
+     "horizon_yr": 10,
+     "acres": 31799,
+     "share": 0.00997
+    },
+    {
+     "allocation": "spread",
+     "scenario": "Low",
+     "horizon_yr": 5,
+     "acres": 2965,
+     "share": 0.00093
+    },
+    {
+     "allocation": "spread",
+     "scenario": "Low",
+     "horizon_yr": 10,
+     "acres": 8510,
+     "share": 0.00267
+    },
+    {
+     "allocation": "spread",
+     "scenario": "Mid",
+     "horizon_yr": 5,
+     "acres": 5606,
+     "share": 0.00176
+    },
+    {
+     "allocation": "spread",
+     "scenario": "Mid",
+     "horizon_yr": 10,
+     "acres": 17282,
+     "share": 0.00542
+    },
+    {
+     "allocation": "spread",
+     "scenario": "High",
+     "horizon_yr": 5,
+     "acres": 11305,
+     "share": 0.00355
+    },
+    {
+     "allocation": "spread",
+     "scenario": "High",
+     "horizon_yr": 10,
+     "acres": 34456,
+     "share": 0.01081
     }
    ]
   },
   {
    "name": "Canada Lynx",
-   "total_acres": 20813668,
+   "total_acres": 1328425,
+   "total_us_acres": 20813668,
    "features": 1,
    "roadless_acres": 356712,
-   "roadless_share": 0.0171,
+   "roadless_share": 0.2685,
    "scenarios": [
     {
      "allocation": "near_roads",
      "scenario": "Low",
      "horizon_yr": 5,
      "acres": 232,
-     "share": 1e-05
+     "share": 0.00017
     },
     {
      "allocation": "near_roads",
      "scenario": "Low",
      "horizon_yr": 10,
      "acres": 664,
-     "share": 3e-05
+     "share": 0.0005
     },
     {
      "allocation": "near_roads",
      "scenario": "Mid",
      "horizon_yr": 5,
      "acres": 402,
-     "share": 2e-05
+     "share": 0.0003
     },
     {
      "allocation": "near_roads",
      "scenario": "Mid",
      "horizon_yr": 10,
      "acres": 1668,
-     "share": 8e-05
+     "share": 0.00126
     },
     {
      "allocation": "near_roads",
      "scenario": "High",
      "horizon_yr": 5,
      "acres": 896,
-     "share": 4e-05
+     "share": 0.00067
     },
     {
      "allocation": "near_roads",
      "scenario": "High",
      "horizon_yr": 10,
      "acres": 4201,
-     "share": 0.0002
+     "share": 0.00316
     },
     {
      "allocation": "spread",
      "scenario": "Low",
      "horizon_yr": 5,
-     "acres": 154,
-     "share": 1e-05
+     "acres": 1853,
+     "share": 0.0014
     },
     {
      "allocation": "spread",
      "scenario": "Low",
      "horizon_yr": 10,
-     "acres": 1436,
-     "share": 7e-05
+     "acres": 5282,
+     "share": 0.00398
     },
     {
      "allocation": "spread",
      "scenario": "Mid",
      "horizon_yr": 5,
-     "acres": 772,
-     "share": 4e-05
+     "acres": 3398,
+     "share": 0.00256
     },
     {
      "allocation": "spread",
      "scenario": "Mid",
      "horizon_yr": 10,
-     "acres": 3923,
-     "share": 0.00019
+     "acres": 11058,
+     "share": 0.00832
     },
     {
      "allocation": "spread",
      "scenario": "High",
      "horizon_yr": 5,
-     "acres": 2332,
-     "share": 0.00011
+     "acres": 7259,
+     "share": 0.00546
     },
     {
      "allocation": "spread",
      "scenario": "High",
      "horizon_yr": 10,
-     "acres": 11429,
-     "share": 0.00055
+     "acres": 22965,
+     "share": 0.01729
     }
    ]
   },
   {
    "name": "Pacific marten, Coastal DPS",
-   "total_acres": 1280214,
+   "total_acres": 737190,
+   "total_us_acres": 1280214,
    "features": 1,
    "roadless_acres": 176171,
-   "roadless_share": 0.1376,
+   "roadless_share": 0.239,
    "scenarios": [
     {
      "allocation": "near_roads",
      "scenario": "Low",
      "horizon_yr": 5,
      "acres": 819,
-     "share": 0.00064
+     "share": 0.00111
     },
     {
      "allocation": "near_roads",
      "scenario": "Low",
      "horizon_yr": 10,
      "acres": 3305,
-     "share": 0.00258
+     "share": 0.00448
     },
     {
      "allocation": "near_roads",
      "scenario": "Mid",
      "horizon_yr": 5,
      "acres": 1838,
-     "share": 0.00144
+     "share": 0.00249
     },
     {
      "allocation": "near_roads",
      "scenario": "Mid",
      "horizon_yr": 10,
      "acres": 7305,
-     "share": 0.00571
+     "share": 0.00991
     },
     {
      "allocation": "near_roads",
      "scenario": "High",
      "horizon_yr": 5,
      "acres": 4432,
-     "share": 0.00346
+     "share": 0.00601
     },
     {
      "allocation": "near_roads",
      "scenario": "High",
      "horizon_yr": 10,
      "acres": 14595,
-     "share": 0.0114
+     "share": 0.0198
     },
     {
      "allocation": "spread",
      "scenario": "Low",
      "horizon_yr": 5,
-     "acres": 1112,
-     "share": 0.00087
+     "acres": 1097,
+     "share": 0.00149
     },
     {
      "allocation": "spread",
      "scenario": "Low",
      "horizon_yr": 10,
-     "acres": 3243,
-     "share": 0.00253
+     "acres": 2934,
+     "share": 0.00398
     },
     {
      "allocation": "spread",
      "scenario": "Mid",
      "horizon_yr": 5,
-     "acres": 2039,
-     "share": 0.00159
+     "acres": 2054,
+     "share": 0.00279
     },
     {
      "allocation": "spread",
      "scenario": "Mid",
      "horizon_yr": 10,
-     "acres": 6718,
-     "share": 0.00525
+     "acres": 6054,
+     "share": 0.00821
     },
     {
      "allocation": "spread",
      "scenario": "High",
      "horizon_yr": 5,
-     "acres": 4154,
-     "share": 0.00325
+     "acres": 3985,
+     "share": 0.00541
     },
     {
      "allocation": "spread",
      "scenario": "High",
      "horizon_yr": 10,
-     "acres": 12309,
-     "share": 0.00961
+     "acres": 11460,
+     "share": 0.01554
     }
    ]
   }

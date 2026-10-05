@@ -33,7 +33,7 @@ n_elig = int(len(pts) * ELIGIBLE)
 #   "near_roads": cost-driven, nearest existing road first (optimistic for invasives)
 #   "spread":     plan-driven, eligibility unrelated to road distance (random draw, fixed seed)
 ELIG = {"near_roads": pts.iloc[:n_elig],
-        "spread": pts.sample(n_elig, random_state=42).sort_index()}
+        "spread": pts.sample(n_elig, random_state=42)}  # keep the shuffled order: activation must be a random subset
 print(f"Total roadless: {len(pts)*CELL_ACRES:,.0f} ac | eligible ({ELIGIBLE:.1%}): {n_elig*CELL_ACRES:,.0f} ac")
 for k, e in ELIG.items():
     print(f"  {k}: median distance of eligible land to nearest road = {e.road_dist_m.median():.0f} m")
