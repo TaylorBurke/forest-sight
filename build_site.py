@@ -112,7 +112,7 @@ def lower48_outline():
     return gpd.read_file(cache).to_crs(A)
 
 
-def thumb(layers, bounds, w=400, h=240, pad=0.07):
+def thumb(layers, bounds, w=400, h=240, pad=0.07, svg_class="thumb"):
     """Small inline SVG map. layers = [(GeoDataFrame, css_class, simplify_m, min_acres_or_None)]; outer rings only."""
     minx, miny, maxx, maxy = bounds
     s = min(w * (1 - 2 * pad) / (maxx - minx), h * (1 - 2 * pad) / (maxy - miny))
@@ -131,7 +131,7 @@ def thumb(layers, bounds, w=400, h=240, pad=0.07):
         g = gdf if min_acres is None else gdf[gdf.acres >= min_acres]
         geoms = g.geometry.simplify(tol)
         parts.append(f'<path class="{cls}" d="{"".join(ring(x) for x in geoms if not x.is_empty)}"/>')
-    return f'<svg class="thumb" viewBox="0 0 {w} {h}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">{"".join(parts)}</svg>'
+    return f'<svg class="{svg_class}" viewBox="0 0 {w} {h}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">{"".join(parts)}</svg>'
 
 
 # ---------- build ----------
@@ -189,12 +189,14 @@ write(f"{OUT}/us/index.html", page(
 
 # hub
 states = lower48_outline()
-us_map = thumb([(states, "map-state", 4000, None)] + [(i, "map-ira", 4000, 3000) for i in iras], states.total_bounds)
-cards = [f"""<a class="card" href="us/index.html"><div class="card-img">{us_map}</div><div class="card-body"><span class="kicker">All regions combined</span><h3>United States totals</h3>
+# each region is its own path (class region-<slug>) so hovering that region's card can light it up on the U.S. map
+us_map = thumb([(states, "map-state", 4000, None)] + [(i, f"map-ira region-{s['slug']}", 4000, 3000) for s, i in zip(summaries, iras)],
+               states.total_bounds, svg_class="thumb us-map")
+cards = [f"""<a class="card card-us" href="us/index.html"><div class="card-img">{us_map}</div><div class="card-body"><span class="kicker">All regions combined</span><h3>United States totals</h3>
 <p>Combined results for every region analyzed so far: {n_reg} region{'s' if n_reg != 1 else ''}, {total / 1e6:.2f} million roadless acres, {total / NATIONAL_ACRES:.0%} of the ~44.7 million acres where the national rule applies.</p><span class="go">Open the totals →</span></div></a>"""]
 for s, ira, forests in zip(summaries, iras, forest_sets):
     region_map = thumb([(forests, "map-forest", 3000, None), (ira, "map-ira", 2500, 1500)], ira.total_bounds)
-    cards.append(f"""<a class="card" href="{s['slug']}/index.html"><div class="card-img">{region_map}</div><div class="card-body"><span class="kicker">{s['places'].replace('&', '&amp;')}</span><h3>{s['name']}</h3>
+    cards.append(f"""<a class="card" data-region="{s['slug']}" href="{s['slug']}/index.html"><div class="card-img">{region_map}</div><div class="card-body"><span class="kicker">{s['places'].replace('&', '&amp;')}</span><h3>{s['name']}</h3>
 <p>{s['total_acres'] / 1e6:.2f} million roadless acres, {s['hab_acres'] / s['total_acres']:.0%} inside critical habitat. Habitat, invasive plants and 5- and 10-year scenarios.</p><span class="go">Open the study →</span></div></a>""")
 hub_body = (open("site/hub.html").read().replace("__CARDS__", "\n".join(cards)).replace("__COMMENT_URL__", COMMENT_URL)
             .replace("__GITHUB__", GITHUB))

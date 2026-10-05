@@ -104,7 +104,10 @@ footer { padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--line);
 .card p { font-size: 0.93rem; color: var(--muted); }
 .thumb .map-state { fill: var(--track); stroke: var(--surface); stroke-width: 0.8; }
 .thumb .map-forest { fill: var(--land-soft); stroke: var(--forest-line); stroke-width: 0.5; }
-.thumb .map-ira { fill: var(--land); stroke: var(--land); stroke-width: 1.1; }
+.thumb .map-ira { fill: var(--land); stroke: var(--land); stroke-width: 1.1; transition: fill .2s ease, stroke .2s ease; }
+/* hovering a region card echoes on the U.S. card: its map zooms and that region turns orange */
+.card-img.echo svg { transform: scale(1.07); }
+.thumb .map-ira.hl { fill: var(--c2); stroke: var(--c2); stroke-width: 2.2; }
 .cov-track { background: var(--track); height: 14px; border-radius: 0 4px 4px 0; }
 .cov-fill { background: var(--c1); height: 100%; border-radius: 0 4px 4px 0; min-width: 3px; }
 .stats { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }

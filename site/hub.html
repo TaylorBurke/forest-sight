@@ -29,3 +29,17 @@ __CARDS__
   <span>Code, data pipeline and methods are open source: <a href="__GITHUB__" target="_blank" rel="noopener">github.com/TaylorBurke/forest-sight</a>. This is an independent analysis and not affiliated with any agency.</span>
 </footer>
 </main>
+<script>
+// Hovering (or focusing) a region card lights that region up in orange on the U.S. card's map.
+(function () {
+  const usImg = document.querySelector(".card-us .card-img");
+  if (!usImg) return;
+  document.querySelectorAll(".card[data-region]").forEach((card) => {
+    const shape = usImg.querySelector(".region-" + card.dataset.region);
+    const on = () => { usImg.classList.add("echo"); if (shape) shape.classList.add("hl"); };
+    const off = () => { usImg.classList.remove("echo"); if (shape) shape.classList.remove("hl"); };
+    card.addEventListener("mouseenter", on); card.addEventListener("mouseleave", off);
+    card.addEventListener("focus", on); card.addEventListener("blur", off);
+  });
+})();
+</script>
