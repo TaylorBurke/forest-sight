@@ -66,8 +66,7 @@
       "Cirsium arvense": 3113414
     },
     "invasives_text": "yellow starthistle, cheatgrass, bull thistle, St. John's wort, red and ripgut brome and others",
-    "roads_note": "For that reason the Lake Tahoe Basin Management Unit, which has many highways and county roads, was left out of the invasive-plant analysis.",
-    "max_bands": 6
+    "roads_note": "For that reason the Lake Tahoe Basin Management Unit, which has many highways and county roads, was left out of the invasive-plant analysis."
   },
   "swgb": {
     "slug": "swgb",
@@ -86,7 +85,12 @@
     "exclude_forests": [
       "Lake Tahoe Basin"
     ],
-    "species": [],
+    "species": [
+      "Mexican spotted owl",
+      "Jaguar",
+      "Loach minnow",
+      "Spikedace"
+    ],
     "invasives": {
       "Bromus tectorum": 2703746,
       "Tamarix ramosissima": 2874700,
@@ -106,7 +110,7 @@
       "Cenchrus ciliaris": 4109540,
       "Bromus japonicus": 8113508
     },
-    "invasives_text": "cheatgrass, tamarisk, Russian olive, Canada thistle and others",
+    "invasives_text": "cheatgrass, Russian olive, Siberian elm, Dalmatian toadflax, musk thistle and others",
     "roads_note": "Highways, county roads and private roads are not in the data, so every distance is to the nearest Forest Service road."
   }
 }

@@ -54,6 +54,10 @@ def load_region(slug, cfg):
     forests = gpd.read_file(f"{raw}/forest_boundaries.gpkg").to_crs(A)
     codes = [cfg["forest_region"]] if isinstance(cfg["forest_region"], str) else cfg["forest_region"]
     forests = forests[forests.region.isin(codes) & ~forests.forestname.str.contains("|".join(cfg["exclude_forests"]))]
+    # map outlines: keep forests inside this region's own states (a Forest Service region spans other states too)
+    study = lower48_outline().query("STUSPS in @cfg['states']").union_all().buffer(3000)
+    forests = forests.assign(geometry=forests.geometry.intersection(study))
+    forests = forests[~forests.geometry.is_empty]
     total = len(pts) * CELL_ACRES
     scen = pd.read_csv(f"{d}/scenarios.csv")
     by_forest = pts.groupby("forest").agg(

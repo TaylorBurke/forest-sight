@@ -25,6 +25,7 @@ The Forest Service proposed rescinding the 2001 Roadless Area Conservation Rule 
 fetch_ira.py             roadless area boundaries (USFS)
 fetch_roads_habitat.py   Forest Service roads + USFWS critical habitat
 fetch_invasives.py       GBIF invasive-plant records + all-plant control, forest boundaries
+fetch_nfs_land.py        Forest Service-owned land (invasive records are counted only on it)
 analysis_exposure.py     distance to nearest road + habitat overlap (250 m grid)
 analysis_invasives.py    invasive-plant intensity vs distance from a road (observer-bias corrected)
 analysis_scenarios.py    low / mid / high scenarios at 5 and 10 years

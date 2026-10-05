@@ -12,4 +12,5 @@ def usable_bands(decay, cfg=None):
     """How many leading distance bands to chart and model: those with enough records, and no more than a region's optional max_bands."""
     cfg = cfg or CFG
     n = next((i for i, c in enumerate(decay.n_inv) if c < MIN_BAND_RECORDS), len(decay))
-    return min(n, cfg.get("max_bands", len(decay)))
+    # the last band is open-ended (a catch-all, not a distance range), so it is never charted or modelled
+    return min(n, cfg.get("max_bands", len(decay) - 1), len(decay) - 1)

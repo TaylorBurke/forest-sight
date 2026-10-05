@@ -13,11 +13,12 @@ LABELS = ["0-100 m", "100-250 m", "250-500 m", "0.5-1 km", "1-2 km", "2-5 km", "
 rng = np.random.default_rng(42)
 
 roads = gpd.read_file(f"{RAW}/roads_nfs.gpkg").to_crs(A)
-forests = gpd.read_file(f"{RAW}/forest_boundaries.gpkg").to_crs(A)
-# Region 6 national forests only: the NFS road layer omits highways/county roads that dominate the Columbia
-# River Gorge NSA's mixed ownership, and neighbouring regions' forests are only partly covered by our road pull.
-codes = [CFG["forest_region"]] if isinstance(CFG["forest_region"], str) else CFG["forest_region"]  # one code or several
-forests = forests[forests.region.isin(codes) & ~forests.forestname.str.contains("|".join(CFG["exclude_forests"]))]
+# Forest Service-OWNED land only (see fetch_nfs_land.py). Administrative forest boundaries include private land, towns
+# and highways that the Forest Service roads layer does not describe, which distorts distance-to-road comparisons.
+# Units in exclude_forests (e.g. the Columbia River Gorge NSA, Lake Tahoe Basin) are dropped: their mixed ownership
+# and many highways make "distance to a Forest Service road" misleading even on Forest Service parcels.
+forests = gpd.read_file(f"{RAW}/nfs_land.gpkg").to_crs(A)
+forests = forests[~forests.forestname.str.contains("|".join(CFG["exclude_forests"]), na=False)]
 tree = STRtree(roads.geometry.values)
 
 

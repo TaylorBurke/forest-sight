@@ -1,0 +1,378 @@
+[
+ {
+  "name": "Mexican spotted owl",
+  "total_acres": 9476743,
+  "total_us_acres": 9869984,
+  "features": 1,
+  "roadless_acres": 849610,
+  "roadless_share": 0.0897,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 3351,
+    "share": 0.00035
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 8124,
+    "share": 0.00086
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 6363,
+    "share": 0.00067
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 15305,
+    "share": 0.00162
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 10378,
+    "share": 0.0011
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 31104,
+    "share": 0.00328
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 4834,
+    "share": 0.00051
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 13683,
+    "share": 0.00144
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 9637,
+    "share": 0.00102
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 26981,
+    "share": 0.00285
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 18085,
+    "share": 0.00191
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 55197,
+    "share": 0.00582
+   }
+  ]
+ },
+ {
+  "name": "Jaguar",
+  "total_acres": 657909,
+  "total_us_acres": 657972,
+  "features": 1,
+  "roadless_acres": 71444,
+  "roadless_share": 0.1086,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 46,
+    "share": 7e-05
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 124,
+    "share": 0.00019
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 93,
+    "share": 0.00014
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 386,
+    "share": 0.00059
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 170,
+    "share": 0.00026
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 695,
+    "share": 0.00106
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 448,
+    "share": 0.00068
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 1158,
+    "share": 0.00176
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 788,
+    "share": 0.0012
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 2409,
+    "share": 0.00366
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 1575,
+    "share": 0.00239
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 4680,
+    "share": 0.00711
+   }
+  ]
+ },
+ {
+  "name": "Loach minnow",
+  "total_acres": 51218,
+  "total_us_acres": 51218,
+  "features": 1,
+  "roadless_acres": 6502,
+  "roadless_share": 0.1269,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 46,
+    "share": 0.0009
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 62,
+    "share": 0.00121
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 62,
+    "share": 0.00121
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 170,
+    "share": 0.00332
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 93,
+    "share": 0.00181
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 293,
+    "share": 0.00573
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 46,
+    "share": 0.0009
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 77,
+    "share": 0.00151
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 62,
+    "share": 0.00121
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 124,
+    "share": 0.00241
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 93,
+    "share": 0.00181
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 371,
+    "share": 0.00724
+   }
+  ]
+ },
+ {
+  "name": "Spikedace",
+  "total_acres": 54583,
+  "total_us_acres": 54583,
+  "features": 1,
+  "roadless_acres": 6409,
+  "roadless_share": 0.1174,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 46,
+    "share": 0.00085
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 62,
+    "share": 0.00113
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 62,
+    "share": 0.00113
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 170,
+    "share": 0.00311
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 93,
+    "share": 0.0017
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 293,
+    "share": 0.00538
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 46,
+    "share": 0.00085
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 93,
+    "share": 0.0017
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 62,
+    "share": 0.00113
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 124,
+    "share": 0.00226
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 108,
+    "share": 0.00198
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 355,
+    "share": 0.00651
+   }
+  ]
+ }
+]
