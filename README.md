@@ -1,10 +1,56 @@
-# Forest Sight — Global Deforestation & Land Use Analysis
+# Forest Sight
 
-A data analytics project exploring global deforestation patterns, drivers, and their relationship to economic and policy factors. Built following the Google Data Analytics framework: **Ask, Prepare, Process, Analyze, Share, Act**.
+Open-data analysis of forests and land use. Two projects live here:
+
+1. **Roadless Rule analysis** (active): what the proposed rescission of the 2001 Roadless Rule could mean for habitat and invasive plants, region by region. Published as a static site from `docs/`.
+2. **Global deforestation analysis** (planned): see the research plan below.
 
 ---
 
-## Research Questions
+## Roadless Rule analysis
+
+The Forest Service proposed rescinding the 2001 Roadless Area Conservation Rule in August 2026. This project measures what is at stake in each region and models 5- and 10-year "what if" scenarios. Colorado and Idaho are excluded because their own state rules replace the national one.
+
+**Site layout** (built into `docs/`, served by GitHub Pages)
+
+| Page | What it shows |
+|---|---|
+| `docs/index.html` | Hub with a card for the U.S. totals and one for each region |
+| `docs/us/` | Totals summed across every analyzed region |
+| `docs/<region>/` | The full study for one region (currently `pnw`: Oregon and Washington) |
+
+**Pipeline** (run per region with `REGION=<slug>`, default `pnw`; settings live in `regions.json`)
+
+```
+fetch_ira.py             roadless area boundaries (USFS)
+fetch_roads_habitat.py   Forest Service roads + USFWS critical habitat
+fetch_invasives.py       GBIF invasive-plant records + all-plant control, forest boundaries
+analysis_exposure.py     distance to nearest road + habitat overlap (250 m grid)
+analysis_invasives.py    invasive-plant intensity vs distance from a road (observer-bias corrected)
+analysis_scenarios.py    low / mid / high scenarios at 5 and 10 years
+analysis_species_context.py   each species' habitat in the study area, and the roadless share
+build_site.py            builds docs/ (hub, U.S. totals, region pages, share image)
+```
+
+Raw downloads go to `data/<region>/raw/` (git-ignored); small analysis outputs in `data/<region>/` are committed.
+
+**Add a region**
+
+1. Add an entry to `regions.json` (states, Forest Service region code, forests to exclude, species to chart).
+2. Run the scripts above with `REGION=<slug>`.
+3. Run `python build_site.py`. The region gets its own page and a card on the hub, and the U.S. totals include it automatically.
+
+Setup: `python -m venv .venv && .venv/bin/pip install pandas geopandas matplotlib pyogrio shapely requests pyarrow`.
+
+Key assumptions are stated on each page: the eligible share of roadless land (10.7%) comes from the Forest Service's own national figure, and the activation pace in each scenario is an assumption, not a forecast.
+
+---
+
+## Global deforestation analysis (planned)
+
+A data analytics project exploring global deforestation patterns, drivers, and their relationship to economic and policy factors. Built following the Google Data Analytics framework: **Ask, Prepare, Process, Analyze, Share, Act**.
+
+### Research Questions
 
 - What are the trends over the last three decades regarding reforestation vs deforestation?
 - What economic factors are driving deforestation in the last 10 years?

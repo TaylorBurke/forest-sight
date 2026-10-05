@@ -3,9 +3,11 @@
 The control (all Plantae records) is how we correct for observer bias: people record plants near roads,
 so we compare invasive records to *all* plant records at each distance from a road.
 """
+from region import REGION, CFG, DATA, RAW
 import requests, geopandas as gpd, pandas as pd
 
-BBOX = dict(decimalLatitude="41.99,49.01", decimalLongitude="-124.5,-116.5")
+_minx, _miny, _maxx, _maxy = gpd.read_file(f"{RAW}/ira.gpkg").total_bounds  # study-area bounds from the roadless data
+BBOX = dict(decimalLatitude=f"{_miny - 0.01:.2f},{_maxy + 0.01:.2f}", decimalLongitude=f"{_minx - 0.1:.2f},{_maxx + 0.03:.2f}")
 BASE = {"hasCoordinate": "true", "hasGeospatialIssue": "false", "coordinateUncertaintyInMeters": "0,100",
         "year": "2005,2025", **BBOX}
 
@@ -38,17 +40,17 @@ for name, key in INVASIVES.items():
     rows = gbif({"taxonKey": key}, cap=6000)
     print(name, len(rows), flush=True)
     inv += rows
-pd.DataFrame(inv).to_parquet("data/raw/gbif_invasives.parquet")
+pd.DataFrame(inv).to_parquet(f"{RAW}/gbif_invasives.parquet")
 
 # control: all plants, sampled evenly across years so one year/project doesn't dominate
 ctrl = []
 for y in range(2005, 2026):
     ctrl += gbif({"taxonKey": PLANTAE, "year": f"{y},{y}"}, cap=3000)
     print("control", y, len(ctrl), flush=True)
-pd.DataFrame(ctrl).to_parquet("data/raw/gbif_control.parquet")
+pd.DataFrame(ctrl).to_parquet(f"{RAW}/gbif_control.parquet")
 
 # national forest administrative boundaries in the bbox
-ira = gpd.read_file("data/raw/ira_pnw.gpkg")
+ira = gpd.read_file(f"{RAW}/ira.gpkg")
 minx, miny, maxx, maxy = ira.total_bounds
 r = requests.get("https://apps.fs.usda.gov/ArcX/rest/services/EDW/EDW_ForestSystemBoundaries_01/MapServer/0/query",
                  params=dict(where="1=1", geometry=f"{minx},{miny},{maxx},{maxy}", geometryType="esriGeometryEnvelope",
@@ -56,5 +58,5 @@ r = requests.get("https://apps.fs.usda.gov/ArcX/rest/services/EDW/EDW_ForestSyst
                  timeout=180)
 r.raise_for_status()
 nf = gpd.GeoDataFrame.from_features(r.json()["features"], crs=4326)
-nf.to_file("data/raw/forest_boundaries.gpkg", driver="GPKG")
+nf.to_file(f"{RAW}/forest_boundaries.gpkg", driver="GPKG")
 print(len(nf), "forests;", list(nf.columns))

@@ -3,6 +3,7 @@
 relative intensity(band) = share of invasive records in band / share of ALL-plant records in band.
 1.0 = invasives occur there as often as plant observers generally record anything; >1 = over-represented.
 """
+from region import REGION, CFG, DATA, RAW
 import numpy as np, geopandas as gpd, pandas as pd
 from shapely import STRtree
 
@@ -11,11 +12,11 @@ BANDS = [0, 100, 250, 500, 1000, 2000, 5000, np.inf]
 LABELS = ["0-100 m", "100-250 m", "250-500 m", "0.5-1 km", "1-2 km", "2-5 km", ">5 km"]
 rng = np.random.default_rng(42)
 
-roads = gpd.read_file("data/raw/roads_nfs.gpkg").to_crs(A)
-forests = gpd.read_file("data/raw/forest_boundaries.gpkg").to_crs(A)
+roads = gpd.read_file(f"{RAW}/roads_nfs.gpkg").to_crs(A)
+forests = gpd.read_file(f"{RAW}/forest_boundaries.gpkg").to_crs(A)
 # Region 6 national forests only: the NFS road layer omits highways/county roads that dominate the Columbia
 # River Gorge NSA's mixed ownership, and neighbouring regions' forests are only partly covered by our road pull.
-forests = forests[(forests.region == "06") & ~forests.forestname.str.contains("Scenic Area")]
+forests = forests[(forests.region == CFG["forest_region"]) & ~forests.forestname.str.contains("|".join(CFG["exclude_forests"]))]
 tree = STRtree(roads.geometry.values)
 
 
@@ -30,7 +31,7 @@ def prep(path):
     return g
 
 
-inv, ctrl = prep("data/raw/gbif_invasives.parquet"), prep("data/raw/gbif_control.parquet")
+inv, ctrl = prep(f"{RAW}/gbif_invasives.parquet"), prep(f"{RAW}/gbif_control.parquet")
 print(f"records on national forest land: invasive={len(inv)}, control={len(ctrl)}")
 
 
@@ -48,7 +49,7 @@ out = pd.DataFrame({
     "ci_lo": np.nanpercentile(boot, 2.5, axis=0), "ci_hi": np.nanpercentile(boot, 97.5, axis=0),
     "n_inv": inv.band.value_counts().reindex(LABELS).values, "n_ctrl": ctrl.band.value_counts().reindex(LABELS).values,
 })
-out.to_csv("data/invasive_decay.csv", index=False)
+out.to_csv(f"{DATA}/invasive_decay.csv", index=False)
 print(out.round(2).to_string(index=False))
 
 print("\nPer-species relative intensity, near (<500 m) vs far (>=2 km):")

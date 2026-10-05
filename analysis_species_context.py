@@ -4,11 +4,12 @@ The full-U.S. total is kept as total_us_acres for reference. A new region reuses
 
 Scenario allocation logic mirrors analysis_scenarios.py; a consistency check against data/scenarios.csv guards drift.
 """
+from region import REGION, CFG, DATA, RAW
 import json, requests, numpy as np, pandas as pd, geopandas as gpd
 
 A, STEP = 5070, 250
 CELL_ACRES = STEP * STEP / 4046.856
-SPECIES = ["Northern spotted owl", "Marbled Murrelet", "Canada Lynx", "Pacific marten, Coastal DPS"]
+SPECIES = CFG["species"]
 URL = "https://services.arcgis.com/QVENGdaPbd4LUkLV/arcgis/rest/services/USFWS_Critical_Habitat/FeatureServer/0/query"
 ELIGIBLE = 4.8 / 44.7
 ACTIVATION = {"Low": {5: 0.05, 10: 0.15}, "Mid": {5: 0.10, 10: 0.30}, "High": {5: 0.20, 10: 0.60}}
@@ -28,12 +29,12 @@ def fetch_species(name):
     return pd.concat(frames, ignore_index=True)
 
 
-pts = gpd.read_parquet("data/ira_points.parquet")
-sc = pd.read_csv("data/scenarios.csv")
+pts = gpd.read_parquet(f"{DATA}/ira_points.parquet")
+sc = pd.read_csv(f"{DATA}/scenarios.csv")
 
 # study-area boundary: Oregon + Washington (Census TIGERweb)
 r = requests.get("https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/12/query",
-                 params=dict(where="STUSAB IN ('OR','WA')", outFields="STUSAB", outSR=4326, f="geojson"), timeout=300)
+                 params=dict(where="STUSAB IN (%s)" % ",".join(f"'{s}'" for s in CFG["states"]), outFields="STUSAB", outSR=4326, f="geojson"), timeout=300)
 r.raise_for_status()
 study = gpd.GeoDataFrame.from_features(r.json()["features"], crs=4326).to_crs(A).union_all()
 print("study area acres:", round(study.area / 4046.856), flush=True)
@@ -68,6 +69,6 @@ for alloc, e in elig.items():
                 a = int(act[name].sum()) * CELL_ACRES
                 out[name]["scenarios"].append({"allocation": alloc, "scenario": scen, "horizon_yr": yr,
                                                "acres": round(a), "share": round(a / out[name]["total_acres"], 5)})
-json.dump(list(out.values()), open("data/species_context.json", "w"), indent=1)
+json.dump(list(out.values()), open(f"{DATA}/species_context.json", "w"), indent=1)
 mid = [(n, [s["share"] for s in v["scenarios"] if s["scenario"] == "Mid" and s["horizon_yr"] == 10]) for n, v in out.items()]
 print("Mid/10yr share of total habitat (near_roads, spread):", mid)

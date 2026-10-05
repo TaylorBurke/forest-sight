@@ -1,7 +1,5 @@
 .venv/
-data/raw/
+data/*/raw/
 __pycache__/
 .ipynb_checkpoints/
-data/*.parquet
-site/index.html
-site/map_paths.json
+data/*/*.parquet

@@ -9,6 +9,7 @@ ASSUMPTIONS (illustrative, not forecasts -- no source gives an activation pace):
 Invasive pressure: curve from invasive_decay.csv. Activated land moves from its current road-distance band to the
 near-road band (0-100 m). Lower bound assumes only 25% of an activated acre lies in a road's influence zone; upper 100%.
 """
+from region import REGION, CFG, DATA, RAW
 import numpy as np, pandas as pd
 
 ELIGIBLE = 4.8 / 44.7
@@ -21,11 +22,15 @@ CORRIDOR_LO = 0.25
 STEP = 250
 CELL_ACRES = STEP * STEP / 4046.856
 
-pts = pd.read_parquet("data/ira_points.parquet").drop(columns="geometry", errors="ignore")
-curve = pd.read_csv("data/invasive_decay.csv")
+pts = pd.read_parquet(f"{DATA}/ira_points.parquet").drop(columns="geometry", errors="ignore")
+curve = pd.read_csv(f"{DATA}/invasive_decay.csv")
 edges = [0, 100, 250, 500, 1000, 2000, 5000, np.inf]
-pts["pre"] = curve.rel_intensity.values[np.digitize(pts.road_dist_m, edges[1:-1])]
-NEAR = curve.rel_intensity.iloc[0]
+# Bands beyond 1.2 mi (2 km) have too few records to read a trend (and are not charted), so hold them at the
+# last charted band (1-2 km) instead of using their noisy point estimates.
+rel = curve.rel_intensity.values.copy()
+rel[5:] = rel[4]
+pts["pre"] = rel[np.digitize(pts.road_dist_m, edges[1:-1])]
+NEAR = rel[0]
 
 pts = pts.sort_values("road_dist_m").reset_index(drop=True)
 n_elig = int(len(pts) * ELIGIBLE)
@@ -52,7 +57,7 @@ for alloc, elig in ELIG.items():
                 invasive_mult_hi=round(NEAR / pre, 2),
                 share_of_all_roadless=round(len(act) / len(pts), 4)))
 out = pd.DataFrame(rows)
-out.to_csv("data/scenarios.csv", index=False)
+out.to_csv(f"{DATA}/scenarios.csv", index=False)
 print(out.to_string(index=False))
 
 print("\nSensitivity: eligible share (Mid scenario, 10 yr)")

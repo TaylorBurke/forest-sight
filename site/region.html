@@ -1,101 +1,8 @@
-<title>PNW Roadless Report</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<style>
-/* Layout: one narrow reading column; a survey-map feel (field-guide labels, mono data), charts sit inline with the story. */
-:root {
-  --bg: #f3f5f1; --surface: #fbfcfa; --fg: #14201a; --muted: #4f5d55; --line: #d5dbd3;
-  --land: #2f6b4f; --land-soft: #cfe0d4; --forest-line: #aebbb1;
-  --c1: #2a78d6; --c2: #eb6834; --track: #dde3dc; --cta: #1f5f46; --cta-fg: #ffffff; --warn-bg: #fff3e8;
-  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
-  --body: "Public Sans", "Segoe UI", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-}
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #111a15; --surface: #18231d; --fg: #e8efe9; --muted: #a5b3aa; --line: #2c3a32;
-  --land: #5aa47f; --land-soft: #1f3a2d; --forest-line: #3b4d42;
-  --c1: #3987e5; --c2: #d95926; --track: #2a372f; --cta: #5aa47f; --cta-fg: #0c140f; --warn-bg: #2b2018; color-scheme: dark; } }
-:root[data-theme="dark"] {
-  --bg: #111a15; --surface: #18231d; --fg: #e8efe9; --muted: #a5b3aa; --line: #2c3a32;
-  --land: #5aa47f; --land-soft: #1f3a2d; --forest-line: #3b4d42;
-  --c1: #3987e5; --c2: #d95926; --track: #2a372f; --cta: #5aa47f; --cta-fg: #0c140f; --warn-bg: #2b2018; color-scheme: dark; }
-
-* { box-sizing: border-box; }
-body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.6; padding-inline: 20px; padding-block: 0 64px; }
-main { max-width: 760px; margin-inline: auto; }
-h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
-h1 { font-size: clamp(2rem, 6.4vw, 3.1rem); font-weight: 700; letter-spacing: -0.015em; }
-h2 { font-size: clamp(1.5rem, 4.4vw, 2rem); font-weight: 700; letter-spacing: -0.01em; }
-h3 { font-size: 1.12rem; font-weight: 600; }
-p { margin: 0; max-width: 65ch; }
-a { color: var(--land); text-underline-offset: 3px; }
-.mono, .kicker, .label { font-family: var(--mono); }
-.kicker { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.stack { display: flex; flex-direction: column; gap: 16px; }
-section { padding-block: 44px 8px; display: flex; flex-direction: column; gap: 18px; border-top: 1px solid var(--line); margin-top: 36px; }
-header { padding-block: 40px 8px; display: flex; flex-direction: column; gap: 18px; }
-.lede { font-size: 1.15rem; color: var(--fg); }
-.deadline { display: inline-flex; gap: 8px; align-items: center; background: var(--warn-bg); border: 1px solid var(--c2); border-radius: 4px; padding: 6px 10px; font-family: var(--mono); font-size: 0.82rem; width: fit-content; }
-.btn { display: inline-block; background: var(--cta); color: var(--cta-fg); font-weight: 600; text-decoration: none; padding: 12px 20px; border-radius: 4px; width: fit-content; }
-.btn:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--c1); outline-offset: 2px; }
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
-.stat { background: var(--surface); border: 1px solid var(--line); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.stat b { font-family: var(--display); font-size: 2rem; line-height: 1; font-variant-numeric: tabular-nums; }
-.stat span { font-size: 0.9rem; color: var(--muted); line-height: 1.35; }
-figure { margin: 0; background: var(--surface); border: 1px solid var(--line); padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-figcaption { font-size: 0.88rem; color: var(--muted); }
-.fig-title { font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
-svg { display: block; width: 100%; height: auto; }
-.map-ira { fill: var(--land); stroke: var(--land); stroke-width: 0.4; }
-.map-forest { fill: var(--land-soft); stroke: var(--forest-line); stroke-width: 0.8; }
-.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; color: var(--muted); }
-.legend i { display: inline-block; width: 14px; height: 14px; vertical-align: -2px; margin-right: 6px; border: 1px solid var(--forest-line); }
-.bars { display: flex; flex-direction: column; gap: 10px; }
-.bar-row { display: grid; grid-template-columns: minmax(110px, 190px) 1fr; gap: 12px; align-items: center; }
-.bar-label { font-size: 0.92rem; line-height: 1.3; }
-.bar-track { background: var(--track); height: 22px; border-radius: 0 4px 4px 0; position: relative; }
-.bar-fill { height: 100%; background: var(--c1); border-radius: 0 4px 4px 0; min-width: 2px; }
-.bar-val { font-family: var(--mono); font-size: 0.8rem; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); color: var(--fg); }
-.donuts { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px 16px; }
-.donut { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; min-width: 0; }
-.donut svg { width: 120px; height: 120px; }
-.donut-name { font-family: var(--display); font-weight: 600; font-size: 0.98rem; line-height: 1.2; }
-.donut-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.35; }
-.donut-sub b { color: var(--fg); font-weight: 600; }
-details { font-size: 0.9rem; }
-summary { cursor: pointer; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; }
-.tbl { overflow-x: auto; }
-table { border-collapse: collapse; width: 100%; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
-th, td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
-th { font-family: var(--mono); font-weight: 500; font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
-td.num, th.num { text-align: right; }
-.seg { display: flex; flex-wrap: wrap; gap: 8px; }
-.seg button { font: inherit; font-size: 0.9rem; background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: 4px; padding: 8px 14px; cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
-.ctl { display: flex; flex-direction: column; gap: 6px; }
-.scn { display: flex; flex-direction: column; gap: 16px; }
-.scn-row { display: flex; flex-direction: column; gap: 6px; }
-.scn-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
-.scn-name { font-family: var(--display); font-weight: 600; }
-.scn-bar { background: var(--track); height: 26px; border-radius: 0 4px 4px 0; display: flex; }
-.scn-bar .hab { background: var(--c1); height: 100%; border-right: 2px solid var(--surface); }
-.scn-bar .oth { background: var(--forest-line); height: 100%; border-radius: 0 4px 4px 0; }
-.scn-meta { font-size: 0.88rem; color: var(--muted); }
-.scn-meta b { color: var(--fg); font-weight: 600; }
-.note { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--c2); padding: 14px 16px; font-size: 0.95rem; }
-ul { margin: 0; padding-left: 1.2em; max-width: 65ch; }
-li { margin-bottom: 6px; }
-#tip { position: fixed; pointer-events: none; z-index: 10; background: var(--fg); color: var(--bg); font-size: 0.8rem; padding: 6px 9px; border-radius: 4px; max-width: 240px; opacity: 0; transition: opacity .1s; }
-.src { font-size: 0.85rem; color: var(--muted); }
-footer { padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); display: flex; flex-direction: column; gap: 10px; }
-@media (max-width: 520px) { .bar-row { grid-template-columns: 1fr; gap: 4px; } body { font-size: 16px; } }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
-</style>
-
 <main>
+<nav class="crumbs"><a href="../index.html">Forest Sight</a> › <a href="../us/index.html">United States</a> › <span>__NAME__</span></nav>
 <header>
-  <div class="kicker">Forest Sight · Oregon &amp; Washington</div>
-  <h1>The Roadless Rule covers <span id="h-acres">3.98 million</span> acres of forest in Oregon and Washington. The Forest Service has proposed ending it.</h1>
+  <div class="kicker">Forest Sight · __PLACES__</div>
+  <h1>The Roadless Rule covers <span id="h-acres">3.98 million</span> acres of forest in __PLACES_AND__. The Forest Service has proposed ending it.</h1>
   <p class="lede">Since 2001, a national rule has barred new roads and most logging in the wildest parts of our national forests. In August 2026 the Forest Service proposed rescinding it. This page uses public data to show what is at stake in this region and what could change over the next 5 and 10 years.</p>
   <div class="deadline">Public comments due October 6, 2026</div>
   <a class="btn" href="https://www.regulations.gov/document/FS-2025-0001-223869" target="_blank" rel="noopener">Submit a public comment</a>
@@ -113,13 +20,13 @@ footer { padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--line);
 <section id="where">
   <h2>Where the roadless land is</h2>
   <div class="stats">
-    <div class="stat"><b id="s-acres"></b><span>acres of roadless land in Oregon and Washington</span></div>
+    <div class="stat"><b id="s-acres"></b><span>acres of roadless land in __PLACES_AND__</span></div>
     <div class="stat"><b id="s-road"></b><span>typical distance from a roadless acre to the nearest existing Forest Service road</span></div>
     <div class="stat"><b id="s-hab"></b><span>of that land lies inside federally designated critical habitat</span></div>
   </div>
   <figure>
-    <div class="fig-title">Roadless areas in Oregon and Washington national forests</div>
-    <svg viewBox="0 0 __MAP_W__ __MAP_H__" role="img" aria-label="Map of roadless areas, shown in green, inside Oregon and Washington national forests">
+    <div class="fig-title">Roadless areas in __PLACES_AND__ national forests</div>
+    <svg viewBox="0 0 __MAP_W__ __MAP_H__" role="img" aria-label="Map of roadless areas, shown in green, inside __PLACES_AND__ national forests">
       <path class="map-forest" d="__FOREST_PATH__"/>
       <path class="map-ira" d="__IRA_PATH__"/>
     </svg>
@@ -143,15 +50,10 @@ footer { padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--line);
   <h2>Nearly half overlaps habitat for threatened species</h2>
   <p>The U.S. Fish and Wildlife Service designates "critical habitat" for species listed under the Endangered Species Act. We counted how much roadless land lies inside those boundaries.</p>
   <figure>
-    <div class="fig-title">Acres of roadless land inside critical habitat, by species</div>
-    <div class="bars" id="species"></div>
-    <figcaption>Species with more than 20,000 acres of overlap. Many areas are critical habitat for more than one species, so the bars add up to more than the combined total.</figcaption>
-  </figure>
-  <figure>
-    <div class="fig-title">How much of each species' protected habitat in Oregon &amp; Washington is roadless land</div>
+    <div class="fig-title">How much of each species' protected habitat in __PLACES__ is roadless land</div>
     <div class="donuts" id="donuts"></div>
-    <div class="legend"><span><i style="background:var(--c1)"></i>Inside roadless areas</span><span><i style="background:var(--track)"></i>Rest of the species' critical habitat in Oregon &amp; Washington</span></div>
-    <figcaption>Each circle is the species' designated critical habitat within Oregon and Washington. The blue slice is the part that lies inside roadless areas, which is the part the Roadless Rule currently covers. Habitat in other states is not counted, so these shares describe this study area only. The line under each circle shows how much of the species' habitat in the study area would be opened in the mid-range scenario at 10 years (see the scenarios below). "Opened" means roads or logging become possible on that land, not that habitat is destroyed.</figcaption>
+    <div class="legend"><span><i style="background:var(--c1)"></i>Inside roadless areas</span><span><i style="background:var(--track)"></i>Rest of the species' critical habitat in __PLACES__</span></div>
+    <figcaption>Each circle is the species' designated critical habitat within __PLACES_AND__. The blue slice is the part that lies inside roadless areas, which is the part the Roadless Rule currently covers. Habitat in other states is not counted, so these shares describe this study area only.</figcaption>
   </figure>
   <figure>
     <div class="fig-title">The largest national forests with roadless land</div>
@@ -167,7 +69,7 @@ footer { padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--line);
   <figure>
     <div class="fig-title">How common invasive plants are, by distance from a road</div>
     <svg id="decay" viewBox="0 0 640 310" role="img" aria-label="Bar chart: invasive plants are recorded about 1.5 times more often than normal within 330 feet of a road, falling to about half the normal rate between 0.6 and 1.2 miles out"></svg>
-    <figcaption>1.0× means invasive plants are recorded as often as plants in general. Bars show the best estimate and whiskers the 95% confidence range. Based on 1,153 invasive-plant records (knapweeds, Scotch broom, bull thistle, St. John's wort and others) on Oregon and Washington national forests, 2005–2025, from GBIF. Distances beyond 1.2 miles (81 records) are left off because there are too few records to read a trend.</figcaption>
+    <figcaption>1.0× means invasive plants are recorded as often as plants in general. Bars show the best estimate and whiskers the 95% confidence range. Based on 1,153 invasive-plant records (knapweeds, Scotch broom, bull thistle, St. John's wort and others) on __PLACES_AND__ national forests, 2005–2025, from GBIF. Distances beyond 1.2 miles (81 records) are left off because there are too few records to read a trend.</figcaption>
     <details><summary>Show data table</summary><div class="tbl"><table id="decay-table"></table></div></details>
   </figure>
   <p>Within about 330 feet of a road, invasive plants are recorded roughly 1.5 times more often than expected. Past about 800 feet the rate drops below normal, and between 0.6 and 1.2 miles it is about half of normal. This shows that roads and invasives go together. It does not by itself measure how fast new roads would spread them.</p>
@@ -175,14 +77,7 @@ footer { padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--line);
 
 <section id="scenarios">
   <h2>What could change in 5 and 10 years</h2>
-  <p>Nobody can say how much would be built. So instead of one prediction, here are "what if" scenarios. Choose where activity lands and how far ahead to look.</p>
-  <div class="ctl"><span class="label kicker">Where activity lands</span>
-    <div class="seg" id="seg-alloc">
-      <button data-v="near_roads" aria-pressed="true">Closest to existing roads</button>
-      <button data-v="spread" aria-pressed="false">Spread across roadless land</button>
-    </div>
-    <span class="scn-meta" id="alloc-note"></span>
-  </div>
+  <p>Nobody can say how much would be built. So instead of one prediction, here are "what if" scenarios. Choose how far ahead to look.</p>
   <div class="ctl"><span class="label kicker">Time ahead</span>
     <div class="seg" id="seg-yr">
       <button data-v="5" aria-pressed="false">5 years</button>
@@ -193,10 +88,11 @@ footer { padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--line);
     <div class="fig-title" id="scn-title"></div>
     <div class="scn" id="scn"></div>
     <div class="legend"><span><i style="background:var(--c1)"></i>Inside critical habitat</span><span><i style="background:var(--forest-line)"></i>Other roadless land</span></div>
+    <figcaption>Bars are scaled to the largest scenario shown. The scenarios assume activity goes first to eligible land closest to an existing road (typically a few hundred yards away), because that land is the cheapest to reach.</figcaption>
   </figure>
-  <div class="note"><b>How to read these.</b> They are not forecasts. They show what the data implies if a given amount of land is opened. The Forest Service identifies about 4.8 million of the 44.7 million restricted acres (10.7%) where current plans allow active management. We assumed Oregon and Washington match that share, about 427,000 acres. The three scenarios assume that 5% / 10% / 20% of those acres see new roads or logging within 5 years, and 15% / 30% / 60% within 10 years. Those paces are our assumptions, not official figures.</div>
-  <p>Where activity lands matters about as much as how much there is. Land near existing roads already carries elevated invasive-plant pressure, so opening it changes little. Land farther in does not, so the same acreage could raise invasive pressure there to roughly 1.2× to 1.9× today's level, in every scenario. In both cases about 40–45% of the opened acres would sit in critical habitat.</p>
-  <p class="src">Invasive pressure is the typical rate at which invasives are recorded on the opened land, compared with its rate today, using the curve above. The low end assumes a quarter of each opened acre falls in a road's reach, the high end assumes all of it. The calculation uses every distance band measured, including the two far bands left off the chart above. If those bands are instead treated like the last charted band, the high end for land far from roads rises from about 1.9× to about 2.3×.</p>
+  <div class="note"><b>How to read these.</b> They are not forecasts. They show what the data implies if a given amount of land is opened. The Forest Service identifies about 4.8 million of the 44.7 million restricted acres (10.7%) where current plans allow active management. We assumed __PLACES_AND__ match that share, about __ELIGIBLE__ acres. The three scenarios assume that 5% / 10% / 20% of those acres see new roads or logging within 5 years, and 15% / 30% / 60% within 10 years. Those paces are our assumptions, not official figures.</div>
+  <p>Because this land is already close to roads, it already sits in the zone where invasive plants are most common, so opening it changes little: invasive pressure on the opened land stays about the same as today, rising to at most <span id="near-hi"></span>× today's level in the largest case. That is the favorable case for invasive plants. If activity instead reached more remote land, typically about 0.8 mile from a road, the same acreage could raise invasive pressure there to roughly <span id="spread-lo"></span>× to <span id="spread-hi"></span>× today's level. In either case about 40–45% of the opened acres would sit in critical habitat.</p>
+  <p class="src">Invasive pressure is the typical rate at which invasives are recorded on the opened land, compared with its rate today, using the curve above. The low end assumes a quarter of each opened acre falls in a road's reach, the high end assumes all of it. Distances beyond 1.2 miles had too few records to chart, so the calculation treats them like the 0.6–1.2 mile band.</p>
 </section>
 
 <section id="act">
@@ -209,7 +105,7 @@ footer { padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--line);
 <footer>
   <b>Methods and limits</b>
   <ul>
-    <li><b>Scope.</b> Oregon and Washington national forests only. Colorado and Idaho have their own roadless rules and are excluded. Other regions will be added.</li>
+    <li><b>Scope.</b> __PLACES_AND__ national forests only. Colorado and Idaho have their own roadless rules and are excluded. Other regions will be added.</li>
     <li><b>Data.</b> Roadless areas, roads and forest boundaries from the USDA Forest Service (FSGeodata). Critical habitat from the U.S. Fish and Wildlife Service. Invasive-plant and general plant records from <a href="https://www.gbif.org" target="_blank" rel="noopener">GBIF</a>.</li>
     <li><b>Observer bias.</b> Plant records cluster near roads because that is where people look. We divide invasive records by all plant records at each distance to correct for most of that, but not all.</li>
     <li><b>Roads.</b> Only Forest Service roads were measured. For that reason the Columbia River Gorge National Scenic Area, which has many highways and county roads, was left out of the invasive-plant analysis.</li>
@@ -252,23 +148,15 @@ function hbars(el, rows, max, color) {
 
 // distance-to-road bars
 const proxLabels = { "0.5": "Within 0.3 mi", "1": "Within 0.6 mi", "2": "Within 1.2 mi", "5": "Within 3.1 mi" };
-hbars($("prox"), Object.entries(D.proximity).map(([k, v]) => ({
+hbars($("prox"), Object.entries(D.proximity).sort((a, b) => Number(a[0]) - Number(b[0])).map(([k, v]) => ({
   label: proxLabels[k], value: v, text: Math.round(v * 100) + "%",
   tip: `${Math.round(v * 100)}% of roadless land is within ${proxLabels[k].replace("Within ", "")} of an existing road`})), 1);
-
-// species bars
-const mx = Math.max(...D.species.map((s) => s.acres));
-hbars($("species"), D.species.map((s) => ({
-  label: s.name, value: s.acres, text: n0(s.acres), tip: `${n0(s.acres)} roadless acres inside ${s.name} critical habitat`})), mx);
 
 // donuts: share of each species' total U.S. critical habitat that is OR/WA roadless land
 const pct = (v) => (v < 0.001 ? (v * 100).toFixed(2) : v < 0.1 ? (v * 100).toFixed(1) : Math.round(v * 100)) + "%";
 $("donuts").innerHTML = D.species_context.map((s) => {
   const r = 46, c = 2 * Math.PI * r, arc = Math.max(s.roadless_share, 0.004) * c;
-  const mid = s.scenarios.filter((x) => x.scenario === "Mid" && x.horizon_yr === 10).map((x) => x.share);
-  const lo = Math.min(...mid), hi = Math.max(...mid);
-  const midTxt = pct(lo) === pct(hi) ? pct(lo) : `${pct(lo)}–${pct(hi)}`;
-  const tipTxt = `${s.name}: ${n0(s.roadless_acres)} of ${n0(s.total_acres)} acres of its critical habitat in Oregon & Washington (${pct(s.roadless_share)}) lie in roadless areas`;
+  const tipTxt = `${s.name}: ${n0(s.roadless_acres)} of ${n0(s.total_acres)} acres of its critical habitat in __PLACES__ (${pct(s.roadless_share)}) lie in roadless areas`;
   return `<div class="donut" data-tip="${tipTxt}">
     <svg viewBox="0 0 120 120" role="img" aria-label="${tipTxt}">
       <circle cx="60" cy="60" r="${r}" fill="none" stroke="var(--track)" stroke-width="16"/>
@@ -276,7 +164,7 @@ $("donuts").innerHTML = D.species_context.map((s) => {
       <text x="60" y="66" text-anchor="middle" font-family="var(--display)" font-weight="700" font-size="22" fill="var(--fg)">${pct(s.roadless_share)}</text>
     </svg>
     <div class="donut-name">${s.name.replace(", Coastal DPS", " (coastal)")}</div>
-    <div class="donut-sub"><b>${n0(s.roadless_acres)}</b> of ${n0(s.total_acres)} acres<br>Opened in mid scenario, 10 yrs: <b>${midTxt}</b> of its habitat here</div>
+    <div class="donut-sub"><b>${n0(s.roadless_acres)}</b> of ${n0(s.total_acres)} acres</div>
   </div>`;
 }).join("");
 
@@ -308,7 +196,7 @@ const DECAY = D.decay.slice(0, bandLabels.length);
       <line x1="${cx - 5}" x2="${cx + 5}" y1="${y(d.ci_lo)}" y2="${y(d.ci_lo)}" stroke="var(--fg)" stroke-width="1.5"/>
       <line x1="${cx - 5}" x2="${cx + 5}" y1="${y(d.ci_hi)}" y2="${y(d.ci_hi)}" stroke="var(--fg)" stroke-width="1.5"/>
       <rect x="${L + i * bw}" y="${T}" width="${bw}" height="${ph}" fill="transparent"/></g>
-      <text x="${cx}" y="${y(d.ci_hi) - 6}" text-anchor="middle" font-size="12" fill="var(--fg)" font-family="var(--mono)" font-weight="500">${d.rel_intensity.toFixed(2)}×</text>
+      <text x="${cx}" y="${y(0) - 9}" text-anchor="middle" font-size="13" fill="#14201a" font-family="var(--mono)" font-weight="600">${d.rel_intensity.toFixed(2)}×</text>
       <text x="${cx}" y="${H - 32}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="var(--mono)">${bandLabels[i][0]}</text>
       <text x="${cx}" y="${H - 18}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="var(--mono)">${bandLabels[i][1]}</text>`;
   });
@@ -318,36 +206,33 @@ const DECAY = D.decay.slice(0, bandLabels.length);
     DECAY.map((d, i) => `<tr><td>${bandLabels[i].join(" ")}</td><td class="num">${d.rel_intensity.toFixed(2)}×</td><td class="num">${d.ci_lo.toFixed(2)}–${d.ci_hi.toFixed(2)}</td><td class="num">${d.n_inv}</td></tr>`).join("") + `</tbody>`;
 })();
 
-// scenarios
-const state = { alloc: "near_roads", yr: 10 };
-const allocNote = {
-  near_roads: "Activity goes to eligible land nearest an existing road (typically a few hundred yards away).",
-  spread: "Activity is spread across the roadless area, including remote land (typically about 0.8 mile from a road).",
-};
-const smax = Math.max(...D.scenarios.map((r) => r.activated_acres));
+// scenarios (closest-to-roads allocation; the "spread" case is summarized in the text above)
+const state = { yr: 10 };
+const NEAR = D.scenarios.filter((r) => r.allocation === "near_roads");
+const SPREAD = D.scenarios.filter((r) => r.allocation === "spread");
+$("near-hi").textContent = Math.max(...NEAR.map((r) => r.invasive_mult_hi)).toFixed(1);
+$("spread-lo").textContent = Math.min(...SPREAD.map((r) => r.invasive_mult_lo)).toFixed(1);
+$("spread-hi").textContent = Math.max(...SPREAD.map((r) => r.invasive_mult_hi)).toFixed(1);
 function renderScn() {
-  const rows = D.scenarios.filter((r) => r.allocation === state.alloc && r.horizon_yr === state.yr);
-  $("alloc-note").textContent = allocNote[state.alloc];
+  const rows = NEAR.filter((r) => r.horizon_yr === state.yr);
+  const smax = Math.max(...rows.map((r) => r.activated_acres));
   $("scn-title").textContent = `Roadless acres opened to roads or logging within ${state.yr} years`;
   $("scn").innerHTML = rows.map((r) => {
     const hab = r.crit_hab_acres, oth = r.activated_acres - hab, w = (r.activated_acres / smax) * 100;
     const lo = r.invasive_mult_lo, hi = r.invasive_mult_hi;
     const inv = hi < 1.03 ? "about the same as today" : `${lo.toFixed(1)}× to ${hi.toFixed(1)}× today's level`;
-    const pct = (r.share_of_all_roadless * 100).toFixed(1);
+    const pctAll = (r.share_of_all_roadless * 100).toFixed(1);
     return `<div class="scn-row" data-tip="${r.scenario}: ${n0(r.activated_acres)} acres, ${n0(hab)} in critical habitat">
-      <div class="scn-head"><span class="scn-name">${r.scenario} scenario</span><span class="mono">${n0(r.activated_acres)} acres · ${pct}% of roadless land</span></div>
+      <div class="scn-head"><span class="scn-name">${r.scenario} scenario</span><span class="mono">${n0(r.activated_acres)} acres · ${pctAll}% of roadless land</span></div>
       <div class="scn-bar" style="width:${w}%"><div class="hab" style="width:${(hab / r.activated_acres) * 100}%"></div><div class="oth" style="width:${(oth / r.activated_acres) * 100}%"></div></div>
       <div class="scn-meta"><b>${n0(hab)}</b> acres in critical habitat · invasive-plant pressure on that land: <b>${inv}</b></div></div>`;
   }).join("");
 }
-function wire(id, key, num) {
-  $(id).addEventListener("click", (e) => {
-    const b = e.target.closest("button"); if (!b) return;
-    state[key] = num ? Number(b.dataset.v) : b.dataset.v;
-    $(id).querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-    renderScn();
-  });
-}
-wire("seg-alloc", "alloc", false); wire("seg-yr", "yr", true);
+$("seg-yr").addEventListener("click", (e) => {
+  const btn = e.target.closest("button"); if (!btn) return;
+  state.yr = Number(btn.dataset.v);
+  $("seg-yr").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === btn)));
+  renderScn();
+});
 renderScn();
 </script>

@@ -1,0 +1,11 @@
+{
+  "pnw": {
+    "slug": "pnw",
+    "name": "Pacific Northwest",
+    "places": "Oregon & Washington",
+    "states": ["OR", "WA"],
+    "forest_region": "06",
+    "exclude_forests": ["Scenic Area"],
+    "species": ["Northern spotted owl", "Marbled Murrelet", "Canada Lynx", "Pacific marten, Coastal DPS"]
+  }
+}

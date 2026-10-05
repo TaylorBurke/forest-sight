@@ -1,0 +1,105 @@
+<main>
+<nav class="crumbs"><a href="../index.html">Forest Sight</a> › <span>United States</span></nav>
+<header>
+  <div class="kicker">Forest Sight · United States</div>
+  <h1>United States totals, built one region at a time</h1>
+  <p class="lede" id="lede"></p>
+  <div class="deadline">Public comments due October 6, 2026</div>
+  <a class="btn" href="https://www.regulations.gov/document/FS-2025-0001-223869" target="_blank" rel="noopener">Submit a public comment</a>
+</header>
+
+<section id="coverage">
+  <h2>How much of the country is covered so far</h2>
+  <div class="stats">
+    <div class="stat"><b id="s-acres"></b><span>acres of roadless land analyzed so far</span></div>
+    <div class="stat"><b id="s-cov"></b><span>of the ~44.7 million acres where the national rule applies</span></div>
+    <div class="stat"><b id="s-near"></b><span>of the analyzed land lies within 0.6 mile of an existing Forest Service road</span></div>
+    <div class="stat"><b id="s-hab"></b><span>of the analyzed land lies inside federally designated critical habitat</span></div>
+  </div>
+  <figure>
+    <div class="fig-title">Regions analyzed so far</div>
+    <div class="tbl"><table id="region-table"></table></div>
+    <figcaption>Each region name opens its full study. Colorado and Idaho are excluded because their own state rules replace the national one.</figcaption>
+  </figure>
+</section>
+
+<section id="scenarios">
+  <h2>What could change in 5 and 10 years</h2>
+  <p>These are the regional "what if" scenarios added together. Each region assumes about 10.7% of its roadless land is eligible for road building or logging under current forest plans (the Forest Service's own national figure), and that activity goes first to eligible land closest to an existing road. Choose how far ahead to look.</p>
+  <div class="ctl"><span class="label kicker">Time ahead</span>
+    <div class="seg" id="seg-yr">
+      <button data-v="5" aria-pressed="false">5 years</button>
+      <button data-v="10" aria-pressed="true">10 years</button>
+    </div>
+  </div>
+  <figure>
+    <div class="fig-title" id="scn-title"></div>
+    <div class="scn" id="scn"></div>
+    <div class="legend"><span><i style="background:var(--c1)"></i>Inside critical habitat</span><span><i style="background:var(--forest-line)"></i>Other roadless land</span></div>
+    <figcaption>Bars are scaled to the largest scenario shown. The paces (5% / 10% / 20% of eligible acres within 5 years, 15% / 30% / 60% within 10 years) are assumptions, not forecasts.</figcaption>
+  </figure>
+</section>
+
+<section id="method">
+  <h2>How the national totals are built</h2>
+  <ul>
+    <li><b>Sums.</b> Acres, critical-habitat acres and scenario acres are added across regions.</li>
+    <li><b>Shares.</b> Percentages are weighted by acres, so a large region counts for more than a small one.</li>
+    <li><b>Same method everywhere.</b> Every region is analyzed with the same open-source pipeline, so numbers can be compared and added.</li>
+    <li><b>Invasive plants and species.</b> These are studied inside each region. A pooled national view will be added when more regions are in.</li>
+  </ul>
+</section>
+
+<footer>
+  <span>Code, data pipeline and methods are open source: <a href="https://github.com/TaylorBurke/forest-sight" target="_blank" rel="noopener">github.com/TaylorBurke/forest-sight</a>. This is an independent analysis and not affiliated with any agency.</span>
+</footer>
+</main>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const D = /*__DATA__*/null;
+const $ = (id) => document.getElementById(id);
+const n0 = (n) => Math.round(n).toLocaleString("en-US");
+const tip = $("tip");
+document.addEventListener("pointermove", (e) => {
+  const t = e.target.closest("[data-tip]");
+  if (!t) { tip.style.opacity = 0; return; }
+  tip.textContent = t.dataset.tip;
+  tip.style.opacity = 1;
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 250) + "px";
+  tip.style.top = (e.clientY + 14) + "px";
+});
+
+const names = D.regions.map((r) => r.name);
+const list = names.length > 1 ? names.slice(0, -1).join(", ") + " and " + names[names.length - 1] : names[0];
+$("lede").textContent = `This page adds up every region analyzed so far. Right now that is ${D.regions.length} region${D.regions.length === 1 ? "" : "s"}: ${list}. As more regions are added, these totals grow automatically. Colorado and Idaho are left out because they have their own state rules.`;
+$("s-acres").textContent = (D.total_acres / 1e6).toFixed(2) + "M";
+$("s-cov").textContent = Math.round((D.total_acres / D.national_acres) * 100) + "%";
+$("s-near").textContent = Math.round(D.near1km_share * 100) + "%";
+$("s-hab").textContent = Math.round(D.hab_share * 100) + "%";
+
+const regs = [...D.regions].sort((a, b) => b.total_acres - a.total_acres);
+$("region-table").innerHTML = `<thead><tr><th>Region</th><th>States</th><th class="num">Roadless acres</th><th class="num">Critical habitat</th></tr></thead><tbody>` +
+  regs.map((r) => `<tr><td><a href="../${r.slug}/index.html">${r.name}</a></td><td>${r.places}</td><td class="num">${n0(r.total_acres)}</td><td class="num">${Math.round(r.hab_share * 100)}%</td></tr>`).join("") + `</tbody>`;
+
+const state = { yr: 10 };
+function renderScn() {
+  const rows = D.scenarios.filter((r) => r.horizon_yr === state.yr);
+  const smax = Math.max(...rows.map((r) => r.activated_acres));
+  $("scn-title").textContent = `Roadless acres opened to roads or logging within ${state.yr} years, all regions combined`;
+  $("scn").innerHTML = rows.map((r) => {
+    const hab = r.crit_hab_acres, oth = r.activated_acres - hab, w = (r.activated_acres / smax) * 100;
+    return `<div class="scn-row" data-tip="${r.scenario}: ${n0(r.activated_acres)} acres, ${n0(hab)} in critical habitat">
+      <div class="scn-head"><span class="scn-name">${r.scenario} scenario</span><span class="mono">${n0(r.activated_acres)} acres · ${(r.share_of_all_roadless * 100).toFixed(1)}% of analyzed roadless land</span></div>
+      <div class="scn-bar" style="width:${w}%"><div class="hab" style="width:${(hab / r.activated_acres) * 100}%"></div><div class="oth" style="width:${(oth / r.activated_acres) * 100}%"></div></div>
+      <div class="scn-meta"><b>${n0(hab)}</b> acres in critical habitat</div></div>`;
+  }).join("");
+}
+$("seg-yr").addEventListener("click", (e) => {
+  const btn = e.target.closest("button"); if (!btn) return;
+  state.yr = Number(btn.dataset.v);
+  $("seg-yr").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === btn)));
+  renderScn();
+});
+renderScn();
+</script>

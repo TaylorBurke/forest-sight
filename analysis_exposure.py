@@ -1,13 +1,14 @@
 """Grid-sample IRAs (250 m) -> distance to nearest NFS road + critical-habitat overlap."""
+from region import REGION, CFG, DATA, RAW
 import numpy as np, geopandas as gpd, pandas as pd
 from shapely import STRtree, points
 
 A, STEP = 5070, 250
 CELL_ACRES = STEP * STEP / 4046.856
 
-ira = gpd.read_file("data/raw/ira_pnw.gpkg").to_crs(A)
-roads = gpd.read_file("data/raw/roads_nfs.gpkg").to_crs(A)
-hab = gpd.read_file("data/raw/critical_habitat.gpkg").to_crs(A)
+ira = gpd.read_file(f"{RAW}/ira.gpkg").to_crs(A)
+roads = gpd.read_file(f"{RAW}/roads_nfs.gpkg").to_crs(A)
+hab = gpd.read_file(f"{RAW}/critical_habitat.gpkg").to_crs(A)
 print("roads km:", round(roads.length.sum() / 1000), flush=True)
 
 # grid points inside IRAs; first match wins so overlapping polygons aren't double counted
@@ -31,7 +32,7 @@ for name, g in hab.dissolve("comname").geometry.items():
     if m.any():
         hab_hits[name] = int(m.sum())
         pts.loc[m, "in_crit_hab"] = True
-pts.to_parquet("data/ira_points.parquet")
+pts.to_parquet(f"{DATA}/ira_points.parquet")
 
 print("\nShare of roadless area by distance to nearest existing NFS road:")
 for km in (0.5, 1, 2, 5):

@@ -1,7 +1,8 @@
 """Download existing NFS roads and USFWS critical habitat within the OR/WA roadless bbox."""
+from region import REGION, CFG, DATA, RAW
 import requests, geopandas as gpd, pandas as pd
 
-ira = gpd.read_file("data/raw/ira_pnw.gpkg")
+ira = gpd.read_file(f"{RAW}/ira.gpkg")
 minx, miny, maxx, maxy = ira.total_bounds
 ENV = f"{minx},{miny},{maxx},{maxy}"
 
@@ -22,8 +23,8 @@ def pull(url, page):
     return pd.concat(frames, ignore_index=True)
 
 roads = pull("https://apps.fs.usda.gov/ArcX/rest/services/EDW/EDW_RoadBasic_01/MapServer/0/query", 1000)
-roads.to_file("data/raw/roads_nfs.gpkg", driver="GPKG")
+roads.to_file(f"{RAW}/roads_nfs.gpkg", driver="GPKG")
 hab = pull("https://services.arcgis.com/QVENGdaPbd4LUkLV/arcgis/rest/services/USFWS_Critical_Habitat/FeatureServer/0/query", 100)
-hab.to_file("data/raw/critical_habitat.gpkg", driver="GPKG")
+hab.to_file(f"{RAW}/critical_habitat.gpkg", driver="GPKG")
 print(len(roads), "roads;", len(hab), "habitat polygons")
 print(hab.groupby(["comname","listing_status"]).size())
