@@ -1,0 +1,306 @@
+{
+ "region": {
+  "name": "Oregon & Washington",
+  "short": "the Pacific Northwest"
+ },
+ "total_acres": 3980791,
+ "polygons": 1734,
+ "median_road_m": 1342,
+ "hab_share": 0.438,
+ "proximity": {
+  "0.5": 0.166,
+  "1": 0.378,
+  "2": 0.679,
+  "5": 0.951
+ },
+ "species": [
+  {
+   "name": "Northern spotted owl",
+   "acres": 1147372
+  },
+  {
+   "name": "Marbled Murrelet",
+   "acres": 541933
+  },
+  {
+   "name": "Canada Lynx",
+   "acres": 356712
+  },
+  {
+   "name": "Pacific marten, Coastal DPS",
+   "acres": 176171
+  }
+ ],
+ "forests": [
+  {
+   "forest": "Wenatchee",
+   "acres": 578705,
+   "near1km": 0.341,
+   "hab": 0.504
+  },
+  {
+   "forest": "Wallowa-Whitman",
+   "acres": 479477,
+   "near1km": 0.273,
+   "hab": 0.002
+  },
+  {
+   "forest": "Okanogan",
+   "acres": 427168,
+   "near1km": 0.173,
+   "hab": 0.831
+  },
+  {
+   "forest": "Mt. Baker-Snoqualmie",
+   "acres": 414936,
+   "near1km": 0.252,
+   "hab": 0.834
+  },
+  {
+   "forest": "Siskiyou",
+   "acres": 284187,
+   "near1km": 0.44,
+   "hab": 0.671
+  },
+  {
+   "forest": "Umatilla",
+   "acres": 282148,
+   "near1km": 0.426,
+   "hab": 0.002
+  },
+  {
+   "forest": "Gifford Pinchot",
+   "acres": 212789,
+   "near1km": 0.542,
+   "hab": 0.782
+  },
+  {
+   "forest": "Malheur",
+   "acres": 181993,
+   "near1km": 0.507,
+   "hab": 0.002
+  },
+  {
+   "forest": "Colville",
+   "acres": 181761,
+   "near1km": 0.349,
+   "hab": 0.007
+  },
+  {
+   "forest": "Willamette",
+   "acres": 157916,
+   "near1km": 0.636,
+   "hab": 0.472
+  },
+  {
+   "forest": "Deschutes",
+   "acres": 136665,
+   "near1km": 0.39,
+   "hab": 0.216
+  },
+  {
+   "forest": "Mt. Hood",
+   "acres": 117823,
+   "near1km": 0.492,
+   "hab": 0.046
+  },
+  {
+   "forest": "Umpqua",
+   "acres": 109761,
+   "near1km": 0.769,
+   "hab": 0.748
+  }
+ ],
+ "decay": [
+  {
+   "band": "0-100 m",
+   "rel_intensity": 1.47,
+   "ci_lo": 1.371,
+   "ci_hi": 1.565,
+   "n_inv": 553,
+   "n_ctrl": 3440
+  },
+  {
+   "band": "100-250 m",
+   "rel_intensity": 1.03,
+   "ci_lo": 0.881,
+   "ci_hi": 1.194,
+   "n_inv": 162,
+   "n_ctrl": 1438
+  },
+  {
+   "band": "250-500 m",
+   "rel_intensity": 0.842,
+   "ci_lo": 0.712,
+   "ci_hi": 0.989,
+   "n_inv": 130,
+   "n_ctrl": 1413
+  },
+  {
+   "band": "0.5-1 km",
+   "rel_intensity": 0.759,
+   "ci_lo": 0.64,
+   "ci_hi": 0.89,
+   "n_inv": 131,
+   "n_ctrl": 1578
+  },
+  {
+   "band": "1-2 km",
+   "rel_intensity": 0.532,
+   "ci_lo": 0.439,
+   "ci_hi": 0.648,
+   "n_inv": 96,
+   "n_ctrl": 1651
+  },
+  {
+   "band": "2-5 km",
+   "rel_intensity": 0.92,
+   "ci_lo": 0.683,
+   "ci_hi": 1.214,
+   "n_inv": 53,
+   "n_ctrl": 527
+  },
+  {
+   "band": ">5 km",
+   "rel_intensity": 0.513,
+   "ci_lo": 0.328,
+   "ci_hi": 0.735,
+   "n_inv": 28,
+   "n_ctrl": 499
+  }
+ ],
+ "scenarios": [
+  {
+   "allocation": "near_roads",
+   "scenario": "Low",
+   "horizon_yr": 5,
+   "activated_acres": 21359,
+   "crit_hab_acres": 8417,
+   "crit_hab_share": 0.394,
+   "invasive_mult_lo": 1.0,
+   "invasive_mult_hi": 1.0,
+   "share_of_all_roadless": 0.0054
+  },
+  {
+   "allocation": "near_roads",
+   "scenario": "Low",
+   "horizon_yr": 10,
+   "activated_acres": 64108,
+   "crit_hab_acres": 26564,
+   "crit_hab_share": 0.414,
+   "invasive_mult_lo": 1.0,
+   "invasive_mult_hi": 1.0,
+   "share_of_all_roadless": 0.0161
+  },
+  {
+   "allocation": "near_roads",
+   "scenario": "Mid",
+   "horizon_yr": 5,
+   "activated_acres": 42734,
+   "crit_hab_acres": 17560,
+   "crit_hab_share": 0.411,
+   "invasive_mult_lo": 1.0,
+   "invasive_mult_hi": 1.0,
+   "share_of_all_roadless": 0.0107
+  },
+  {
+   "allocation": "near_roads",
+   "scenario": "Mid",
+   "horizon_yr": 10,
+   "activated_acres": 128232,
+   "crit_hab_acres": 54842,
+   "crit_hab_share": 0.428,
+   "invasive_mult_lo": 1.04,
+   "invasive_mult_hi": 1.15,
+   "share_of_all_roadless": 0.0322
+  },
+  {
+   "allocation": "near_roads",
+   "scenario": "High",
+   "horizon_yr": 5,
+   "activated_acres": 85483,
+   "crit_hab_acres": 35568,
+   "crit_hab_share": 0.416,
+   "invasive_mult_lo": 1.01,
+   "invasive_mult_hi": 1.05,
+   "share_of_all_roadless": 0.0215
+  },
+  {
+   "allocation": "near_roads",
+   "scenario": "High",
+   "horizon_yr": 10,
+   "activated_acres": 256465,
+   "crit_hab_acres": 111707,
+   "crit_hab_share": 0.436,
+   "invasive_mult_lo": 1.07,
+   "invasive_mult_hi": 1.27,
+   "share_of_all_roadless": 0.0644
+  },
+  {
+   "allocation": "spread",
+   "scenario": "Low",
+   "horizon_yr": 5,
+   "activated_acres": 21359,
+   "crit_hab_acres": 8865,
+   "crit_hab_share": 0.415,
+   "invasive_mult_lo": 1.06,
+   "invasive_mult_hi": 1.23,
+   "share_of_all_roadless": 0.0054
+  },
+  {
+   "allocation": "spread",
+   "scenario": "Low",
+   "horizon_yr": 10,
+   "activated_acres": 64108,
+   "crit_hab_acres": 28417,
+   "crit_hab_share": 0.443,
+   "invasive_mult_lo": 1.13,
+   "invasive_mult_hi": 1.51,
+   "share_of_all_roadless": 0.0161
+  },
+  {
+   "allocation": "spread",
+   "scenario": "Mid",
+   "horizon_yr": 5,
+   "activated_acres": 42734,
+   "crit_hab_acres": 18641,
+   "crit_hab_share": 0.436,
+   "invasive_mult_lo": 1.1,
+   "invasive_mult_hi": 1.41,
+   "share_of_all_roadless": 0.0107
+  },
+  {
+   "allocation": "spread",
+   "scenario": "Mid",
+   "horizon_yr": 10,
+   "activated_acres": 128232,
+   "crit_hab_acres": 58162,
+   "crit_hab_share": 0.454,
+   "invasive_mult_lo": 1.17,
+   "invasive_mult_hi": 1.69,
+   "share_of_all_roadless": 0.0322
+  },
+  {
+   "allocation": "spread",
+   "scenario": "High",
+   "horizon_yr": 5,
+   "activated_acres": 85483,
+   "crit_hab_acres": 38610,
+   "crit_hab_share": 0.452,
+   "invasive_mult_lo": 1.15,
+   "invasive_mult_hi": 1.58,
+   "share_of_all_roadless": 0.0215
+  },
+  {
+   "allocation": "spread",
+   "scenario": "High",
+   "horizon_yr": 10,
+   "activated_acres": 256465,
+   "crit_hab_acres": 112835,
+   "crit_hab_share": 0.44,
+   "invasive_mult_lo": 1.25,
+   "invasive_mult_hi": 2.01,
+   "share_of_all_roadless": 0.0644
+  }
+ ]
+}
