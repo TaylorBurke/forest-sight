@@ -16,7 +16,8 @@ roads = gpd.read_file(f"{RAW}/roads_nfs.gpkg").to_crs(A)
 forests = gpd.read_file(f"{RAW}/forest_boundaries.gpkg").to_crs(A)
 # Region 6 national forests only: the NFS road layer omits highways/county roads that dominate the Columbia
 # River Gorge NSA's mixed ownership, and neighbouring regions' forests are only partly covered by our road pull.
-forests = forests[(forests.region == CFG["forest_region"]) & ~forests.forestname.str.contains("|".join(CFG["exclude_forests"]))]
+codes = [CFG["forest_region"]] if isinstance(CFG["forest_region"], str) else CFG["forest_region"]  # one code or several
+forests = forests[forests.region.isin(codes) & ~forests.forestname.str.contains("|".join(CFG["exclude_forests"]))]
 tree = STRtree(roads.geometry.values)
 
 

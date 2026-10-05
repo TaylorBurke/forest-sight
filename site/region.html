@@ -248,7 +248,7 @@ renderScn();
   const farWhere = ["within 330 feet", "330 to 820 feet out", "820 feet to 0.3 mile out", "0.3 to 0.6 mile out", "0.6 to 1.2 miles out", "1.2 to 3.1 miles out", "more than 3.1 miles out"][DECAY.length - 1];
   $("inv-h").textContent = follows ? "Invasive plants follow roads" : "What the records show about invasive plants and roads";
   $("decay").setAttribute("aria-label", `Bar chart of how often invasive plants are recorded by distance from a road: ${near.rel_intensity.toFixed(2)} times normal within 330 feet, ${far.rel_intensity.toFixed(2)} times normal ${farWhere}`);
-  $("inv-cap").textContent = `1.0× means invasive plants are recorded as often as plants in general. Bars show the best estimate and whiskers the 95% confidence range. Based on ${n0(m.n_records)} invasive-plant records (${m.species_text}) on ${D.region.places} national forests, 2005–2025, from GBIF.${m.n_dropped > 0 ? ` Distances beyond ${ends} (${m.n_dropped} records) are left off because there are too few records to read a trend.` : ""}`;
+  $("inv-cap").textContent = `1.0× means invasive plants are recorded as often as plants in general. Bars show the best estimate and whiskers the 95% confidence range. Based on ${n0(m.n_records)} invasive-plant records (${m.species_text}) on ${D.region.places} national forests, 2005–2025, from GBIF.${m.n_dropped > 0 ? ` Distances beyond ${ends} (${m.n_dropped} records) are left off because ${m.reason}.` : ""}`;
   const nearTxt = near.rel_intensity >= 1.03 ? `roughly ${near.rel_intensity.toFixed(1)} times more often than expected` : near.rel_intensity <= 0.97 ? `less often than expected (${near.rel_intensity.toFixed(2)}×)` : "about as often as expected";
   const farTxt = far.rel_intensity <= 0.6 ? "about half of normal" : `${far.rel_intensity.toFixed(2)}× normal`;
   const rest = DECAY.slice(1).map((d) => d.rel_intensity), rLo = Math.min(...rest), rHi = Math.max(...rest);
@@ -267,7 +267,7 @@ renderScn();
   const spreadPart = spHi >= 1.25
     ? ` If activity instead reached more remote land, typically about ${mi1(D.median_road_m)} mile from a road, the same acreage could raise invasive pressure there to roughly ${spLo.toFixed(1)}× to ${spHi.toFixed(1)}× today's level.`
     : ` If activity instead reached more remote land, invasive pressure would change little here (at most ${spHi.toFixed(1)}× today's level).`;
-  $("band-note").textContent = m.n_dropped > 0 ? `Distances beyond ${ends} had too few records to chart, so the calculation treats them like the last charted band.` : "";
+  $("band-note").textContent = m.n_dropped > 0 ? `Distances beyond ${ends} are left off the chart because ${m.reason}, so the calculation treats them like the last charted band.` : "";
   $("scn-p").textContent = `Because the closest eligible land is already near roads, ${nearPart}${nearHi < 1.35 && spHi >= 1.25 ? " That is the favorable case for invasive plants." : ""}${spreadPart} In either case about ${hLo}–${hHi}% of the opened acres would sit in critical habitat.`;
 })();
 </script>

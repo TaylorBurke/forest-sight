@@ -13,10 +13,14 @@ print("roads km:", round(roads.length.sum() / 1000), flush=True)
 
 # grid points inside IRAs; first match wins so overlapping polygons aren't double counted
 minx, miny, maxx, maxy = ira.total_bounds
-xs, ys = np.meshgrid(np.arange(minx, maxx, STEP), np.arange(miny, maxy, STEP))
-pts = gpd.GeoDataFrame(geometry=points(xs.ravel(), ys.ravel()), crs=A)
-pts = gpd.sjoin(pts, ira[["forest", "state", "name", "geometry"]], predicate="within")
-pts = pts[~pts.index.duplicated()].drop(columns="index_right").copy()
+X, Y = np.arange(minx, maxx, STEP), np.arange(miny, maxy, STEP)
+parts = []
+for i in range(0, len(Y), 400):  # row chunks keep memory bounded: a region's bounding box can hold tens of millions of cells
+    xs, ys = np.meshgrid(X, Y[i:i + 400])
+    chunk = gpd.GeoDataFrame(geometry=points(xs.ravel(), ys.ravel()), crs=A)
+    chunk = gpd.sjoin(chunk, ira[["forest", "state", "name", "geometry"]], predicate="within")
+    parts.append(chunk[~chunk.index.duplicated()].drop(columns="index_right"))
+pts = pd.concat(parts, ignore_index=True)
 print("sample points:", len(pts), "=> acres", round(len(pts) * CELL_ACRES), flush=True)
 
 # distance to nearest road

@@ -4,7 +4,8 @@ A region appears automatically once data/<slug>/scenarios.csv exists (see region
 analyzed region, so adding a region updates the totals and adds a card on the hub with no template edits.
 """
 import hashlib, json, os, shutil
-from region import MIN_BAND_RECORDS
+from region import usable_bands, MIN_BAND_RECORDS
+MIN_RECORDS_TXT = MIN_BAND_RECORDS
 import numpy as np, pandas as pd, geopandas as gpd
 
 # Version tag for the stylesheet link: browsers cache Pages assets for ~10 min, so a changed stylesheet must change its URL.
@@ -41,9 +42,9 @@ def page(title, desc, path, depth, body):
 """
 
 
-def n_bands(decay):
-    """How many leading distance bands have enough records (>= MIN_BAND_RECORDS) to chart."""
-    return next((i for i, n in enumerate(decay.n_inv) if n < MIN_BAND_RECORDS), len(decay))
+def n_bands(decay, cfg):
+    """How many leading distance bands to chart (enough records, and within the region's max_bands)."""
+    return usable_bands(decay, cfg)
 
 
 def load_region(slug, cfg):
@@ -51,7 +52,8 @@ def load_region(slug, cfg):
     pts = gpd.read_parquet(f"{d}/ira_points.parquet")
     ira = gpd.read_file(f"{raw}/ira.gpkg").to_crs(A)
     forests = gpd.read_file(f"{raw}/forest_boundaries.gpkg").to_crs(A)
-    forests = forests[(forests.region == cfg["forest_region"]) & ~forests.forestname.str.contains("|".join(cfg["exclude_forests"]))]
+    codes = [cfg["forest_region"]] if isinstance(cfg["forest_region"], str) else cfg["forest_region"]
+    forests = forests[forests.region.isin(codes) & ~forests.forestname.str.contains("|".join(cfg["exclude_forests"]))]
     total = len(pts) * CELL_ACRES
     scen = pd.read_csv(f"{d}/scenarios.csv")
     by_forest = pts.groupby("forest").agg(
@@ -66,12 +68,13 @@ def load_region(slug, cfg):
         "proximity": {f"{km}": round(float((pts.road_dist_m <= km * 1000).mean()), 3) for km in (0.5, 1, 2, 5)},
         "forests": [{"forest": r.forest, "acres": round(r.acres), "near1km": round(r.near1km, 3), "hab": round(r.hab, 3)}
                     for r in by_forest.itertuples()],
-        "decay": pd.read_csv(f"{d}/invasive_decay.csv").round(3).head(n_bands(pd.read_csv(f"{d}/invasive_decay.csv"))).to_dict("records"),
+        "decay": pd.read_csv(f"{d}/invasive_decay.csv").round(3).head(n_bands(pd.read_csv(f"{d}/invasive_decay.csv"), cfg)).to_dict("records"),
         "scenarios": scen.to_dict("records"),
         "species_context": json.load(open(f"{d}/species_context.json")),
     }
     decay_all = pd.read_csv(f"{d}/invasive_decay.csv")  # all bands; the chart shows the first five
-    data["invasive_meta"] = {"n_records": int(decay_all.n_inv.sum()), "n_dropped": int(decay_all.n_inv.iloc[n_bands(decay_all):].sum()),
+    data["invasive_meta"] = {"n_records": int(decay_all.n_inv.sum()), "n_dropped": int(decay_all.n_inv.iloc[n_bands(decay_all, cfg):].sum()),
+                             "reason": "there are too few records to read a trend" if (decay_all.n_inv.iloc[n_bands(decay_all, cfg):] < MIN_RECORDS_TXT).any() else "the estimate there is too uncertain to read a trend",
                              "species_text": cfg["invasives_text"]}
     summary = {
         "slug": slug, "name": cfg["name"], "places": cfg["places"], "total_acres": data["total_acres"],

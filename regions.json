@@ -66,6 +66,47 @@
       "Cirsium arvense": 3113414
     },
     "invasives_text": "yellow starthistle, cheatgrass, bull thistle, St. John's wort, red and ripgut brome and others",
-    "roads_note": "For that reason the Lake Tahoe Basin Management Unit, which has many highways and county roads, was left out of the invasive-plant analysis."
+    "roads_note": "For that reason the Lake Tahoe Basin Management Unit, which has many highways and county roads, was left out of the invasive-plant analysis.",
+    "max_bands": 6
+  },
+  "swgb": {
+    "slug": "swgb",
+    "name": "Southwest and Great Basin",
+    "places": "Utah, Nevada, Arizona & New Mexico",
+    "states": [
+      "UT",
+      "NV",
+      "AZ",
+      "NM"
+    ],
+    "forest_region": [
+      "03",
+      "04"
+    ],
+    "exclude_forests": [
+      "Lake Tahoe Basin"
+    ],
+    "species": [],
+    "invasives": {
+      "Bromus tectorum": 2703746,
+      "Tamarix ramosissima": 2874700,
+      "Tamarix chinensis": 2874696,
+      "Elaeagnus angustifolia": 3039269,
+      "Rhaponticum repens": 3142208,
+      "Halogeton glomeratus": 3083621,
+      "Taeniatherum caput-medusae": 2705666,
+      "Cirsium arvense": 3113414,
+      "Carduus nutans": 8185959,
+      "Linaria dalmatica": 5415011,
+      "Euphorbia esula": 8203538,
+      "Cirsium vulgare": 3112801,
+      "Lepidium latifolium": 5376692,
+      "Ulmus pumila": 5361877,
+      "Bromus rubens": 2703740,
+      "Cenchrus ciliaris": 4109540,
+      "Bromus japonicus": 8113508
+    },
+    "invasives_text": "cheatgrass, tamarisk, Russian olive, Canada thistle and others",
+    "roads_note": "Highways, county roads and private roads are not in the data, so every distance is to the nearest Forest Service road."
   }
 }
