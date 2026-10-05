@@ -112,5 +112,45 @@
     },
     "invasives_text": "cheatgrass, Russian olive, Siberian elm, Dalmatian toadflax, musk thistle and others",
     "roads_note": "Highways, county roads and private roads are not in the data, so every distance is to the nearest Forest Service road."
+  },
+  "nr": {
+    "slug": "nr",
+    "name": "Northern Rockies and Plains",
+    "places": "Montana, Wyoming, North Dakota & South Dakota",
+    "states": [
+      "MT",
+      "WY",
+      "ND",
+      "SD"
+    ],
+    "forest_region": [
+      "01",
+      "02",
+      "04"
+    ],
+    "exclude_forests": [],
+    "species": [
+      "Canada Lynx",
+      "Bull Trout",
+      "Dakota Skipper"
+    ],
+    "invasives": {
+      "Centaurea stoebe": 3127727,
+      "Centaurea diffusa": 3128962,
+      "Euphorbia esula": 8203538,
+      "Cirsium arvense": 3113414,
+      "Cynoglossum officinale": 2925815,
+      "Linaria dalmatica": 5415011,
+      "Linaria vulgaris": 5415020,
+      "Leucanthemum vulgare": 8848598,
+      "Bromus tectorum": 2703746,
+      "Carduus nutans": 8185959,
+      "Hypericum perforatum": 3189486,
+      "Bromus inermis": 2703670,
+      "Tanacetum vulgare": 3118274,
+      "Cirsium vulgare": 3112801
+    },
+    "invasives_text": "spotted knapweed, leafy spurge, Canada thistle, houndstongue and others",
+    "roads_note": "Highways, county roads and private roads are not in the data, so every distance is to the nearest Forest Service road."
   }
 }

@@ -1,0 +1,13 @@
+allocation,scenario,horizon_yr,activated_acres,crit_hab_acres,crit_hab_share,invasive_mult_lo,invasive_mult_hi,share_of_all_roadless
+near_roads,Low,5,53591,1251,0.023,1.0,1.0,0.0054
+near_roads,Low,10,160788,4108,0.026,1.0,1.0,0.0161
+near_roads,Mid,5,107197,2610,0.024,1.0,1.0,0.0107
+near_roads,Mid,10,321592,9961,0.031,1.02,1.09,0.0322
+near_roads,High,5,214395,6023,0.028,1.01,1.04,0.0215
+near_roads,High,10,643200,24278,0.038,1.05,1.2,0.0644
+spread,Low,5,53591,5452,0.102,1.17,1.68,0.0054
+spread,Low,10,160788,15660,0.097,1.17,1.68,0.0161
+spread,Mid,5,107197,10487,0.098,1.17,1.68,0.0107
+spread,Mid,10,321592,31552,0.098,1.17,1.68,0.0322
+spread,High,5,214395,21019,0.098,1.17,1.68,0.0215
+spread,High,10,643200,63367,0.099,1.17,1.68,0.0644

@@ -1,0 +1,284 @@
+[
+ {
+  "name": "Canada Lynx",
+  "total_acres": 4402667,
+  "total_us_acres": 20813668,
+  "features": 1,
+  "roadless_acres": 972236,
+  "roadless_share": 0.2208,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 1189,
+    "share": 0.00027
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 4000,
+    "share": 0.00091
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 2533,
+    "share": 0.00058
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 9745,
+    "share": 0.00221
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 5884,
+    "share": 0.00134
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 23830,
+    "share": 0.00541
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 5421,
+    "share": 0.00123
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 15614,
+    "share": 0.00355
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 10456,
+    "share": 0.00237
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 31398,
+    "share": 0.00713
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 20942,
+    "share": 0.00476
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 63058,
+    "share": 0.01432
+   }
+  ]
+ },
+ {
+  "name": "Bull Trout",
+  "total_acres": 249143,
+  "total_us_acres": 790655,
+  "features": 1,
+  "roadless_acres": 2950,
+  "roadless_share": 0.0118,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 15,
+    "share": 6e-05
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 77,
+    "share": 0.00031
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 46,
+    "share": 0.00019
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 185,
+    "share": 0.00074
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 124,
+    "share": 0.0005
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 263,
+    "share": 0.00105
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 15,
+    "share": 6e-05
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 62,
+    "share": 0.00025
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 31,
+    "share": 0.00012
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 154,
+    "share": 0.00062
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 93,
+    "share": 0.00037
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 293,
+    "share": 0.00118
+   }
+  ]
+ },
+ {
+  "name": "Dakota Skipper",
+  "total_acres": 8530,
+  "total_us_acres": 19901,
+  "features": 1,
+  "roadless_acres": 1344,
+  "roadless_share": 0.1576,
+  "scenarios": [
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 46,
+    "share": 0.00543
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 46,
+    "share": 0.00543
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 46,
+    "share": 0.00543
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 62,
+    "share": 0.00724
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 46,
+    "share": 0.00543
+   },
+   {
+    "allocation": "near_roads",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 216,
+    "share": 0.02535
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 5,
+    "acres": 15,
+    "share": 0.00181
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Low",
+    "horizon_yr": 10,
+    "acres": 15,
+    "share": 0.00181
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 5,
+    "acres": 15,
+    "share": 0.00181
+   },
+   {
+    "allocation": "spread",
+    "scenario": "Mid",
+    "horizon_yr": 10,
+    "acres": 31,
+    "share": 0.00362
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 5,
+    "acres": 15,
+    "share": 0.00181
+   },
+   {
+    "allocation": "spread",
+    "scenario": "High",
+    "horizon_yr": 10,
+    "acres": 46,
+    "share": 0.00543
+   }
+  ]
+ }
+]

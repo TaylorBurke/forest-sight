@@ -18,7 +18,9 @@ roads = gpd.read_file(f"{RAW}/roads_nfs.gpkg").to_crs(A)
 # Units in exclude_forests (e.g. the Columbia River Gorge NSA, Lake Tahoe Basin) are dropped: their mixed ownership
 # and many highways make "distance to a Forest Service road" misleading even on Forest Service parcels.
 forests = gpd.read_file(f"{RAW}/nfs_land.gpkg").to_crs(A)
-forests = forests[~forests.forestname.str.contains("|".join(CFG["exclude_forests"]), na=False)]
+excl = "|".join(CFG["exclude_forests"])  # an empty list excludes nothing (an empty regex would match every name)
+if excl:
+    forests = forests[~forests.forestname.str.contains(excl, na=False)]
 tree = STRtree(roads.geometry.values)
 
 
