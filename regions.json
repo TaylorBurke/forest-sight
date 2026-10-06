@@ -31,7 +31,8 @@
       "Cirsium vulgare": 3112801
     },
     "invasives_text": "knapweeds, Scotch broom, bull thistle, St. John's wort and others",
-    "roads_note": "For that reason the Columbia River Gorge National Scenic Area, which has many highways and county roads, was left out of the invasive-plant analysis."
+    "roads_note": "For that reason the Columbia River Gorge National Scenic Area, which has many highways and county roads, was left out of the invasive-plant analysis.",
+    "hub_rank": 2
   },
   "ca": {
     "slug": "ca",
@@ -66,7 +67,8 @@
       "Cirsium arvense": 3113414
     },
     "invasives_text": "yellow starthistle, cheatgrass, bull thistle, St. John's wort, red and ripgut brome and others",
-    "roads_note": "For that reason the Lake Tahoe Basin Management Unit, which has many highways and county roads, was left out of the invasive-plant analysis."
+    "roads_note": "For that reason the Lake Tahoe Basin Management Unit, which has many highways and county roads, was left out of the invasive-plant analysis.",
+    "hub_rank": 3
   },
   "swgb": {
     "slug": "swgb",
@@ -111,7 +113,8 @@
       "Bromus japonicus": 8113508
     },
     "invasives_text": "cheatgrass, Russian olive, Siberian elm, Dalmatian toadflax, musk thistle and others",
-    "roads_note": "Highways, county roads and private roads are not in the data, so every distance is to the nearest Forest Service road."
+    "roads_note": "Highways, county roads and private roads are not in the data, so every distance is to the nearest Forest Service road.",
+    "hub_rank": 4
   },
   "nr": {
     "slug": "nr",
@@ -151,7 +154,8 @@
       "Cirsium vulgare": 3112801
     },
     "invasives_text": "spotted knapweed, leafy spurge, Canada thistle, houndstongue and others",
-    "roads_note": "Highways, county roads and private roads are not in the data, so every distance is to the nearest Forest Service road."
+    "roads_note": "Highways, county roads and private roads are not in the data, so every distance is to the nearest Forest Service road.",
+    "hub_rank": 5
   },
   "ak": {
     "slug": "ak",
@@ -169,6 +173,7 @@
     "species": [],
     "invasives": {},
     "invasives_text": "",
-    "roads_note": ""
+    "roads_note": "",
+    "hub_rank": 1
   }
 }

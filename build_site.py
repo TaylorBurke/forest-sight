@@ -280,9 +280,17 @@ for i_, (s_, ira_) in enumerate(zip(summaries, iras)):
 us_map = thumb(layers, bounds, svg_class="thumb us-map", labels=labels)
 cards = [f"""<a class="card card-us" href="us/index.html"><div class="card-img">{us_map}</div><div class="card-body"><span class="kicker">All regions combined</span><h3>United States totals</h3>
 <p>Combined results for every region analyzed so far: {n_reg} region{'s' if n_reg != 1 else ''}, {total / 1e6:.2f} million roadless acres, {total / NATIONAL_ACRES:.0%} of the ~44.7 million acres where the national rule applies.</p><span class="go">Open the totals →</span></div></a>"""]
+# cards are ordered by each region's hub_rank in regions.json (lower = higher on the page)
+region_cards = []
+
+
+def add_card(slug, html):
+    region_cards.append((regions[slug].get("hub_rank", 99), html))
+
+
 for s, ira, forests in zip(summaries, iras, forest_sets):
     region_map = thumb([(forests, "map-forest", 3000, None), (ira, "map-ira", 2500, 1500)], ira.total_bounds)
-    cards.append(f"""<a class="card" data-region="{s['slug']}" href="{s['slug']}/index.html"><div class="card-img">{region_map}</div><div class="card-body"><span class="kicker">{s['places'].replace('&', '&amp;')}</span><h3>{s['name']}</h3>
+    add_card(s['slug'], f"""<a class="card" data-region="{s['slug']}" href="{s['slug']}/index.html"><div class="card-img">{region_map}</div><div class="card-body"><span class="kicker">{s['places'].replace('&', '&amp;')}</span><h3>{s['name']}</h3>
 <p>{s['total_acres'] / 1e6:.2f} million roadless acres, {s['hab_acres'] / s['total_acres']:.0%} inside critical habitat. Habitat, invasive plants and 5- and 10-year scenarios.</p><span class="go">Open the study →</span></div></a>""")
 if ak:
     ak_forest = gpd.read_file("data/ak/raw/nfs_land.gpkg").to_crs(3338)
@@ -292,8 +300,9 @@ if ak:
     ak_forest = ak_forest[~ak_forest.geometry.is_empty]
     ak_map = thumb([(gpd.GeoDataFrame(geometry=ak_states.geometry.intersection(win), crs=3338), "map-state", 3000, None),
                     (ak_forest, "map-forest", 4000, None), (ak_ira, "map-ira", 3000, 3000)], win.bounds)
-    cards.append(f"""<a class="card" data-region="ak" href="ak/index.html"><div class="card-img">{ak_map}</div><div class="card-body"><span class="kicker">Alaska</span><h3>Alaska</h3>
+    add_card("ak", f"""<a class="card" data-region="ak" href="ak/index.html"><div class="card-img">{ak_map}</div><div class="card-body"><span class="kicker">Alaska</span><h3>Alaska</h3>
 <p>{AK['total_acres'] / 1e6:.2f} million roadless acres in the Tongass and Chugach, a third of the national total. Remoteness, salmon streams, old growth and logging history.</p><span class="go">Open the study →</span></div></a>""")
+cards += [html for _, html in sorted(region_cards, key=lambda x: x[0])]
 hub_body = (open("site/hub.html").read().replace("__CARDS__", "\n".join(cards)).replace("__COMMENT_URL__", COMMENT_URL)
             .replace("__GITHUB__", GITHUB))
 write(f"{OUT}/index.html", page(
