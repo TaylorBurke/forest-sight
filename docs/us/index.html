@@ -2,13 +2,13 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>United States Roadless Totals</title>
-<meta name="description" content="Combined results for every region analyzed so far (4): roadless acres, critical habitat overlap and 5- and 10-year scenarios.">
-<meta property="og:type" content="website"><meta property="og:title" content="United States Roadless Totals"><meta property="og:description" content="Combined results for every region analyzed so far (4): roadless acres, critical habitat overlap and 5- and 10-year scenarios.">
+<meta name="description" content="Combined results for every region analyzed so far (5): roadless acres, critical habitat overlap and 5- and 10-year scenarios.">
+<meta property="og:type" content="website"><meta property="og:title" content="United States Roadless Totals"><meta property="og:description" content="Combined results for every region analyzed so far (5): roadless acres, critical habitat overlap and 5- and 10-year scenarios.">
 <meta property="og:url" content="https://taylorburke.github.io/forest-sight/us/"><meta property="og:image" content="https://taylorburke.github.io/forest-sight/assets/share.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/style.css?v=9f8420ef">
+<link rel="stylesheet" href="../assets/style.css?v=92376312">
 </head><body>
 <main>
 <nav class="crumbs"><a href="../index.html">Forest Sight</a> › <span>United States</span></nav>
@@ -37,7 +37,7 @@
 
 <section id="scenarios">
   <h2>What could change in 5 and 10 years</h2>
-  <p>These are the regional "what if" scenarios added together. Each region assumes about 10.7% of its roadless land is eligible for road building or logging under current forest plans (the Forest Service's own national figure), and that activity goes first to eligible land closest to an existing road. Choose how far ahead to look.</p>
+  <p>These are the regional "what if" scenarios added together. Each Lower 48 region assumes about 10.7% of its roadless land is eligible for road building or logging under current forest plans (the Forest Service's own national figure), and that activity goes first to eligible land closest to an existing road. Alaska is the exception: its numbers come from its own logging history, which gives a real pace instead of an assumed one. Choose how far ahead to look.</p>
   <div class="ctl"><span class="label kicker">Time ahead</span>
     <div class="seg" id="seg-yr">
       <button data-v="5" aria-pressed="false">5 years</button>
@@ -57,7 +57,7 @@
   <ul>
     <li><b>Sums.</b> Acres, critical-habitat acres and scenario acres are added across regions.</li>
     <li><b>Shares.</b> Percentages are weighted by acres, so a large region counts for more than a small one.</li>
-    <li><b>Same method everywhere.</b> Every region is analyzed with the same open-source pipeline, so numbers can be compared and added.</li>
+    <li><b>Same method, with one exception.</b> The Lower 48 regions are analyzed with the same open-source pipeline. Alaska is analyzed on its own terms, because its roadless land is far from roads, has no designated critical habitat, and has a long logging record. Only acres, distance to roads and scenario acres from Alaska are added into these totals.</li>
     <li><b>Invasive plants and species.</b> These are studied inside each region. A pooled national view will be added when more regions are in.</li>
   </ul>
 </section>
@@ -69,7 +69,7 @@
 <div id="tip" role="tooltip"></div>
 
 <script>
-const D = {"national_acres": 44700000, "total_acres": 28303654, "hab_share": 0.157, "near1km_share": 0.325, "regions": [{"slug": "pnw", "name": "Pacific Northwest", "places": "Oregon & Washington", "total_acres": 3980791, "hab_share": 0.438}, {"slug": "ca", "name": "California", "places": "California", "total_acres": 4416283, "hab_share": 0.184}, {"slug": "swgb", "name": "Southwest and Great Basin", "places": "Utah, Nevada, Arizona & New Mexico", "total_acres": 9923398, "hab_share": 0.091}, {"slug": "nr", "name": "Northern Rockies and Plains", "places": "Montana, Wyoming, North Dakota & South Dakota", "total_acres": 9983182, "hab_share": 0.098}], "scenarios": [{"scenario": "Low", "horizon_yr": 5, "activated_acres": 151924, "crit_hab_acres": 18255, "share_of_all_roadless": 0.0054}, {"scenario": "Low", "horizon_yr": 10, "activated_acres": 455847, "crit_hab_acres": 53730, "share_of_all_roadless": 0.0161}, {"scenario": "Mid", "horizon_yr": 5, "activated_acres": 303893, "crit_hab_acres": 36680, "share_of_all_roadless": 0.0107}, {"scenario": "Mid", "horizon_yr": 10, "activated_acres": 911756, "crit_hab_acres": 108680, "share_of_all_roadless": 0.0322}, {"scenario": "High", "horizon_yr": 5, "activated_acres": 607833, "crit_hab_acres": 71768, "share_of_all_roadless": 0.0215}, {"scenario": "High", "horizon_yr": 10, "activated_acres": 1823545, "crit_hab_acres": 222796, "share_of_all_roadless": 0.0644}]};
+const D = {"national_acres": 44700000, "total_acres": 43080248, "hab_share": 0.103, "near1km_share": 0.219, "regions": [{"slug": "pnw", "name": "Pacific Northwest", "places": "Oregon & Washington", "total_acres": 3980791, "hab_share": 0.438}, {"slug": "ca", "name": "California", "places": "California", "total_acres": 4416283, "hab_share": 0.184}, {"slug": "swgb", "name": "Southwest and Great Basin", "places": "Utah, Nevada, Arizona & New Mexico", "total_acres": 9923398, "hab_share": 0.091}, {"slug": "nr", "name": "Northern Rockies and Plains", "places": "Montana, Wyoming, North Dakota & South Dakota", "total_acres": 9983182, "hab_share": 0.098}, {"slug": "ak", "name": "Alaska", "places": "Alaska", "total_acres": 14776594, "hab_share": 0.0}], "scenarios": [{"scenario": "Low", "horizon_yr": 5, "activated_acres": 159319, "crit_hab_acres": 18255, "share_of_all_roadless": 0.0037}, {"scenario": "Low", "horizon_yr": 10, "activated_acres": 470637, "crit_hab_acres": 53730, "share_of_all_roadless": 0.0109}, {"scenario": "Mid", "horizon_yr": 5, "activated_acres": 312508, "crit_hab_acres": 36680, "share_of_all_roadless": 0.0073}, {"scenario": "Mid", "horizon_yr": 10, "activated_acres": 928986, "crit_hab_acres": 108680, "share_of_all_roadless": 0.0216}, {"scenario": "High", "horizon_yr": 5, "activated_acres": 647243, "crit_hab_acres": 71768, "share_of_all_roadless": 0.015}, {"scenario": "High", "horizon_yr": 10, "activated_acres": 1902365, "crit_hab_acres": 222796, "share_of_all_roadless": 0.0442}]};
 const $ = (id) => document.getElementById(id);
 const n0 = (n) => Math.round(n).toLocaleString("en-US");
 const tip = $("tip");

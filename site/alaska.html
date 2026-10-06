@@ -1,0 +1,264 @@
+<main>
+<nav class="crumbs"><a href="../index.html">Forest Sight</a> › <a href="../us/index.html">United States</a> › <span>Alaska</span></nav>
+<header>
+  <div class="kicker">Forest Sight · Alaska</div>
+  <h1>Alaska holds <span id="h-acres"></span> million acres of roadless forest, a third of everything the Roadless Rule covers.</h1>
+  <p class="lede">Nearly all of it is in two national forests: the Tongass in Southeast Alaska and the Chugach around Prince William Sound. Alaska is unlike the Lower 48. It has almost no roads, no federally designated critical habitat in these forests, and a long legal fight over whether the rule applies at all. So this page tells Alaska's story with Alaska's own data: remoteness, salmon, old-growth forest and logging history.</p>
+  <div class="deadline">Public comments due October 6, 2026</div>
+  <a class="btn" href="https://www.regulations.gov/document/FS-2025-0001-223869" target="_blank" rel="noopener">Submit a public comment</a>
+</header>
+
+<section id="what">
+  <h2>Two forests, and the most contested roadless land in the country</h2>
+  <div class="stats" id="forest-stats"></div>
+  <p>The Tongass has been in and out of the national rule several times. It is covered today, and the proposal to rescind the rule would end that protection along with the rest.</p>
+  <details>
+    <summary>Show the legal timeline for the Tongass</summary>
+    <ul class="timeline">
+      <li><b>2001.</b> The Roadless Rule is issued and covers the Tongass.</li>
+      <li><b>2003.</b> The Bush administration agrees to exempt the Tongass from the rule.</li>
+      <li><b>2011.</b> A federal district court vacates the exemption, restoring protection to about 9.2 million acres. In 2014 a divided appeals panel reverses that, and in July 2015 an 11-judge Ninth Circuit panel rules the exemption illegal.</li>
+      <li><b>2020.</b> The Trump administration issues a final rule exempting the Tongass.</li>
+      <li><b>January 2023.</b> The Forest Service reinstates roadless protection across about 9.2 million acres of the Tongass.</li>
+      <li><b>2025–2026.</b> The administration begins rescinding the rule. A proposed rule and environmental review are released on August 18, 2026.</li>
+    </ul>
+    <p class="src">Source: <a href="https://earthjustice.org/feature/timeline-of-the-roadless-rule" target="_blank" rel="noopener">Earthjustice timeline of the Roadless Rule</a>, a legal advocacy organization. See also <a href="https://alaskapublic.org/news/environment/2026-08-20/federal-government-officially-files-to-rescind-the-roadless-rule" target="_blank" rel="noopener">Alaska Public Media</a>.</p>
+  </details>
+</section>
+
+<section id="map">
+  <h2>Where it is</h2>
+  <figure>
+    <div class="seg" id="seg-forest"></div>
+    <div class="chips" id="layer-chips"></div>
+    <svg id="ak-map" role="img" aria-label="Map of roadless areas in the Tongass or Chugach National Forest, with optional layers for salmon streams, existing roads and past clearcuts"></svg>
+    <figcaption id="map-cap"></figcaption>
+  </figure>
+</section>
+
+<section id="remote">
+  <h2>The most remote roadless land in the country</h2>
+  <p id="remote-p"></p>
+  <figure>
+    <div class="fig-title">Typical distance from roadless land to the nearest Forest Service road</div>
+    <div class="bars" id="remote-bars"></div>
+    <figcaption>Median distance, by region. Alaska's figure is for Tongass and Chugach roadless land combined.</figcaption>
+  </figure>
+  <figure>
+    <div class="fig-title">Share of Alaska's roadless land within each distance of a Forest Service road</div>
+    <div class="bars" id="within-bars"></div>
+    <figcaption id="within-cap"></figcaption>
+  </figure>
+</section>
+
+<section id="salmon">
+  <h2 id="salmon-h">Salmon streams run through the roadless land</h2>
+  <p id="salmon-p"></p>
+  <figure>
+    <div class="fig-title">Salmon streams that run through roadless land, by species</div>
+    <div class="seg" id="seg-salmon"></div>
+    <div class="bars" id="salmon-bars"></div>
+    <div class="legend"><span><i style="background:var(--c1)"></i>Streams in roadless land</span><span><i style="background:var(--track)"></i>Other streams in the forest</span></div>
+    <figcaption>Number of distinct catalogued streams where each species is recorded. A stream can host several species. Source: Alaska Department of Fish and Game, Anadromous Waters Catalog (2026).</figcaption>
+  </figure>
+</section>
+
+<section id="oldgrowth">
+  <h2>Old-growth forest</h2>
+  <p id="og-p"></p>
+  <figure>
+    <div class="fig-title">Productive old-growth forest in the Tongass</div>
+    <div class="bars" id="og-bars"></div>
+    <figcaption>Acres of productive old growth (Forest Service size-and-density map) overlapping roadless areas. These are upper bounds: forest patches that straddle a roadless boundary are counted whole, which can add up to roughly 8% at the edges.</figcaption>
+  </figure>
+</section>
+
+<section id="logging">
+  <h2 id="log-h">Logging has fallen sharply, but not always outside roadless land</h2>
+  <p id="log-p"></p>
+  <figure>
+    <div class="fig-title">Acres logged on the Tongass, by decade</div>
+    <svg id="log-chart" viewBox="0 0 640 320" role="img" aria-label="Stacked bar chart of acres logged on the Tongass by decade, split into land that is now inventoried roadless and land outside it"></svg>
+    <div class="legend"><span><i style="background:var(--forest-line)"></i>Outside roadless areas</span><span><i style="background:var(--c2)"></i>Inside areas now inventoried as roadless</span></div>
+    <figcaption>Forest Service harvest records for Forest Service land, by the year work was completed. 93% of all acres were clearcuts. "Roadless" means the 2001 inventoried roadless areas.</figcaption>
+    <details><summary>Show data table</summary><div class="tbl"><table id="log-table"></table></div></details>
+  </figure>
+  <div class="note" id="plan-note"></div>
+</section>
+
+<section id="scenarios">
+  <h2>What could change in 5 and 10 years</h2>
+  <p>For Alaska we can set a pace from the Forest Service's own harvest records instead of assuming one. These "what if" cases ask how many acres the Tongass would see logged if it returned to a rate it has actually had. Choose how far ahead to look.</p>
+  <div class="ctl"><span class="label kicker">Time ahead</span>
+    <div class="seg" id="seg-yr">
+      <button data-v="5" aria-pressed="false">5 years</button>
+      <button data-v="10" aria-pressed="true">10 years</button>
+    </div>
+  </div>
+  <figure>
+    <div class="fig-title" id="scn-title"></div>
+    <div class="scn" id="scn"></div>
+    <figcaption>Bars use one scale for both time horizons.</figcaption>
+  </figure>
+  <p id="scn-p"></p>
+</section>
+
+<section id="act">
+  <h2>You can weigh in</h2>
+  <p>The proposed rule and its environmental analysis are open for public comment until October 6, 2026. Specific comments that describe places, species or experiences you know are the most useful.</p>
+  <a class="btn" href="https://www.regulations.gov/document/FS-2025-0001-223869" target="_blank" rel="noopener">Comment on regulations.gov</a>
+</section>
+
+<footer>
+  <b>Methods and limits</b>
+  <ul>
+    <li><b>Data.</b> Roadless areas, roads, land ownership, timber harvest records and the forest plan's old-growth and timber-suitability maps from the USDA Forest Service. Salmon streams from the Alaska Department of Fish and Game's Anadromous Waters Catalog.</li>
+    <li><b>Roads.</b> Distances are to the nearest road in the Forest Service road data (about <span id="road-km"></span> km in these forests). Roads on state, private and Alaska Native corporation land are not included, so some roadless land is closer to a road than shown.</li>
+    <li><b>No critical habitat.</b> No federally designated critical habitat overlaps these roadless areas, so the Endangered Species Act lens used for the Lower 48 regions does not describe what is at stake here.</li>
+    <li><b>Logging history.</b> Acres come from the polygon shapes in the Forest Service harvest records and are approximate. Records without a completion year are left out. A cut counts as "roadless" only if it falls in today's inventoried roadless areas.</li>
+    <li><b>Scenarios.</b> They show past logging rates, not predictions, and not only logging inside roadless land. The Chugach is not modeled for logging: it has almost no logging history.</li>
+  </ul>
+  <span>Code, data pipeline and details are open source: <a href="https://github.com/TaylorBurke/forest-sight" target="_blank" rel="noopener">github.com/TaylorBurke/forest-sight</a>. This is an independent analysis and not affiliated with any agency.</span>
+</footer>
+</main>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const D = /*__DATA__*/null;
+const S = D.S, MAP = D.map;
+const $ = (id) => document.getElementById(id);
+const n0 = (n) => Math.round(n).toLocaleString("en-US");
+const M = (n, d = 2) => (n / 1e6).toFixed(d);
+const mi = (km) => km * 0.621371;
+const tip = $("tip");
+document.addEventListener("pointermove", (e) => {
+  const t = e.target.closest("[data-tip]");
+  if (!t) { tip.style.opacity = 0; return; }
+  tip.textContent = t.dataset.tip; tip.style.opacity = 1;
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 250) + "px"; tip.style.top = (e.clientY + 14) + "px";
+});
+function hbars(el, rows, max) {
+  el.innerHTML = rows.map((r) => `<div class="bar-row" data-tip="${r.tip || r.label}">
+    <div class="bar-label">${r.label}</div>
+    <div class="bar-track"><div class="bar-fill" style="width:${Math.max((r.value / max) * 100, 0.6)}%;${r.color ? "background:" + r.color : ""}"></div><span class="bar-val">${r.text}</span></div></div>`).join("");
+}
+const T = S.forests.Tongass, C = S.forests.Chugach;
+const pctOf = (a, b) => Math.round((a / b) * 100);
+
+// headline + forest stats
+$("h-acres").textContent = M(S.total_acres, 1);
+$("road-km").textContent = n0(S.road_km_in_data);
+$("forest-stats").innerHTML = [
+  [M(T.roadless_acres) + "M", `acres of roadless land in the Tongass, ${pctOf(T.roadless_acres, T.fs_owned_acres)}% of the forest`],
+  [M(C.roadless_acres) + "M", `acres in the Chugach, essentially the whole forest (${Math.min(100, pctOf(C.roadless_acres, C.fs_owned_acres))}%)`],
+  ["0", "acres of federally designated critical habitat inside these roadless areas"],
+].map(([b, t]) => `<div class="stat"><b>${b}</b><span>${t}</span></div>`).join("");
+
+// map with layers
+const LAYERS = [["roadless", "Roadless areas", true], ["forest", "Forest boundary", true], ["roads", "Existing Forest Service roads", true], ["salmon", "Salmon streams", false], ["cuts", "Past clearcuts", false]];
+const state = { forest: "Tongass", on: Object.fromEntries(LAYERS.map((l) => [l[0], l[2]])) };
+function drawMap() {
+  const L = MAP[state.forest];
+  const g = (key, cls) => (L[key] && state.on[key]) ? `<path class="${cls}" d="${L[key]}"/>` : "";
+  $("ak-map").setAttribute("viewBox", `0 0 ${L.w} ${L.h}`);
+  $("ak-map").innerHTML = g("forest", "ak-forest") + g("roadless", "ak-roadless") + g("salmon", "ak-salmon") + g("roads", "ak-roads") + g("cuts", "ak-cuts");
+  const hasCuts = !!L.cuts;
+  $("layer-chips").innerHTML = LAYERS.filter((l) => l[0] !== "cuts" || hasCuts).map((l) =>
+    `<label class="chip"><input type="checkbox" data-layer="${l[0]}" ${state.on[l[0]] ? "checked" : ""}><span class="sw sw-${l[0]}"></span>${l[1]}</label>`).join("");
+  $("map-cap").textContent = state.forest === "Tongass"
+    ? "Southeast Alaska. Small islands are left off the forest outline for clarity. Past clearcuts are Forest Service harvest units from the 1950s to the 2020s, drawn as dots."
+    : "South-central Alaska around Prince William Sound. The roadless inventory covers essentially the entire forest.";
+}
+$("seg-forest").innerHTML = ["Tongass", "Chugach"].map((f) => `<button data-v="${f}" aria-pressed="${f === state.forest}">${f} National Forest</button>`).join("");
+$("seg-forest").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  state.forest = b.dataset.v;
+  $("seg-forest").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); drawMap();
+});
+$("layer-chips").addEventListener("change", (e) => { const l = e.target.dataset.layer; if (l) { state.on[l] = e.target.checked; drawMap(); } });
+drawMap();
+
+// remoteness
+const comp = [...D.compare].sort((a, b) => b.median_km - a.median_km);
+$("remote-p").textContent = `A typical roadless acre in Alaska is ${mi(S.median_road_km).toFixed(0)} miles from the nearest Forest Service road. In the Lower 48 regions we studied it is ${mi(Math.min(...D.compare.filter((r) => r.name !== "Alaska").map((r) => r.median_km))).toFixed(1)} to ${mi(Math.max(...D.compare.filter((r) => r.name !== "Alaska").map((r) => r.median_km))).toFixed(1)} miles. Only ${(S.within_km["1"] * 100).toFixed(1)}% of Alaska's roadless land is within 0.6 mile of a road. Most of it is far from any existing road.`;
+hbars($("remote-bars"), comp.map((r) => ({ label: r.name, value: r.median_km, text: mi(r.median_km).toFixed(1) + " mi", color: r.name === "Alaska" ? "var(--c2)" : "", tip: `${r.name}: ${mi(r.median_km).toFixed(1)} miles` })), Math.max(...comp.map((r) => r.median_km)));
+const WL = [["1", "Within 0.6 mi"], ["5", "Within 3.1 mi"], ["10", "Within 6.2 mi"], ["25", "Within 15.5 mi"]];
+hbars($("within-bars"), WL.map(([k, l]) => ({ label: l, value: S.within_km[k], text: (S.within_km[k] * 100).toFixed(S.within_km[k] < 0.1 ? 1 : 0) + "%" })), 1);
+$("within-cap").textContent = `Half of the roadless land is farther than ${mi(S.median_road_km).toFixed(0)} miles from any Forest Service road.`;
+
+// salmon
+const salmonState = { f: "Tongass" };
+function drawSalmon() {
+  const s = S.salmon[salmonState.f], sp = Object.entries(s.species).filter(([, v]) => v.all > 0);
+  const maxv = Math.max(...sp.map(([, v]) => v.all));
+  $("salmon-bars").innerHTML = sp.map(([name, v]) => {
+    const inn = Math.min(v.in_roadless, v.all);
+    return `<div class="bar-row" data-tip="${name}: ${n0(inn)} of ${n0(v.all)} streams run through roadless land">
+      <div class="bar-label">${name}</div>
+      <div class="stackrow"><div class="sbar" style="width:${(v.all / maxv) * 62}%"><div style="width:${(inn / v.all) * 100}%;background:var(--c1)"></div><div style="flex:1;background:var(--track)"></div></div><span class="stack-val">${n0(inn)} of ${n0(v.all)}</span></div></div>`;
+  }).join("");
+}
+$("seg-salmon").innerHTML = ["Tongass", "Chugach"].map((f) => `<button data-v="${f}" aria-pressed="${f === "Tongass"}">${f}</button>`).join("");
+$("seg-salmon").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return; salmonState.f = b.dataset.v;
+  $("seg-salmon").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); drawSalmon();
+});
+drawSalmon();
+const st = S.salmon.Tongass, sc = S.salmon.Chugach;
+$("salmon-h").textContent = `${Math.round(st.share_km * 100)}% of the Tongass's salmon stream length is in roadless land`;
+$("salmon-p").textContent = `Of ${n0(st.stream_km_all)} km of salmon-bearing streams on Tongass land, ${n0(st.stream_km_roadless)} km (${Math.round(st.share_km * 100)}%) run through roadless areas, along with ${n0(st.lakes_roadless)} of ${n0(st.lakes_all)} salmon lakes. In the Chugach, ${Math.round(sc.share_km * 100)}% of salmon stream length (${n0(Math.min(sc.stream_km_roadless, sc.stream_km_all))} of ${n0(sc.stream_km_all)} km) is roadless. This page measures where the streams are, not how roads would affect them.`;
+
+// old growth
+const og = S.old_growth;
+$("og-p").textContent = `The Tongass holds about ${M(og.pog_acres_tongass, 1)} million acres of productive old-growth forest. Up to ${M(og.pog_acres_roadless_upper, 1)} million acres of it (${Math.round(og.share_in_roadless_upper * 100)}%) overlaps roadless areas, about the same as roadless land's share of the whole forest (${pctOf(T.roadless_acres, T.fs_owned_acres)}%). That includes up to ${M(og.high_volume_in_roadless_upper, 1)} million of the ${M(og.high_volume_acres, 1)} million acres in the highest-volume class.`;
+hbars($("og-bars"), [
+  { label: "All productive old growth", value: og.pog_acres_tongass, text: M(og.pog_acres_tongass, 1) + "M acres" },
+  { label: "…overlapping roadless areas", value: og.pog_acres_roadless_upper, text: "up to " + M(og.pog_acres_roadless_upper, 1) + "M", color: "var(--land)" },
+  { label: "Highest-volume old growth", value: og.high_volume_acres, text: M(og.high_volume_acres, 1) + "M acres" },
+  { label: "…overlapping roadless areas", value: og.high_volume_in_roadless_upper, text: "up to " + M(og.high_volume_in_roadless_upper, 1) + "M", color: "var(--land)" },
+], og.pog_acres_tongass);
+
+// logging history
+const LG = S.logging.by_decade;
+(function drawLog() {
+  const W = 640, H = 320, Lm = 58, R = 10, Tm = 14, B = 50, pw = W - Lm - R, ph = H - Tm - B, bw = pw / LG.length;
+  const ymax = Math.ceil(Math.max(...LG.map((d) => d.acres)) / 20000) * 20000, y = (v) => Tm + ph - (v / ymax) * ph;
+  let s = "";
+  for (let v = 0; v <= ymax; v += 20000) s += `<line x1="${Lm}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${Lm - 8}" y="${y(v) + 5}" text-anchor="end" font-size="14" fill="var(--muted)" font-family="var(--mono)">${v / 1000}k</text>`;
+  LG.forEach((d, i) => {
+    const x = Lm + i * bw + bw * 0.14, w = bw * 0.72, out = d.acres - d.in_roadless;
+    s += `<g data-tip="${d.label}: ${n0(d.acres)} acres logged, ${n0(d.in_roadless)} of them in land now inventoried roadless (${(d.in_roadless / d.acres * 100).toFixed(0)}%)">
+      <rect x="${x}" y="${y(out)}" width="${w}" height="${y(0) - y(out)}" fill="var(--forest-line)" rx="2"/>
+      <rect x="${x}" y="${y(d.acres)}" width="${w}" height="${Math.max(y(out) - y(d.acres), d.in_roadless ? 2 : 0)}" fill="var(--c2)"/>
+      <rect x="${Lm + i * bw}" y="${Tm}" width="${bw}" height="${ph}" fill="transparent"/></g>
+      <text x="${x + w / 2}" y="${H - 28}" text-anchor="middle" font-size="13" fill="var(--muted)" font-family="var(--mono)">${d.label.replace("Before 1950", "<1950")}</text>`;
+  });
+  s += `<text x="${Lm + pw / 2}" y="${H - 6}" text-anchor="middle" font-size="13" fill="var(--muted)" font-family="var(--mono)">Decade work was completed</text>`;
+  $("log-chart").innerHTML = s;
+  $("log-table").innerHTML = `<thead><tr><th>Decade</th><th class="num">Acres logged</th><th class="num">In roadless land</th></tr></thead><tbody>` + LG.map((d) => `<tr><td>${d.label}</td><td class="num">${n0(d.acres)}</td><td class="num">${n0(d.in_roadless)}</td></tr>`).join("") + `</tbody>`;
+})();
+const L70 = LG.find((d) => d.decade === 1970), L10 = LG.find((d) => d.decade === 2010), L00 = LG.find((d) => d.decade === 2000), L90 = LG.find((d) => d.decade === 1990);
+$("log-p").textContent = `Forest Service records show about ${n0(S.logging.total_acres_ever)} acres logged on the Tongass since the early 1900s, from ${n0(L70.acres)} acres in the 1970s down to ${n0(L10.acres)} in the 2010s. Only ${n0(S.logging.roadless_acres_ever)} acres (${(S.logging.roadless_acres_ever / S.logging.total_acres_ever * 100).toFixed(0)}%) ever fell inside land now inventoried as roadless. The exception is the 2000s, the decade the Tongass was exempted from the rule (from 2003): ${(L00.in_roadless / L00.acres * 100).toFixed(0)}% of that decade's logging was in what is now roadless land, compared with ${(L90.in_roadless / L90.acres * 100).toFixed(0)}% in the 1990s.`;
+const su = S.suitable;
+$("plan-note").innerHTML = `<b>What the forest plan says.</b> The Tongass plan's timber-suitability map classes ${n0(su.total)} acres (${(su.share_of_forest * 100).toFixed(0)}% of the forest) as suitable for timber production. Only ${n0(su.in_roadless)} acres of that lie inside roadless areas. That likely reflects the rule at the time the plan was written. Opening roadless land to commercial logging would probably mean changing the plan first.`;
+
+// scenarios from logging pace
+const sstate = { yr: 10 };
+const PS = S.pace_scenarios, smax = Math.max(...PS.map((p) => p.acres_10));
+function renderScn() {
+  $("scn-title").textContent = `Acres logged on the Tongass over ${sstate.yr} years at a past rate`;
+  $("scn").innerHTML = PS.map((p) => {
+    const a = p[`acres_${sstate.yr}`];
+    return `<div class="scn-row" data-tip="${p.label}: ${n0(p.per_year)} acres a year">
+      <div class="scn-head"><span class="scn-name">${p.scenario}: ${p.label}</span><span class="mono">${n0(a)} acres · ${(a / T.roadless_acres * 100).toFixed(1)}% of Tongass roadless land</span></div>
+      <div class="scn-bar" style="width:${Math.max((a / smax) * 100, 0.8)}%"><div style="width:100%;height:100%;background:var(--c2);border-radius:0 4px 4px 0"></div></div>
+      <div class="scn-meta"><b>${n0(p.per_year)}</b> acres a year</div></div>`;
+  }).join("");
+}
+$("seg-yr").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return; sstate.yr = Number(b.dataset.v);
+  $("seg-yr").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); renderScn();
+});
+renderScn();
+$("scn-p").textContent = `These are all the acres logged anywhere on the Tongass at each rate, not just inside roadless land. Where logging would happen is the open question. For scale, even the high 10-year case (${n0(PS[2].acres_10)} acres) is ${(PS[2].acres_10 / T.roadless_acres * 100).toFixed(1)}% of the Tongass's roadless land.`;
+</script>

@@ -111,3 +111,22 @@ footer { padding-top: 36px; margin-top: 36px; border-top: 1px solid var(--line);
 .cov-track { background: var(--track); height: 14px; border-radius: 0 4px 4px 0; }
 .cov-fill { background: var(--c1); height: 100%; border-radius: 0 4px 4px 0; min-width: 3px; }
 .stats { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+
+/* Alaska page */
+.chips { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 2px 0 10px; }
+.chip { display: inline-flex; align-items: center; gap: 7px; font-size: 0.88rem; cursor: pointer; }
+.chip input { accent-color: var(--land); width: 16px; height: 16px; }
+.sw { display: inline-block; width: 14px; height: 14px; border: 1px solid var(--forest-line); }
+.sw-roadless { background: var(--land); } .sw-forest { background: var(--land-soft); } .sw-roads { background: var(--fg); } .sw-salmon { background: var(--c1); } .sw-cuts { background: var(--c2); }
+#ak-map { background: var(--surface); border: 1px solid var(--line); }
+.ak-forest { fill: var(--land-soft); stroke: var(--forest-line); stroke-width: 0.8; }
+.ak-roadless { fill: var(--land); fill-opacity: 0.85; stroke: none; }
+.ak-salmon { fill: none; stroke: var(--c1); stroke-width: 0.9; opacity: 0.85; }
+.ak-roads { fill: none; stroke: var(--fg); stroke-width: 1.5; }
+.ak-cuts { fill: var(--c2); stroke: none; }
+.timeline { padding-left: 1.1em; }
+.stackrow { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.sbar { display: flex; height: 22px; border-radius: 0 4px 4px 0; overflow: hidden; min-width: 3px; flex: none; }
+.stack-val { font-family: var(--mono); font-size: 0.8rem; white-space: nowrap; }
+.thumb .map-frame { fill: none; stroke: var(--forest-line); stroke-width: 0.8; stroke-dasharray: 3 3; }
+.thumb .map-label { font-family: var(--mono); font-size: 7.5px; fill: var(--muted); }

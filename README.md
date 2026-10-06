@@ -35,6 +35,16 @@ build_site.py            builds docs/ (hub, U.S. totals, region pages, share ima
 
 Raw downloads go to `data/<region>/raw/` (git-ignored); small analysis outputs in `data/<region>/` are committed.
 
+**Alaska is built differently.** Its roadless land is far from roads, no critical habitat overlaps it, and it has a long logging record, so it does not use the Lower 48 template. It is flagged `"custom": true` in `regions.json` and has its own scripts and page (`site/alaska.html`):
+
+```
+ak_fetch_extra.py        Forest Service harvest history, ADF&G Anadromous Waters Catalog (salmon streams, lakes, species)
+ak_fetch_forestplan.py   Tongass timber suitability and productive old growth (forest plan layers)
+ak_analysis.py           remoteness, salmon, old growth, logging history by decade, pace-based scenarios, map layers
+```
+
+Run order for Alaska (`REGION=ak`): `fetch_ira.py`, `fetch_roads_habitat.py`, `fetch_nfs_land.py`, `analysis_exposure.py` (it uses Alaska Albers, EPSG:3338, from `regions.json`), then the three `ak_*` scripts. Download the statewide catalog (`2026GDB_statewide.zip` from the [ADF&G Anadromous Waters Catalog data files](https://www.adfg.alaska.gov/sf/SARR/AWC/index.cfm?ADFG=maps.dataFiles)) into `data/ak/raw/awc_statewide.zip` first. The hub's national map shows the western states with Alaska set in at the same scale.
+
 **Add a region**
 
 1. Add an entry to `regions.json`: states, Forest Service region code, forests to exclude (mixed-ownership units with many non-Forest-Service roads, like the Columbia River Gorge or Lake Tahoe Basin), the invasive plants to track (GBIF taxon keys), and a short note for each region-specific caveat.

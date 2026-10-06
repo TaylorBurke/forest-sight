@@ -20,6 +20,8 @@ def pull(url, page):
         frames.append(gpd.GeoDataFrame.from_features(feats, crs=4326))
         offset += len(feats)
         print(url.split("/")[-4], offset, flush=True)
+    if not frames:  # e.g. no critical habitat designated in the area (Alaska): return an empty, correctly-shaped layer
+        return gpd.GeoDataFrame({"comname": [], "listing_status": []}, geometry=[], crs=4326)
     return pd.concat(frames, ignore_index=True)
 
 roads = pull("https://apps.fs.usda.gov/ArcX/rest/services/EDW/EDW_RoadBasic_01/MapServer/0/query", 1000)

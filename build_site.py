@@ -84,7 +84,7 @@ def load_region(slug, cfg):
     summary = {
         "slug": slug, "name": cfg["name"], "places": cfg["places"], "total_acres": data["total_acres"],
         "hab_acres": round(float(pts.in_crit_hab.sum()) * CELL_ACRES), "hab_share": data["hab_share"],
-        "near1km_acres": round(float((pts.road_dist_m <= 1000).sum()) * CELL_ACRES),
+        "near1km_acres": round(float((pts.road_dist_m <= 1000).sum()) * CELL_ACRES), "median_road_m": data["median_road_m"],
         "scenarios": scen[scen.allocation == "near_roads"][["scenario", "horizon_yr", "activated_acres", "crit_hab_acres"]].to_dict("records"),
     }
     return data, summary, ira, forests
@@ -119,10 +119,10 @@ def fmt(n):
     return f"{round(n):,}"
 
 
-def lower48_outline():
-    """Lower-48 state outlines from the Census cartographic boundary file (20m, clipped to the shoreline so the
-    Great Lakes are water, not state area), cached so builds don't need the network."""
-    cache = "site/us_states_20m.geojson"
+def all_states():
+    """State outlines (EPSG:4326) from the Census cartographic boundary file (20m, clipped to the shoreline so the Great
+    Lakes are water, not state area), cached so builds don't need the network."""
+    cache = "site/us_states_20m_all.geojson"
     if not os.path.exists(cache):
         import io, tempfile, requests, zipfile
         r = requests.get("https://www2.census.gov/geo/tiger/GENZ2022/shp/cb_2022_us_state_20m.zip", timeout=300)
@@ -130,21 +130,29 @@ def lower48_outline():
         with tempfile.TemporaryDirectory() as tmp:
             zipfile.ZipFile(io.BytesIO(r.content)).extractall(tmp)
             g = gpd.read_file(f"{tmp}/cb_2022_us_state_20m.shp")
-        g = g[~g.STUSPS.isin(["AK", "HI", "PR", "GU", "VI", "AS", "MP"])][["STUSPS", "geometry"]]
-        g.to_file(cache, driver="GeoJSON")
-    return gpd.read_file(cache).to_crs(A)
+        g[["STUSPS", "geometry"]].to_file(cache, driver="GeoJSON")
+    return gpd.read_file(cache)
 
 
-def thumb(layers, bounds, w=400, h=240, pad=0.07, svg_class="thumb"):
+def lower48_outline():
+    g = all_states()
+    return g[~g.STUSPS.isin(["AK", "HI", "PR", "GU", "VI", "AS", "MP"])].to_crs(A)
+
+
+def thumb(layers, bounds, w=400, h=240, pad=0.07, svg_class="thumb", labels=()):
     """Small inline SVG map. layers = [(GeoDataFrame, css_class, simplify_m, min_acres_or_None)]; outer rings only."""
     minx, miny, maxx, maxy = bounds
     s = min(w * (1 - 2 * pad) / (maxx - minx), h * (1 - 2 * pad) / (maxy - miny))
     ox, oy = (w - (maxx - minx) * s) / 2, (h - (maxy - miny) * s) / 2
 
+    def flat(geom):  # polygons only, however deeply nested (repaired layers can be collections of multipolygons)
+        if geom.geom_type == "Polygon":
+            return [geom]
+        return [p for part in getattr(geom, "geoms", []) for p in flat(part)]
+
     def ring(geom):
-        polys = [geom] if geom.geom_type == "Polygon" else list(geom.geoms)
         out = []
-        for p in polys:
+        for p in flat(geom):
             c = [(round((x - minx) * s + ox, 1), round((maxy - y) * s + oy, 1)) for x, y in p.exterior.coords]
             out.append("M" + "L".join(f"{x:g} {y:g}" for x, y in c) + "Z")
         return "".join(out)
@@ -154,6 +162,8 @@ def thumb(layers, bounds, w=400, h=240, pad=0.07, svg_class="thumb"):
         g = gdf if min_acres is None else gdf[gdf.acres >= min_acres]
         geoms = g.geometry.simplify(tol)
         parts.append(f'<path class="{cls}" d="{"".join(ring(x) for x in geoms if not x.is_empty)}"/>')
+    for x, y, text in labels:  # (projected x, projected y, text)
+        parts.append(f'<text class="map-label" x="{round((x - minx) * s + ox, 1)}" y="{round((maxy - y) * s + oy, 1)}">{text}</text>')
     return f'<svg class="{svg_class}" viewBox="0 0 {w} {h}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">{"".join(parts)}</svg>'
 
 
@@ -167,6 +177,8 @@ summaries, iras, forest_sets = [], [], []
 seen_ids = set()
 region_tpl = open("site/region.html").read()
 for slug, cfg in regions.items():
+    if cfg.get("custom"):  # built below with its own page (Alaska)
+        continue
     if not os.path.exists(f"data/{slug}/scenarios.csv"):
         print("skip (not analyzed yet):", slug)
         continue
@@ -192,16 +204,34 @@ for slug, cfg in regions.items():
     forest_sets.append(forests)
     print("built region:", slug, f"({len(body):,} bytes)")
 
+# ---------- Alaska: its own page, built from its own data ----------
+ak = None
+if os.path.exists("data/ak/summary.json"):
+    from shapely.geometry import box
+    from shapely.affinity import translate
+    AK = json.load(open("data/ak/summary.json")); AKMAP = json.load(open("data/ak/map.json"))
+    ak_ira = gpd.read_file("data/ak/raw/ira.gpkg").to_crs(3338)
+    assert not (set(ak_ira.objectid) & seen_ids), "Alaska roadless areas already counted in another region"
+    compare = [{"name": x["name"], "median_km": x["median_road_m"] / 1000} for x in summaries] + [{"name": "Alaska", "median_km": AK["median_road_km"]}]
+    ak_body = open("site/alaska.html").read().replace("/*__DATA__*/null", json.dumps({"S": AK, "map": AKMAP, "compare": compare}))
+    write(f"{OUT}/ak/index.html", page("Alaska Roadless Report",
+          "Alaska's roadless forests in the Tongass and Chugach: remoteness, salmon streams, old growth and logging history, with what could change in 5 and 10 years.",
+          "ak/", 1, ak_body))
+    ak = {"slug": "ak", "name": "Alaska", "places": "Alaska", "total_acres": AK["total_acres"], "hab_acres": 0, "hab_share": 0.0,
+          "near1km_acres": AK["near1km_acres"], "scenarios": AK["scenarios"]}
+    print("built region: ak", f"({len(ak_body):,} bytes)")
+
 # U.S. aggregate: sums and acre-weighted shares across every analyzed region
-total = sum(s["total_acres"] for s in summaries)
+us_summaries = summaries + ([ak] if ak else [])
+total = sum(s["total_acres"] for s in us_summaries)
 us = {
     "national_acres": NATIONAL_ACRES, "total_acres": total,
-    "hab_share": round(sum(s["hab_acres"] for s in summaries) / total, 3),
-    "near1km_share": round(sum(s["near1km_acres"] for s in summaries) / total, 3),
-    "regions": [{k: s[k] for k in ("slug", "name", "places", "total_acres", "hab_share")} for s in summaries],
+    "hab_share": round(sum(s["hab_acres"] for s in us_summaries) / total, 3),
+    "near1km_share": round(sum(s["near1km_acres"] for s in us_summaries) / total, 3),
+    "regions": [{k: s[k] for k in ("slug", "name", "places", "total_acres", "hab_share")} for s in us_summaries],
 }
 agg = {}
-for s in summaries:
+for s in us_summaries:
     for r in s["scenarios"]:
         a = agg.setdefault((r["scenario"], r["horizon_yr"]), {"scenario": r["scenario"], "horizon_yr": r["horizon_yr"],
                                                              "activated_acres": 0, "crit_hab_acres": 0})
@@ -209,7 +239,7 @@ for s in summaries:
 for a in agg.values():
     a["share_of_all_roadless"] = round(a["activated_acres"] / total, 4)
 us["scenarios"] = list(agg.values())
-n_reg = len(summaries)
+n_reg = len(us_summaries)
 us_body = (open("site/us.html").read().replace("/*__DATA__*/null", json.dumps(us)))
 write(f"{OUT}/us/index.html", page(
     "United States Roadless Totals",
@@ -217,16 +247,53 @@ write(f"{OUT}/us/index.html", page(
     "us/", 1, us_body))
 
 # hub
+import shapely
+from shapely.geometry import box
+from shapely.affinity import translate
 states = lower48_outline()
-# each region is its own path (class region-<slug>) so hovering that region's card can light it up on the U.S. map
-us_map = thumb([(states, "map-state", 4000, None)] + [(i, f"map-ira region-{s['slug']}", 4000, 3000) for s, i in zip(summaries, iras)],
-               states.total_bounds, svg_class="thumb us-map")
+# the eastern half is dropped: keep everything west of 100 degrees W
+cut = gpd.GeoSeries([shapely.segmentize(box(-130, 24, -100, 50), 0.25)], crs=4326).to_crs(A).iloc[0]
+west = states.assign(geometry=states.geometry.intersection(cut))
+west = west[~west.geometry.is_empty]
+layers = [(west, "map-state", 4000, None)]
+bounds = list(west.total_bounds)
+labels = []
+if ak:
+    # Alaska at the SAME scale as the lower 48 (both projections are equal-area, in metres): only the part of the state that
+    # holds the Tongass and Chugach, set in the empty space east of the western map.
+    ak_states = all_states().query("STUSPS == 'AK'").to_crs(3338)
+    b0 = ak_ira.total_bounds; pad = 90_000
+    win = box(b0[0] - pad, b0[1] - pad, b0[2] + pad, b0[3] + pad)
+    wx0, wy0, wx1, wy1 = win.bounds
+    dx = bounds[2] + 120_000 - wx0                 # window's left edge sits just east of the western map
+    dy = bounds[3] - (wy1 - wy0) - wy0             # aligned with the map's top
+    ak_state_win = ak_states.assign(geometry=ak_states.geometry.intersection(win)).translate(dx, dy)
+    frame = gpd.GeoDataFrame(geometry=[translate(win, dx, dy)], crs=3338)
+    ak_ira_t = ak_ira.assign(geometry=ak_ira.geometry.translate(dx, dy))
+    layers += [(gpd.GeoDataFrame(geometry=ak_state_win, crs=3338), "map-state", 3000, None), (frame, "map-frame", 0, None),
+               (ak_ira_t, "map-ira region-ak", 3000, 3000)]
+    fb = frame.total_bounds
+    bounds = [min(bounds[0], fb[0]), min(bounds[1], fb[1]), max(bounds[2], fb[2]), max(bounds[3], fb[3])]
+    labels = [(fb[0] + 25_000, fb[1] + 30_000, "Alaska, same scale")]
+for i_, (s_, ira_) in enumerate(zip(summaries, iras)):
+    layers.append((ira_, f"map-ira region-{s_['slug']}", 4000, 3000))
+us_map = thumb(layers, bounds, svg_class="thumb us-map", labels=labels)
 cards = [f"""<a class="card card-us" href="us/index.html"><div class="card-img">{us_map}</div><div class="card-body"><span class="kicker">All regions combined</span><h3>United States totals</h3>
 <p>Combined results for every region analyzed so far: {n_reg} region{'s' if n_reg != 1 else ''}, {total / 1e6:.2f} million roadless acres, {total / NATIONAL_ACRES:.0%} of the ~44.7 million acres where the national rule applies.</p><span class="go">Open the totals →</span></div></a>"""]
 for s, ira, forests in zip(summaries, iras, forest_sets):
     region_map = thumb([(forests, "map-forest", 3000, None), (ira, "map-ira", 2500, 1500)], ira.total_bounds)
     cards.append(f"""<a class="card" data-region="{s['slug']}" href="{s['slug']}/index.html"><div class="card-img">{region_map}</div><div class="card-body"><span class="kicker">{s['places'].replace('&', '&amp;')}</span><h3>{s['name']}</h3>
 <p>{s['total_acres'] / 1e6:.2f} million roadless acres, {s['hab_acres'] / s['total_acres']:.0%} inside critical habitat. Habitat, invasive plants and 5- and 10-year scenarios.</p><span class="go">Open the study →</span></div></a>""")
+if ak:
+    ak_forest = gpd.read_file("data/ak/raw/nfs_land.gpkg").to_crs(3338)
+    ak_forest = ak_forest.assign(geometry=ak_forest.geometry.make_valid()).explode(index_parts=False)
+    ak_forest = ak_forest[ak_forest.geometry.area > 2e8]  # the Tongass is thousands of islands: keep the larger land masses (> 200 km2)
+    ak_forest = ak_forest.assign(geometry=ak_forest.geometry.simplify(6000, preserve_topology=False))  # fjord coasts: plain simplify is enough for a thumbnail
+    ak_forest = ak_forest[~ak_forest.geometry.is_empty]
+    ak_map = thumb([(gpd.GeoDataFrame(geometry=ak_states.geometry.intersection(win), crs=3338), "map-state", 3000, None),
+                    (ak_forest, "map-forest", 4000, None), (ak_ira, "map-ira", 3000, 3000)], win.bounds)
+    cards.append(f"""<a class="card" data-region="ak" href="ak/index.html"><div class="card-img">{ak_map}</div><div class="card-body"><span class="kicker">Alaska</span><h3>Alaska</h3>
+<p>{AK['total_acres'] / 1e6:.2f} million roadless acres in the Tongass and Chugach, a third of the national total. Remoteness, salmon streams, old growth and logging history.</p><span class="go">Open the study →</span></div></a>""")
 hub_body = (open("site/hub.html").read().replace("__CARDS__", "\n".join(cards)).replace("__COMMENT_URL__", COMMENT_URL)
             .replace("__GITHUB__", GITHUB))
 write(f"{OUT}/index.html", page(

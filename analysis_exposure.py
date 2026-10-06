@@ -3,7 +3,7 @@ from region import REGION, CFG, DATA, RAW
 import numpy as np, geopandas as gpd, pandas as pd
 from shapely import STRtree, points
 
-A, STEP = 5070, 250
+A, STEP = CFG.get("crs", 5070), 250  # equal-area CRS; Alaska needs its own (EPSG:3338)
 CELL_ACRES = STEP * STEP / 4046.856
 
 ira = gpd.read_file(f"{RAW}/ira.gpkg").to_crs(A)

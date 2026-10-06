@@ -1,0 +1,254 @@
+{
+ "total_acres": 14776594,
+ "forests": {
+  "Tongass": {
+   "roadless_acres": 9338113,
+   "fs_owned_acres": 16738920,
+   "median_road_km": 20.3,
+   "within_km": {
+    "1": 0.0195,
+    "5": 0.1629,
+    "10": 0.291,
+    "25": 0.5892
+   },
+   "share_of_forest": 0.558
+  },
+  "Chugach": {
+   "roadless_acres": 5438481,
+   "fs_owned_acres": 5392253,
+   "median_road_km": 34.3,
+   "within_km": {
+    "1": 0.0048,
+    "5": 0.0779,
+    "10": 0.1834,
+    "25": 0.389
+   },
+   "share_of_forest": 1.009
+  }
+ },
+ "median_road_km": 24.0,
+ "within_km": {
+  "1": 0.0141,
+  "5": 0.1316,
+  "10": 0.2514,
+  "25": 0.5155
+ },
+ "near1km_acres": 207955,
+ "hab_acres": 0,
+ "road_km_in_data": 2737,
+ "salmon": {
+  "Tongass": {
+   "stream_km_all": 8866,
+   "stream_km_roadless": 4417,
+   "streams_all": 4859,
+   "streams_roadless": 2518,
+   "lakes_all": 321,
+   "lakes_roadless": 201,
+   "species": {
+    "Coho": {
+     "in_roadless": 2125,
+     "all": 4142
+    },
+    "Pink": {
+     "in_roadless": 1455,
+     "all": 2628
+    },
+    "Chum": {
+     "in_roadless": 933,
+     "all": 1726
+    },
+    "Sockeye": {
+     "in_roadless": 218,
+     "all": 356
+    },
+    "Chinook": {
+     "in_roadless": 70,
+     "all": 156
+    }
+   },
+   "share_km": 0.498
+  },
+  "Chugach": {
+   "stream_km_all": 1929,
+   "stream_km_roadless": 1848,
+   "streams_all": 1263,
+   "streams_roadless": 1232,
+   "lakes_all": 132,
+   "lakes_roadless": 114,
+   "species": {
+    "Coho": {
+     "in_roadless": 511,
+     "all": 549
+    },
+    "Pink": {
+     "in_roadless": 841,
+     "all": 840
+    },
+    "Chum": {
+     "in_roadless": 304,
+     "all": 306
+    },
+    "Sockeye": {
+     "in_roadless": 213,
+     "all": 223
+    },
+    "Chinook": {
+     "in_roadless": 42,
+     "all": 47
+    }
+   },
+   "share_km": 0.958
+  }
+ },
+ "old_growth": {
+  "pog_acres_tongass": 5374105,
+  "pog_acres_roadless_upper": 3070740,
+  "share_in_roadless_upper": 0.571,
+  "high_volume_acres": 2278708,
+  "high_volume_in_roadless_upper": 1325177
+ },
+ "suitable": {
+  "by_class": {
+   "Suitable OG": {
+    "total": 223938,
+    "in_roadless": 260
+   },
+   "Suitable YG": {
+    "total": 314403,
+    "in_roadless": 16
+   }
+  },
+  "total": 538341,
+  "in_roadless": 276,
+  "share_of_forest": 0.032,
+  "share_in_roadless": 0.001
+ },
+ "logging": {
+  "by_decade": [
+   {
+    "decade": 1940,
+    "label": "Before 1950",
+    "acres": 12209,
+    "in_roadless": 1395
+   },
+   {
+    "decade": 1950,
+    "label": "1950s",
+    "acres": 22961,
+    "in_roadless": 672
+   },
+   {
+    "decade": 1960,
+    "label": "1960s",
+    "acres": 102003,
+    "in_roadless": 522
+   },
+   {
+    "decade": 1970,
+    "label": "1970s",
+    "acres": 105811,
+    "in_roadless": 237
+   },
+   {
+    "decade": 1980,
+    "label": "1980s",
+    "acres": 79798,
+    "in_roadless": 175
+   },
+   {
+    "decade": 1990,
+    "label": "1990s",
+    "acres": 77185,
+    "in_roadless": 2978
+   },
+   {
+    "decade": 2000,
+    "label": "2000s",
+    "acres": 32009,
+    "in_roadless": 11248
+   },
+   {
+    "decade": 2010,
+    "label": "2010s",
+    "acres": 15553,
+    "in_roadless": 1198
+   },
+   {
+    "decade": 2020,
+    "label": "2020s",
+    "acres": 1880,
+    "in_roadless": 0
+   }
+  ],
+  "pace_per_year": {
+   "recent": 1479,
+   "2000s": 1723,
+   "1990s": 7882,
+   "1970s": 10408
+  },
+  "total_acres_ever": 449410,
+  "roadless_acres_ever": 18425,
+  "clearcut_share": 0.931
+ },
+ "pace_scenarios": [
+  {
+   "scenario": "Low",
+   "label": "Recent pace (2011-2020)",
+   "per_year": 1479,
+   "acres_5": 7395,
+   "acres_10": 14790
+  },
+  {
+   "scenario": "Mid",
+   "label": "2000s pace",
+   "per_year": 1723,
+   "acres_5": 8615,
+   "acres_10": 17230
+  },
+  {
+   "scenario": "High",
+   "label": "1990s pace",
+   "per_year": 7882,
+   "acres_5": 39410,
+   "acres_10": 78820
+  }
+ ],
+ "scenarios": [
+  {
+   "scenario": "Low",
+   "horizon_yr": 5,
+   "activated_acres": 7395,
+   "crit_hab_acres": 0
+  },
+  {
+   "scenario": "Low",
+   "horizon_yr": 10,
+   "activated_acres": 14790,
+   "crit_hab_acres": 0
+  },
+  {
+   "scenario": "Mid",
+   "horizon_yr": 5,
+   "activated_acres": 8615,
+   "crit_hab_acres": 0
+  },
+  {
+   "scenario": "Mid",
+   "horizon_yr": 10,
+   "activated_acres": 17230,
+   "crit_hab_acres": 0
+  },
+  {
+   "scenario": "High",
+   "horizon_yr": 5,
+   "activated_acres": 39410,
+   "crit_hab_acres": 0
+  },
+  {
+   "scenario": "High",
+   "horizon_yr": 10,
+   "activated_acres": 78820,
+   "crit_hab_acres": 0
+  }
+ ]
+}

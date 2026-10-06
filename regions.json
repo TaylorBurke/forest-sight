@@ -152,5 +152,23 @@
     },
     "invasives_text": "spotted knapweed, leafy spurge, Canada thistle, houndstongue and others",
     "roads_note": "Highways, county roads and private roads are not in the data, so every distance is to the nearest Forest Service road."
+  },
+  "ak": {
+    "slug": "ak",
+    "name": "Alaska",
+    "places": "Alaska",
+    "states": [
+      "AK"
+    ],
+    "crs": 3338,
+    "custom": true,
+    "forest_region": [
+      "10"
+    ],
+    "exclude_forests": [],
+    "species": [],
+    "invasives": {},
+    "invasives_text": "",
+    "roads_note": ""
   }
 }
