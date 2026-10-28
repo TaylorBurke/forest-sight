@@ -146,4 +146,6 @@ forest-sight/
 
 ## License
 
-This project uses publicly available datasets. See individual data source pages for their respective licenses and terms of use.
+- **Code** (the Python pipeline and site templates): MIT, see `LICENSE`.
+- **Text, maps, charts and the data we derived** (the committed files in `data/<region>/`, the published site in `docs/`): [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Reuse them with credit to this project and a link.
+- **Source data keeps its own terms.** Raw downloads are git-ignored and not redistributed here. Forest Service, USFWS and Census data are public domain. GBIF occurrence records carry their publishers' licenses (CC0, CC BY or CC BY-NC); only aggregate counts are published here. The ADF&G Anadromous Waters Catalog is published by the State of Alaska under its own terms. Cited studies, such as The Wilderness Society's, belong to their authors.
